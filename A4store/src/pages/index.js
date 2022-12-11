@@ -1,4 +1,4 @@
-import {Center, Text} from "@chakra-ui/react";
+import { Center, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import Image from "next/image";
 
