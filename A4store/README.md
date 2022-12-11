@@ -1,3 +1,5 @@
+//React-icons , Chakra UI is already installed !
+
 //Tarun - Homepage Navbar Footer;
 
 //Zuhed - Page Strucutre;
@@ -8,15 +10,13 @@
 
 //Shivam - Data / Cart ;
 
-//Data - 
+//Data -
 USer-
-Name - email -  Password - timestamps;
-Product - 
-qty 
+Name - email - Password - timestamps;
+Product -
+qty
 Cart -
 Qty , userID , Prod. ID
-Purchase - 
-UserID , Prod.ID , OrderDate , DeliveryDate , qty , TypeofPayment 
+Purchase -
+UserID , Prod.ID , OrderDate , DeliveryDate , qty , TypeofPayment
 //
-
-
