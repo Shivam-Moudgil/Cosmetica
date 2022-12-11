@@ -19,11 +19,11 @@ const links = [
   },
 ]
 
-const AdminSidebar = ({ location }) => {
+const AdminSidebar = ({ location, bg }) => {
   return (
     <VStack
       h="100vh"
-      bg="var(--admin_sidebar_color2)"
+      bg={bg ? bg : 'var(--admin_sidebar_color2)'}
       boxShadow="xl"
       spacing={'20px'}
       py="5px"
@@ -31,6 +31,7 @@ const AdminSidebar = ({ location }) => {
       pos="fixed"
       left={-4}
       top={0}
+      zIndex={10}
     >
       <HStack w="full" justify="center">
         <Image
@@ -51,12 +52,17 @@ const AdminSidebar = ({ location }) => {
             py="15px"
             borderRightRadius="10px"
             cursor={'pointer'}
-            _hover={{ bg: 'white' }}
+            _hover={{ bg: bg ? 'grey' : 'white', color: bg ? 'white' : 'grey' }}
             bg={location === ele.location && 'white'}
             transition="all 0.3s ease-in-out"
           >
             <Icon fontSize={23} as={ele.icon} />
-            <Text fontSize={20} color={'grey'} fontWeight="600">
+            <Text
+              fontSize={20}
+              _hover={{ color: bg ? 'white' : 'grey' }}
+              color={'grey'}
+              fontWeight="600"
+            >
               {ele.text}
             </Text>
           </HStack>

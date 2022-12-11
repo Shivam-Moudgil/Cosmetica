@@ -3,7 +3,7 @@ import React from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import AdminSidebar from './Admin.sidebar'
 
-const AdminBurgerNav = ({ toggleSidebarVisiblity, isVisible }) => {
+const AdminBurgerNav = ({ toggleSidebarVisiblity, isVisible, bg }) => {
   return (
     <>
       <Icon
@@ -12,7 +12,7 @@ const AdminBurgerNav = ({ toggleSidebarVisiblity, isVisible }) => {
         fontSize={20}
         as={GiHamburgerMenu}
       />
-      {isVisible && <AdminSidebar />}
+      {isVisible && <AdminSidebar bg={bg} />}
     </>
   )
 }

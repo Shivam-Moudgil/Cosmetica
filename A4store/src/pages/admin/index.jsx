@@ -19,7 +19,7 @@ const AdminHome = () => {
           templateColumns={{ base: '1fr', md: '1fr 1fr', lg: 'repeat(2,1fr)' }}
           gap="24px"
           w="full"
-          justifyContent={'space-between'}
+          justifyContent={{ base: 'center', md: 'space-between' }}
         >
           {new Array(4).fill(0).map((ele, ind) => (
             <AdminInfoCards key={new Date().getMilliseconds + ind} />

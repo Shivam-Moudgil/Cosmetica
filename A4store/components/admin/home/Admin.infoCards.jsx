@@ -15,7 +15,7 @@ import { IoWalletSharp } from 'react-icons/io5'
 
 const AdminInfoCards = () => {
   return (
-    <GridItem w="450px">
+    <GridItem maxW="450px">
       <Card bg={'linear-gradient(to right top, #cc2b5e, #753a88);'}>
         <CardBody>
           <Flex flexDirection="row" align="center" justify="center" w="100%">

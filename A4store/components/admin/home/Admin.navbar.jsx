@@ -23,10 +23,12 @@ const AdminNavbar = () => {
           />
         </HStack>
         <Button variant={'ghost'}>SignIn</Button>
-        <AdminBurgerNav
-          isVisible={isVisible}
-          toggleSidebarVisiblity={toggleSidebarVisiblity}
-        />
+        <HStack display={{ lg: 'none' }}>
+          <AdminBurgerNav
+            isVisible={isVisible}
+            toggleSidebarVisiblity={toggleSidebarVisiblity}
+          />
+        </HStack>
       </HStack>
     </HStack>
   )
