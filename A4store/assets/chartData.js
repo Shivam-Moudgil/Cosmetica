@@ -1,86 +1,59 @@
-export const lineChartDataDashboard = [
-    {
-        name: "Mobile apps",
-        data: [500, 250, 300, 220, 500, 250, 300, 230, 300, 350, 250, 400],
-    },
-    {
-        name: "Websites",
-        data: [200, 230, 300, 350, 370, 420, 550, 350, 400, 500, 330, 550],
-    },
-];
+export const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export const lineChartOptionsDashboard = {
-    chart: {
-        toolbar: {
-            show: false,
-        },
-    },
-    tooltip: {
-        theme: "dark",
-    },
-    dataLabels: {
-        enabled: false,
-    },
-    stroke: {
-        curve: "smooth",
-    },
-    xaxis: {
-        type: "datetime",
-        categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-        ],
-        labels: {
-            style: {
-                colors: "#c8cfca",
-                fontSize: "12px",
-            },
-        },
-        axisBorder: {
-            show: false,
-        },
-        axisTicks: {
-            show: false,
-        },
-    },
-    yaxis: {
-        labels: {
-            style: {
-                colors: "#c8cfca",
-                fontSize: "12px",
-            },
-        },
-    },
-    legend: {
-        show: false,
-    },
-    grid: {
-        strokeDashArray: 5,
-        borderColor: "#56577A"
-    },
-    fill: {
-        type: "gradient",
-        gradient: {
-            shade: "dark",
-            type: "vertical",
-            shadeIntensity: 0,
-            gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
-            inverseColors: true,
-            opacityFrom: 0.8,
-            opacityTo: 0,
-            stops: [],
-        },
-        colors: ["#2CD9FF", "#582CFF"],
-    },
-    colors: ["#2CD9FF", "#582CFF"],
-};
+
+export function getDaywiseSaleData(purchasedItems) {
+    let totalSaleAndQuantity = []
+    for (let i = 0; i < purchasedItems.length; i++) {
+        let sale = 0
+        let quantity = 0
+        for (let j = 0; j < purchasedItems.length; j++) {
+            if (getRequiredTime(purchasedItems[j].createdAt).givenDate == i + 1 &&
+                getRequiredTime(purchasedItems[j].createdAt).givenMonth ==
+                getCurrentTime().currMonth &&
+                getRequiredTime(purchasedItems[j].createdAt).givenYear ===
+                getCurrentTime().currYear) {
+                sale += Number(purchasedItems[j].product['woocommerce-Price-amount 2'])
+                quantity += Number(purchasedItems[j].quantity)
+            }
+        }
+        totalSaleAndQuantity.push({
+            day: i + 1,
+            revenue: sale,
+            totalQuantity: quantity,
+            monthName: monthNames[getCurrentTime().currMonth - 1]
+        })
+    }
+    return totalSaleAndQuantity
+}
+
+export function getRevenueOfGivenYear(purchasedItems, year) {
+    if (year.length < 4) return undefined;
+    //getting data for current year and last year
+
+    let result = purchasedItems.reduce((acc, ele) => {
+        if (getRequiredTime(ele.createdAt).givenYear == year) {
+            return (
+                acc + ele.quantity * Number(ele.product['woocommerce-Price-amount 2'])
+            )
+        }
+    }, 0)
+    if (!result) result = 0;
+    return result;
+}
+
+
+
+
+
+export function getCurrentTime() {
+    let currMonth = new Date().getMonth() + 1
+    let currDate = new Date().getDate()
+    let currYear = new Date().getFullYear()
+    return { currMonth, currDate, currYear }
+}
+export function getRequiredTime(time) {
+    let givenDate = new Date(time).getDate()
+    let givenMonth = new Date(time).getMonth() + 1
+    let givenYear = new Date(time).getFullYear()
+    return { givenDate, givenMonth, givenYear }
+}

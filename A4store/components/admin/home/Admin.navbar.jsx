@@ -2,6 +2,7 @@ import { Avatar, Button, HStack, Icon, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import AdminBurgerNav from './Admin.burgerNav'
+import Link from 'next/link'
 
 const AdminNavbar = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -22,7 +23,9 @@ const AdminNavbar = () => {
             }
           />
         </HStack>
-        <Button variant={'ghost'}>SignIn</Button>
+        <Button variant={'ghost'}>
+          <Link href={'/admin/login'}>SignIn</Link>
+        </Button>
         <HStack display={{ lg: 'none' }}>
           <AdminBurgerNav
             isVisible={isVisible}

@@ -35,8 +35,8 @@ const AdminSidebar = ({ location, bg }) => {
     >
       <HStack w="full" justify="center">
         <Image
-          src="/admin_images/Admin Logo.jpg"
-          width={70}
+          src="/admin_images/Colorlogowithbackground.svg"
+          width={90}
           height={60}
           alt={'admin_logo'}
         />
