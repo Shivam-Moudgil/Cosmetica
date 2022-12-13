@@ -1,0 +1,18 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --admin_sidebar_color1: #ccd6a6;
+  --admin_sidebar_color2: #dae2b6;
+  --admin_sidebar_color3: #f4ead5;
+  --admin_sidebar_color4: #fffbe9;
+}
