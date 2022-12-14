@@ -2,12 +2,22 @@ import { Avatar, Button, HStack, Icon, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import AdminBurgerNav from './Admin.burgerNav'
+import Link from 'next/link'
 
 const AdminNavbar = () => {
   const [isVisible, setIsVisible] = useState(false)
   const toggleSidebarVisiblity = () => setIsVisible(!isVisible)
   return (
-    <HStack w="full" h="70px">
+    <HStack
+      h="70px"
+      position={'fixed'}
+      left={0}
+      right={0}
+      top={0}
+      bg="white"
+      w="full"
+      zIndex={5}
+    >
       <HStack w="60%" display={{ base: 'none', md: 'flex' }}></HStack>
       <HStack w={{ base: 'full', lg: '40%' }} pr={'15px'} justify="flex-end">
         <HStack border="1px solid gray" p="7px" rounded={'15px'} px="10px">
@@ -22,7 +32,9 @@ const AdminNavbar = () => {
             }
           />
         </HStack>
-        <Button variant={'ghost'}>SignIn</Button>
+        <Button variant={'ghost'}>
+          <Link href={'/admin/login'}>SignIn</Link>
+        </Button>
         <HStack display={{ lg: 'none' }}>
           <AdminBurgerNav
             isVisible={isVisible}

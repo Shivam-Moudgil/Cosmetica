@@ -16,9 +16,9 @@ const AdminLogin = () => {
       >
         <AdminLoginNav />
       </Box>
-      <HStack w="50%" h="100vh" display={{ base: 'none', lg: 'flex' }}>
+      <HStack w="50%" h="100vh" display={{ base: 'none', lg: 'flex' }} objectFit='contain'>
         <Image
-          src="/admin_images/pexels-photo-5490778.webp"
+          src="/admin_images/Colorlogowithbackground.svg"
           w="full"
           h="full"
         />
