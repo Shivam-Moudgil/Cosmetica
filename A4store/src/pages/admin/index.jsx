@@ -5,7 +5,7 @@ import AdminNavbar from '../../../components/admin/home/Admin.navbar'
 import AdminInfoCards from '../../../components/admin/home/Admin.infoCards'
 import RevenueBarChart from '../../../components/admin/home/charts/RevenueBarChart'
 import UsersBarChart from '../../../components/admin/home/charts/UsersBarChart'
-import dbConnect from '../../../utils/db.Connect'
+import dbConnect from '../../../utils/mongo'
 import { PurchasedItems } from '../../../models/purchasedItems.model'
 import { wrapper } from '../../../redux/store'
 import {
@@ -75,7 +75,7 @@ AdminHome.getLayout = function PageLayout(page) {
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   //can dispatch reducer here as well now
-  dbConnect()
+  await dbConnect()
   let purchasedItems = await PurchasedItems.find().populate(['user', 'product'])
   let allUsers = await Users.find()
   purchasedItems = JSON.parse(JSON.stringify(purchasedItems))

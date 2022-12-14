@@ -1,4 +1,4 @@
-import verifyUser from "../../../../../middlewares/verifyUser";
+import verifyUser from "../../../../middlewares/verifyUser";
 
 const handler = async (req, res) => {
     try {
