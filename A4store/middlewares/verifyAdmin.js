@@ -1,6 +1,6 @@
 import argon from 'argon2'
 import jwt from 'jsonwebtoken'
-import dbConnect from './../utils/mongo';
+import dbConnect from '../utils/mongo';
 import Admins from '../models/admin_auth'
 
 const verifyUser = (handler) => {
@@ -9,7 +9,7 @@ const verifyUser = (handler) => {
         if (!token) {
             return res.status(401).json({
                 success: false,
-                message: 'Please login to get access'
+                message: 'token is missing!'
             })
         }
         try {
@@ -18,6 +18,12 @@ const verifyUser = (handler) => {
             if (verification) {
                 let user = await Admins.findOne({ email: verification.email })
                 if (await argon.verify(user.password, req.body.password)) {
+                    if (user.role !== 'admin') {
+                        return res.send(401).json({
+                            success: false,
+                            message: 'not authorized!'
+                        })
+                    }
                     req.userId = user._id;
                     return handler(req, res);
                 } else {

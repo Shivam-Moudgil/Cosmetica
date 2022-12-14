@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import Layout from "../../Wrappers/Layout";
 import '../styles/globals.css'
-import { Provider } from 'react-redux'
+// import { Provider } from 'react-redux'
 import { wrapper } from '../../redux/store'
 function MyApp({ Component, pageProps }) {
 

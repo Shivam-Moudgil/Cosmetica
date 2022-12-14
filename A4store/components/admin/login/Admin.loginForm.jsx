@@ -9,16 +9,22 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { adminLogin } from '../../../redux/admin_auth/admin.actions'
 
 const AdminLoginForm = () => {
   const [formInput, setFormInput] = useState({
-    email: '',
-    password: '',
-    isRemember: false,
+    email: 'admin@gmail.com',
+    password: '123456',
+    isRemembered: false,
   })
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault()
-    //write server code here
+    if (formInput.email === '' || formInput.password === '') {
+      return alert('Please enter all details')
+    }
+    dispatch(adminLogin(formInput))
   }
 
   return (
@@ -71,7 +77,7 @@ const AdminLoginForm = () => {
         <FormControl gap="8px" display="flex" alignItems="center">
           <Switch
             onChange={({ target: { checked } }) =>
-              setFormInput({ ...formInput, isRemember: checked })
+              setFormInput({ ...formInput, isRemembered: checked })
             }
           />
           <FormLabel htmlFor="Remember me" mb="0">

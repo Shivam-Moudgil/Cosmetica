@@ -22,7 +22,7 @@ const UsersBarChart = ({ data, totalUsers, totalActiveUsers }) => {
           as="span"
           color="red"
           fontWeight={'bold'}
-        >{`(${data[0].monthName})`}</Box>
+        >{`(${data[0]?.monthName})`}</Box>
       </Text>
 
       <ResponsiveContainer width={'90%'} aspect={3}>
@@ -42,7 +42,7 @@ const UsersBarChart = ({ data, totalUsers, totalActiveUsers }) => {
           <XAxis
             dataKey={'day'}
             interval={'preserveStartEnd'}
-            tickFormatter={(v) => v + ` ${data[0].monthName}`}
+            tickFormatter={(v) => v + ` ${data[0]?.monthName}`}
             tickSize={7}
             fontSize={14}
           />
