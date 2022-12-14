@@ -156,7 +156,7 @@ function Signup() {
         </InputGroup>
         {/* <Input borderColor={"#9a9a9a"} borderRadius="none"></Input> */}
         <Text as="b" color="#66666c" fontSize="16px" fontWeight="700">
-          Include a minimum of 6 characters, and contain at least 1 number
+          Include a minimum of  6 characters, and contain at least 1 number
         </Text>
       </Box>
       <Box>
