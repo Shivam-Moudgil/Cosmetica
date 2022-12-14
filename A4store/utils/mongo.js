@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
+import { PurchasedItems } from '../models/purchasedItems.model'
+import { Users } from '../models/users.model'
+import { Products } from '../models/shopProduct.model'
 
-const MONGO_URL = process.env.MONGO_URL;
+// const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = process.env.DB_Port2;
 
 if (!MONGO_URL) {
   throw new Error(
@@ -11,7 +15,7 @@ if (!MONGO_URL) {
 let cached = global.mongoose;
 
 if (!cached) {
-  cached = global.mongoose = {conn: null, promise: null};
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
 async function dbConnect() {
