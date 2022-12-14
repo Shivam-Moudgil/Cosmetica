@@ -9,7 +9,7 @@ const Layout = ({children}) => {
     <div>
 
     
-      {children}
+    
     
       {/* <Navbar /> */}
       {children}
