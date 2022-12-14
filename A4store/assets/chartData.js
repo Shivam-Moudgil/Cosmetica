@@ -42,7 +42,34 @@ export function getRevenueOfGivenYear(purchasedItems, year) {
 }
 
 
+export function getActiveUsers(purchasedItems) {
+    //getting data for current year and last year
+    let map = new Map()
+    let sum = 0;
+    for (let i = 0; i < purchasedItems.length; i++) {
+        if (getRequiredTime(purchasedItems[i].createdAt).givenDate == getCurrentTime().currDate
+            && getRequiredTime(purchasedItems[i].createdAt).givenYear == getCurrentTime().currYear) {
+            if (!map.has(purchasedItems[i].user._id)) {
+                sum++;
+                map.set(purchasedItems[i].user._id, 1)
+            }
+        }
+    }
+    return sum
+}
 
+
+export const getTotalPuchasedItemsQuantity = (purchasedItems, day) => {
+    if (day.length > 2) return undefined;
+    let sum = 0;
+    for (let i = 0; i < purchasedItems.length; i++) {
+        if (getRequiredTime(purchasedItems[i].createdAt).givenDate == day
+            && getRequiredTime(purchasedItems[i].createdAt).givenYear == getCurrentTime().currYear) {
+            sum += purchasedItems[i].quantity
+        }
+    }
+    return sum;
+}
 
 
 export function getCurrentTime() {

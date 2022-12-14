@@ -7,20 +7,25 @@ import RevenueBarChart from '../../../components/admin/home/charts/RevenueBarCha
 import UsersBarChart from '../../../components/admin/home/charts/UsersBarChart'
 import dbConnect from '../../../utils/db.Connect'
 import { PurchasedItems } from '../../../models/purchasedItems.model'
-import { getDaywiseSaleData } from '../../../assets/chartData'
 import { wrapper } from '../../../redux/store'
-import { getCurrentTime } from '../../../assets/chartData'
-import { getRequiredTime } from '../../../assets/chartData'
-import { getRevenueOfGivenYear } from '../../../assets/chartData'
+import {
+  getCurrentTime,
+  getRevenueOfGivenYear,
+  getActiveUsers,
+  getDaywiseSaleData,
+  getTotalPuchasedItemsQuantity,
+} from '../../../assets/chartData'
+import { Users } from '../../../models/users.model'
 
 const AdminHome = ({
   totalSaleAndQuantity,
   currentYearRevenue,
   lastYearRevenue,
+  totalUsers,
+  totalActiveUsers,
 }) => {
-  // console.log(currentMonthSaleProductsList)
   return (
-    <HStack w="full" spacing={0} overflow="hidden" pb="20px">
+    <HStack w="full" spacing={0} overflow="hidden" pb="20px" pt="70px">
       <Box w="18%" display={{ base: 'none', lg: 'flex' }}>
         <AdminSidebar location={'Admin__home'} />
       </Box>
@@ -51,7 +56,11 @@ const AdminHome = ({
           spacing={10}
         >
           <RevenueBarChart data={totalSaleAndQuantity} />
-          <UsersBarChart />
+          <UsersBarChart
+            totalUsers={totalUsers}
+            totalActiveUsers={totalActiveUsers}
+            data={totalSaleAndQuantity}
+          />
         </VStack>
       </VStack>
     </HStack>
@@ -68,7 +77,9 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   //can dispatch reducer here as well now
   dbConnect()
   let purchasedItems = await PurchasedItems.find().populate(['user', 'product'])
+  let allUsers = await Users.find()
   purchasedItems = JSON.parse(JSON.stringify(purchasedItems))
+  allUsers = JSON.parse(JSON.stringify(allUsers))
 
   //total Sale data for Revenue Bar chart
   let totalSaleAndQuantity = getDaywiseSaleData(purchasedItems)
@@ -83,15 +94,30 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
     getCurrentTime().currYear - 1,
   )
 
-  //Users currentYear and lastYear count
+  //Users currentYear and lastYear count and total user count
 
-  //total User related data from UsersBar UsersBarChart
+  let totalUsers = allUsers.length
+  let totalActiveUsers = getActiveUsers(purchasedItems)
+
+  //total Quantity purchased
+  const todayTotalQuantity = getTotalPuchasedItemsQuantity(
+    purchasedItems,
+    getCurrentTime().currDate,
+  )
+  const lastDayTotalQuantity = getTotalPuchasedItemsQuantity(
+    purchasedItems,
+    getCurrentTime().currDate - 1,
+  )
 
   return {
     props: {
       totalSaleAndQuantity,
       currentYearRevenue,
       lastYearRevenue,
+      totalUsers,
+      totalActiveUsers,
+      todayTotalQuantity,
+      lastDayTotalQuantity,
     },
     revalidate: 3600,
   }

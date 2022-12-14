@@ -8,7 +8,16 @@ const AdminNavbar = () => {
   const [isVisible, setIsVisible] = useState(false)
   const toggleSidebarVisiblity = () => setIsVisible(!isVisible)
   return (
-    <HStack w="full" h="70px">
+    <HStack
+      h="70px"
+      position={'fixed'}
+      left={0}
+      right={0}
+      top={0}
+      bg="white"
+      w="full"
+      zIndex={5}
+    >
       <HStack w="60%" display={{ base: 'none', md: 'flex' }}></HStack>
       <HStack w={{ base: 'full', lg: '40%' }} pr={'15px'} justify="flex-end">
         <HStack border="1px solid gray" p="7px" rounded={'15px'} px="10px">
