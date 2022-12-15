@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.4.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "cookie": "^0.5.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "framer-motion": "^6.5.1",
