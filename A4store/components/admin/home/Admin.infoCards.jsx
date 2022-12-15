@@ -12,10 +12,11 @@ import {
 } from '@chakra-ui/react'
 import { IoWalletSharp } from 'react-icons/io5'
 
-
-const AdminInfoCards = () => {
+const AdminInfoCards = ({ currentYearData, lastYearData, title }) => {
+  let difference = currentYearData - lastYearData
+  let percentage = (difference / currentYearData) * 100
   return (
-    <GridItem maxW="450px">
+    <GridItem w={{ md: '380px', lg: '450px' }}>
       <Card bg={'linear-gradient(to right top, #cc2b5e, #753a88);'}>
         <CardBody>
           <Flex flexDirection="row" align="center" justify="center" w="100%">
@@ -26,11 +27,11 @@ const AdminInfoCards = () => {
                 fontWeight="bold"
                 pb="2px"
               >
-                Today's Money
+                {title}
               </StatLabel>
               <Flex>
                 <StatNumber fontSize="lg" color="#fff">
-                  $53,000
+                  ${currentYearData}
                 </StatNumber>
                 <StatHelpText
                   alignSelf="flex-end"
@@ -41,7 +42,8 @@ const AdminInfoCards = () => {
                   fontSize="md"
                   color={'yellow'}
                 >
-                  +55%
+                  {' '}
+                  {difference < 0 ? `-${percentage}` : `+${percentage}`}%
                 </StatHelpText>
               </Flex>
             </Stat>

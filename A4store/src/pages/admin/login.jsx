@@ -1,11 +1,19 @@
 import React from 'react'
-// import Image from 'next/image'
 
+import { useRouter } from 'next/router'
 import { Image, HStack, VStack, Box } from '@chakra-ui/react'
 import AdminLoginForm from '../../../components/admin/login/Admin.loginForm'
 import AdminLoginNav from '../../../components/admin/login/Admin.loginNav'
+import { useSelector } from 'react-redux'
 
 const AdminLogin = () => {
+  const router = useRouter()
+  const { isAdmin } = useSelector((s) => s.admin_auth)
+  React.useEffect(() => {
+    if (isAdmin) {
+      router.push('/admin')
+    }
+  }, [isAdmin])
   return (
     <HStack spacing={0} w="full" justify={'center'}>
       <Box
@@ -16,9 +24,14 @@ const AdminLogin = () => {
       >
         <AdminLoginNav />
       </Box>
-      <HStack w="50%" h="100vh" display={{ base: 'none', lg: 'flex' }}>
+      <HStack
+        w="50%"
+        h="100vh"
+        display={{ base: 'none', lg: 'flex' }}
+        objectFit="contain"
+      >
         <Image
-          src="/admin_images/pexels-photo-5490778.webp"
+          src="/admin_images/Colorlogowithbackground.svg"
           w="full"
           h="full"
         />

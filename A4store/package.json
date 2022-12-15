@@ -12,16 +12,29 @@
     "@chakra-ui/react": "^2.4.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+<<<<<<< HEAD
     "cookie": "^0.5.0",
+=======
+    "argon2": "^0.30.2",
+    "axios": "^1.2.1",
+    "cookies": "^0.8.0",
+>>>>>>> 354801177827b22b05ffebe7f871646263f13c69
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "framer-motion": "^6.5.1",
+    "js-cookie": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.8.0",
     "next": "13.0.6",
+    "next-redux-wrapper": "^8.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
     "recharts": "^2.2.0",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2",
     "styled-components": "^5.3.6"
   }
 }
