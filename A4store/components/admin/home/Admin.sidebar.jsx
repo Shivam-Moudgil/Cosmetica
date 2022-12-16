@@ -1,15 +1,22 @@
 import { Divider, HStack, Icon, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
-import { MdSpaceDashboard } from 'react-icons/md'
+import Link from 'next/link'
+import { MdSpaceDashboard, MdProductionQuantityLimits } from 'react-icons/md'
 import { GiBuyCard } from 'react-icons/gi'
 import Image from 'next/image'
 
 const links = [
   {
     text: 'Statistics',
-    href: '/admin/home',
+    href: '/admin',
     icon: MdSpaceDashboard,
     location: 'Admin__home',
+  },
+  {
+    text: 'Products',
+    href: '/admin/products',
+    icon: MdProductionQuantityLimits,
+    location: 'Admin__products',
   },
   {
     text: 'Orders',
@@ -44,28 +51,33 @@ const AdminSidebar = ({ location, bg }) => {
       <Divider />
       <VStack w="full" px="0px" alignItems={'flex-start'}>
         {links.map((ele, ind) => (
-          <HStack
-            key={`${new Date().getMilliseconds()}_${ind}`}
-            w="96%"
-            justifyContent="flex-start"
-            px="60px"
-            py="15px"
-            borderRightRadius="10px"
-            cursor={'pointer'}
-            _hover={{ bg: bg ? 'grey' : 'white', color: bg ? 'white' : 'grey' }}
-            bg={location === ele.location && 'white'}
-            transition="all 0.3s ease-in-out"
-          >
-            <Icon fontSize={23} as={ele.icon} />
-            <Text
-              fontSize={20}
-              _hover={{ color: bg ? 'white' : 'grey' }}
-              color={'grey'}
-              fontWeight="600"
+          <Link href={ele.href} style={{ width: '100%' }}>
+            <HStack
+              key={`${new Date().getMilliseconds()}_${ind}`}
+              w="96%"
+              justifyContent="flex-start"
+              px="60px"
+              py="15px"
+              borderRightRadius="10px"
+              cursor={'pointer'}
+              _hover={{
+                bg: bg ? 'grey' : 'white',
+                color: bg ? 'white' : 'grey',
+              }}
+              bg={location === ele.location && 'white'}
+              transition="all 0.3s ease-in-out"
             >
-              {ele.text}
-            </Text>
-          </HStack>
+              <Icon fontSize={23} as={ele.icon} />
+              <Text
+                fontSize={20}
+                _hover={{ color: bg ? 'white' : 'grey' }}
+                color={'grey'}
+                fontWeight="600"
+              >
+                {ele.text}
+              </Text>
+            </HStack>
+          </Link>
         ))}
       </VStack>
     </VStack>

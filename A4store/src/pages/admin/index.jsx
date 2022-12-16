@@ -5,7 +5,6 @@ import AdminNavbar from '../../../components/admin/home/Admin.navbar'
 import AdminInfoCards from '../../../components/admin/home/Admin.infoCards'
 import RevenueBarChart from '../../../components/admin/home/charts/RevenueBarChart'
 import UsersBarChart from '../../../components/admin/home/charts/UsersBarChart'
-import Cookie from 'cookies'
 import jwt from 'jsonwebtoken'
 import dbConnect from '../../../utils/mongo'
 import { PurchasedItems } from '../../../models/purchasedItems.model'
@@ -27,7 +26,7 @@ const AdminHome = ({
   totalActiveUsers,
 }) => {
   return (
-    <HStack w="full" spacing={0} overflow="hidden" pb="20px" pt="70px">
+    <HStack w="full" spacing={0} overflowX="hidden" pb="20px" pt="70px">
       <Box w="18%" display={{ base: 'none', lg: 'flex' }}>
         <AdminSidebar location={'Admin__home'} />
       </Box>
@@ -104,6 +103,7 @@ export const getServerSideProps = wrapper.getStaticProps(
       'user',
       'product',
     ])
+    console.log(purchasedItems)
     let allUsers = await Users.find()
     purchasedItems = JSON.parse(JSON.stringify(purchasedItems))
     allUsers = JSON.parse(JSON.stringify(allUsers))
@@ -149,74 +149,3 @@ export const getServerSideProps = wrapper.getStaticProps(
     }
   },
 )
-
-// AdminHome.getInitialProps = async ({ req, res }) => {
-//   //can dispatch reducer here as well now
-//   await dbConnect()
-//   let purchasedItems = await PurchasedItems.find().populate(['user', 'product'])
-//   let allUsers = await Users.find()
-//   purchasedItems = JSON.parse(JSON.stringify(purchasedItems))
-//   allUsers = JSON.parse(JSON.stringify(allUsers))
-
-//   //total Sale data for Revenue Bar chart
-//   let totalSaleAndQuantity = getDaywiseSaleData(purchasedItems)
-
-//   //Revenue related Info-card data
-//   let currentYearRevenue = getRevenueOfGivenYear(
-//     purchasedItems,
-//     getCurrentTime().currYear,
-//   )
-//   let lastYearRevenue = getRevenueOfGivenYear(
-//     purchasedItems,
-//     getCurrentTime().currYear - 1,
-//   )
-
-//   //Users currentYear and lastYear count and total user count
-
-//   let totalUsers = allUsers.length
-//   let totalActiveUsers = getActiveUsers(purchasedItems)
-
-//   //total Quantity purchased
-//   const todayTotalQuantity = getTotalPuchasedItemsQuantity(
-//     purchasedItems,
-//     getCurrentTime().currDate,
-//   )
-//   const lastDayTotalQuantity = getTotalPuchasedItemsQuantity(
-//     purchasedItems,
-//     getCurrentTime().currDate - 1,
-//   )
-
-//   //-----------------
-
-//   const cookies = new Cookie(req, res)
-//   let cookie = cookies || cookies.get('authCookie')
-//   try {
-//     if (cookie) {
-//       let verification = jwt.verify(cookie, process.env.JWT_SECRET)
-//       if (verification && verification.isRemembered) {
-//         let newToken = jwt.sign(
-//           {
-//             userName: verification.userName,
-//             email: verification.email,
-//             isRemembered: verification.isRemembered,
-//           },
-//           process.env.JWT_SECRET,
-//           { expiresIn: '30 days' },
-//         )
-//         cookie.set('authCookie', newToken)
-//       }
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-//   return {
-//     totalSaleAndQuantity,
-//     currentYearRevenue,
-//     lastYearRevenue,
-//     totalUsers,
-//     totalActiveUsers,
-//     todayTotalQuantity,
-//     lastDayTotalQuantity,
-//   }
-//   // revalidate: 3600,
-// }

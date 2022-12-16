@@ -2,6 +2,7 @@ import dbConnect from "../../../../utils/mongo";
 import Product from "../../../../models/Product";
 
 export default async function handler(req, res) {
+
   const {method} = req;
   const category = req.query;
   dbConnect();
@@ -13,6 +14,7 @@ export default async function handler(req, res) {
       res.status(200).json(products);
     } catch (err) {
       res.status(500).json(err);
+
     }
   }
 }
