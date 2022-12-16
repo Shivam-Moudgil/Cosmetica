@@ -31,8 +31,8 @@ const OrderSchema = new mongoose.Schema(
       default: 0,
     },
     method: {
-      type: Number,
-      required: true,
+      type: String,
+      enum: ["cash", "card"],
     },
   },
   {timestamps: true}
