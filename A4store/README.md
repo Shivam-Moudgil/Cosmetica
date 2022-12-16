@@ -21,3 +21,4 @@ Purchase -
 UserID , Prod.ID , OrderDate , DeliveryDate , qty , TypeofPayment
 //
 # Project Code:  full-volleyball-922
+.env.local = mongodb+srv://shivam:<password>@cluster0.7ilvy1y.mongodb.net/Avatar
