@@ -3,7 +3,7 @@ import * as React from "react";
 export function formatPrice(value) {
     // const { locale = "en-US", currency = "INR" } = opts;
     console.log(value);
-  const formatter = new Intl.NumberFormat("en-US", {
+  const formatter = new Intl.NumberFormat("en-IN", {
     currency:"INR",
     style: "currency",
     maximumFractionDigits: 2,

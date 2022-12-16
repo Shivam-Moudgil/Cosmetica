@@ -1,27 +1,37 @@
 import {
   CloseButton,
   Flex,
+  Input,
   Link,
   Select,
   useColorModeValue,
 } from "@chakra-ui/react";
 import * as React from "react";
-import { CartProductMeta } from "./CartProuctm";
-import { PriceTag } from "./Cart_Price";
+import {CartProductMeta} from "./CartProuctm";
+import {PriceTag} from "./Cart_Price";
 const QuantitySelect = (props) => {
+  const [value, setValue] = React.useState(1);
+  const handleChange = (e) => {
+    console.log(value);
+    if (value < props.value) {
+      setValue(e.target.value);
+    } else {
+      alert("More than qty");
+      console.log("props" + props.value);
+      setValue(1);
+    }
+  };
+  
   return (
-    <Select
-      maxW="64px"
-      aria-label="Select quantity"
-      focusBorderColor={useColorModeValue("blue.500", "blue.200")}
-      {...props}
-    >
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      </Select>
-      
+    <>
+      {" "}
+      <input
+        onChange={handleChange}
+        type="number"
+        value={value}
+        defaultValue={1}
+      />
+    </>
   );
 };
 
@@ -36,8 +46,8 @@ export const CartItem = (props) => {
     price,
     onChangeQuantity,
     onClickDelete,
-    } = props;
-    console.log(props)
+  } = props;
+  console.log(props);
   return (
     <Flex
       direction={{
@@ -58,6 +68,7 @@ export const CartItem = (props) => {
       <Flex
         width="full"
         justify="space-between"
+        // align={"center"}
         display={{
           base: "none",
           md: "flex",
@@ -69,7 +80,7 @@ export const CartItem = (props) => {
             onChangeQuantity?.(+e.currentTarget.value);
           }}
         />
-        <PriceTag price={price} currency={currency}  />
+        <PriceTag price={price} currency={currency} />
         <CloseButton
           aria-label={`Delete ${name} from cart`}
           onClick={onClickDelete}
