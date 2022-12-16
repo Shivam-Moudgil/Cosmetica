@@ -5,8 +5,8 @@ import { PurchasedItems } from '../models/purchasedItems.model'
 import { Users } from '../models/users.model'
 import { Products } from '../models/shopProduct.model'
 
-// const MONGO_URL = process.env.MONGO_URL;
-const MONGO_URL = process.env.DB_Port2;
+const MONGO_URL = process.env.MONGO_URL;
+// const MONGO_URL = process.env.DB_Port2;
 
 
 if (!MONGO_URL) {
