@@ -14,6 +14,16 @@ const handler = async (req, res) => {
       res.status(500).json(err);
     }
   }
+  
+  if (method === "DELETE") {
+    try {
+      const orders = await Order.deleteMany({});
+      res.status(200).json(orders);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
   if (method === "POST") {
     try {
       const order = await Order.create(req.body);

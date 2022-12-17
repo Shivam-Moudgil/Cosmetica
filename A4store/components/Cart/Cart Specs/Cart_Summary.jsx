@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 import {FaArrowRight} from "react-icons/fa";
-import { formatPrice } from "./Cart_Price";
+import {formatPrice} from "./Cart_Price";
 const OrderSummaryItem = (props) => {
   const {label, value, children} = props;
   return (
@@ -22,13 +22,25 @@ const OrderSummaryItem = (props) => {
   );
 };
 
-export const CartOrderSummary = () => {
+export const CartOrderSummary = ({cartdata}) => {
+  const [total, setTotal] = React.useState(0);
+  React.useEffect(() => {
+    let s = 0;
+    cartdata.map((el) => {
+      s += el.quantity * el.product.price;
+      // return setTotal((s));
+    });
+    setTotal(s);
+    localStorage.setItem("total",JSON.stringify(s))
+  }, []);
+
+  // console.log("summ", total);
   return (
     <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
       <Heading size="md">Order Summary</Heading>
 
       <Stack spacing="6">
-        <OrderSummaryItem label="Subtotal" value={formatPrice(597)} />
+        <OrderSummaryItem label="Subtotal" value={formatPrice(total)} />
         <OrderSummaryItem label="Shipping + Tax">
           <Link href="/order/checkout" textDecor="underline">
             Calculate shipping
@@ -44,7 +56,7 @@ export const CartOrderSummary = () => {
             Total
           </Text>
           <Text fontSize="xl" fontWeight="extrabold">
-            {formatPrice(597)}
+            {formatPrice(total)}
           </Text>
         </Flex>
       </Stack>

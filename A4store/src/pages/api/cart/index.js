@@ -6,18 +6,9 @@ export default async function handler(req, res) {
   dbConnect();
 
   if (method === "GET") {
-      const { user } = req.body;
-      console.log(user);
     try {
-      const allCartItems = await CartItems.find({}).populate([
-      "product"
-      ])
-      console.log(allCartItems);
+      const allCartItems = await CartItems.find({}).populate(["product"]);
       res.status(200).json(allCartItems);
-      // const products = await CartItems.find();
-      // console.log(products);
-      // res.status(200).json(products);
-      //    return res.status(200).json("hi carthere")
     } catch (error) {
       return res.json(error);
     }
@@ -38,17 +29,25 @@ export default async function handler(req, res) {
       if (existing) {
         await CartItems.updateOne(
           {product, user: user},
-          { $set: { quantity: existing.quantity + quantity } },{new:true}
+          {$set: {quantity: existing.quantity + quantity}},
+          {new: true}
         );
       } else {
         await CartItems.create({user: user, product, quantity});
-        }
-        console.log(product);
+      }
+      // console.log(product);
       res.status(201).send("item has been updated in cart.");
     } catch (error) {
       res.send(error.message);
     }
   }
+
+  if (method === "DELETE") {
+    try {
+      const orders = await CartItems.deleteMany({});
+      res.status(200).json(orders);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
 }
-// if (method === "Delete") {
-// }

@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
+import Multistep from "../../../components/Checkout/Main.jsx/Mainfile";
 
 const checkout = () => {
   return (
     <div>
-      checkout
+      <Multistep/>
     </div>
-  )
-}
+  );
+};
 
-export default checkout
+export default checkout;
+
