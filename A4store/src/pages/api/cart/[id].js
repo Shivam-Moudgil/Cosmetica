@@ -3,12 +3,23 @@ import CartItems from "../../../../models/Cart";
 export default async function handler(req, res) {
   const {
     method,
-    query: {id, q},
+    query: {id},
   } = req;
 
   await dbConnect();
 
+  if (method == "GET") {
+    try {
+      const getData = await CartItems.findById(id);
+      res.status(200).json(getData)
+    } catch(err) {
+      res.status(500).json(err)
+  }
+}
+
+
   if (method === "PATCH") {
+    const {q} = req.query;
     try {
       const existing = await CartItems.findById(id);
       if (q === "add") {
@@ -30,8 +41,9 @@ export default async function handler(req, res) {
 
   if (method === "DELETE") {
     try {
+      console.log("here");
       const existing = await CartItems.findByIdAndDelete(id);
-      res.status(200).json("Deleted successfully");
+      res.status(200).json("Deleted succesfully");
     } catch (error) {
       res.status(500).json(error.message);
     }

@@ -12,24 +12,26 @@ import * as React from "react";
 import {FiGift} from "react-icons/fi";
 
 export const CartProductMeta = (props) => {
-  const {isGiftWrapping = true, image, name, description} = props;
+  const { isGiftWrapping = true, image,category ,name} = props;
+  let res=name.slice(0,44)
   return (
     <Stack direction="row" spacing="5" width="full">
       <Image
         rounded="lg"
-        width="120px"
-        height="120px"
+        width="100px"
+        height="100px"
         fit="cover"
         src={image}
         alt={name}
+        border={"1px solid"}
         draggable="false"
         loading="lazy"
       />
-      <Box pt="4">
+      <Box pt="">
         <Stack spacing="0.5">
-          <Text fontWeight="medium">{name}</Text>
+          <Text fontWeight="medium">{res}</Text>
           <Text color={mode("gray.600", "gray.400")} fontSize="sm">
-            {description}
+            {category}
           </Text>
         </Stack>
         {isGiftWrapping && (
@@ -40,6 +42,7 @@ export const CartProductMeta = (props) => {
             </Link>
           </HStack>
         )}
+        
       </Box>
     </Stack>
   );

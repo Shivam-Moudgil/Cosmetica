@@ -3,51 +3,68 @@ import {
   Flex,
   Input,
   Link,
-  Select,
-  useColorModeValue,
+  HStack,
+  Button,
+  useNumberInput,
 } from "@chakra-ui/react";
 import * as React from "react";
 import {CartProductMeta} from "./CartProuctm";
 import {PriceTag} from "./Cart_Price";
+import axios from "axios";
 const QuantitySelect = (props) => {
-  const [value, setValue] = React.useState(1);
-  const handleChange = (e) => {
-    console.log(value);
-    if (value < props.value) {
-      setValue(e.target.value);
-    } else {
-      alert("More than qty");
-      console.log("props" + props.value);
-      setValue(1);
-    }
-  };
-  
+  const {getInputProps, getIncrementButtonProps, getDecrementButtonProps} =
+    useNumberInput({
+      step: 1,
+      defaultValue: props.quantity,
+      min: 1,
+      max: props.value,
+    });
+
+  const inc = getIncrementButtonProps();
+  const dec = getDecrementButtonProps();
+  const input = getInputProps();
   return (
     <>
       {" "}
-      <input
-        onChange={handleChange}
-        type="number"
-        value={value}
-        defaultValue={1}
-      />
+      <HStack maxW="150px">
+        <Button {...inc}>+</Button>
+        <Input {...input} />
+        <Button {...dec}>-</Button>
+      </HStack>
     </>
   );
 };
 
 export const CartItem = (props) => {
+  const [refresh, setRefresh] = React.useState(false);
+
   const {
     isGiftWrapping,
     name,
-    description,
-    quantity,
-    imageUrl,
+    category,
+    qty,
+    image,
     currency,
     price,
-    onChangeQuantity,
-    onClickDelete,
+    quantity,
+    id,
+    updateData,
   } = props;
-  console.log(props);
+  React.useEffect(() => {
+    console.log(refresh);
+  }, [refresh]);
+  const handleDelete = async (id) => {
+    console.log(id);
+    try {
+      const res = await axios.delete("http://localhost:3000/api/cart/" + id);
+      console.log("res", res);
+      updateData();
+      // alert("Deleted");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Flex
       direction={{
@@ -59,8 +76,8 @@ export const CartItem = (props) => {
     >
       <CartProductMeta
         name={name}
-        description={description}
-        image={imageUrl}
+        category={category}
+        image={image}
         isGiftWrapping={isGiftWrapping}
       />
 
@@ -75,7 +92,8 @@ export const CartItem = (props) => {
         }}
       >
         <QuantitySelect
-          value={quantity}
+          value={qty}
+          quantity={quantity}
           onChange={(e) => {
             onChangeQuantity?.(+e.currentTarget.value);
           }}
@@ -83,7 +101,7 @@ export const CartItem = (props) => {
         <PriceTag price={price} currency={currency} />
         <CloseButton
           aria-label={`Delete ${name} from cart`}
-          onClick={onClickDelete}
+          onClick={() => handleDelete(id)}
         />
       </Flex>
 
@@ -98,11 +116,16 @@ export const CartItem = (props) => {
           md: "none",
         }}
       >
-        <Link fontSize="sm" textDecor="underline">
+        <Link
+          fontSize="sm"
+          onClick={() => handleDelete(id)}
+          textDecor="underline"
+        >
           Delete
         </Link>
         <QuantitySelect
-          value={quantity}
+          value={qty}
+          quantity={quantity}
           onChange={(e) => {
             onChangeQuantity?.(+e.currentTarget.value);
           }}

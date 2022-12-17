@@ -45,7 +45,7 @@ const CustomerCare = () => {
         p={2}
         gap={2}
       >
-        <Text fontSize={{base: 12,md:14}}>
+        <Text fontSize={{base: 12, md: 14}}>
           Average connection time 25 secs
         </Text>
         <Button

@@ -4,8 +4,8 @@ const OrderSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      // ref: "user",
-      // required:true
+      ref: "user",
+      required:true
     },
     product: {
       type: mongoose.Schema.Types.ObjectId,
@@ -27,12 +27,13 @@ const OrderSchema = new mongoose.Schema(
       required: true,
     },
     status: {
-      type: Number,
-      default: 0,
+      type: Boolean,
+      default: false,
     },
     method: {
       type: String,
       enum: ["cash", "card"],
+      default:"card"
     },
   },
   {timestamps: true}
