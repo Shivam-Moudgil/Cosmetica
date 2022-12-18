@@ -61,13 +61,21 @@ console.log("inner",cartdata)
             <Stack spacing="6">
               {/* {console.log(cart)} */}
               {cartdata.map((item) => {
-                return <CartItem key={item._id} updateData={updateData}  {...item.product} quantity={item.quantity} id={item._id} />;
+                return (
+                  <CartItem
+                    key={item._id}
+                    updateData={updateData}
+                    {...item.product}
+                    quantity={item.quantity}
+                    id={item._id}
+                  />
+                );
               })}
             </Stack>
           </Stack>
 
           <Flex direction="column" align="center" flex="1">
-            <CartOrderSummary cartdata={cartdata} />
+            <CartOrderSummary cartdata={cartdata} updateData={updateData} />
             <HStack mt="6" fontWeight="semibold">
               <p>or</p>
               <Link href="/" color={mode("blue.500", "blue.200")}>
@@ -76,10 +84,9 @@ console.log("inner",cartdata)
             </HStack>
           </Flex>
         </Stack>
-        <CustomerCare/>
+        {/* <CustomerCare /> */}
         <Bottomimg />
       </Box>
-
     </>
   );
 }

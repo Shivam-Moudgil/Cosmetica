@@ -6,12 +6,14 @@ import {
   Image,
   Progress,
   useDisclosure,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, {useEffect, useState} from "react";
-import {Form1, Form2, Form3} from "./Checkout";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { Form1, Form2, Form3 } from "./Checkout";
 export default function Multistep() {
+  const router  = useRouter()
   let mode = 2;
   const {onOpen, onClose, isOpen} = useDisclosure();
   const toast = useToast();
@@ -22,7 +24,7 @@ export default function Multistep() {
   let arr = [];
   const getData = async () => {
     try {
-      return await axios.get("http://localhost:3000/api/cart");
+      return await axios.get(process.env.Cart_Route);
     } catch (err) {
       console.log(err);
     }
@@ -32,7 +34,7 @@ export default function Multistep() {
     getData().then((res) => setCartdata(res.data));
   }, []);
 
-  console.log(cartData);
+  // console.log(cartData);
   const PostData = async () => {
     let addr = JSON.parse(localStorage.getItem("address"));
     {
@@ -42,12 +44,13 @@ export default function Multistep() {
             user: el.user,
             product: el.product,
             customer: el._id,
-            total: el.quantity * el.product.qty,
+            total: el.quantity * el.product.price,
             address: addr,
+            quantity:el.quantity
           };
-          axios.post("http://localhost:3000/api/order", newProduct);
-          axios.delete("http://localhost:3000/api/cart");
-
+          axios.post(process.env.Order_Route, newProduct);
+          axios.delete(process.env.Cart_Route);
+          
         } catch (err) {
           console.log(err);
         }
@@ -57,6 +60,8 @@ export default function Multistep() {
 
   const handlePost = () => {
     PostData();
+
+    router.push("/cart")
     toast({
       title:
         mode == 1
@@ -67,6 +72,7 @@ export default function Multistep() {
       duration: 3000,
       isClosable: true,
     });
+    localStorage.clear();
   };
 
   return (
@@ -112,8 +118,8 @@ export default function Multistep() {
                   Back
                 </Button>
                 <Button
-                  w={{ base: "0", sm: "7rem" }}
-                  display={{base:"none",sm:"block"}}
+                  w={{base: "0", sm: "7rem"}}
+                  display={{base: "none", sm: "block"}}
                   isDisabled={step === 3}
                   onClick={() => {
                     setStep(step + 1);
