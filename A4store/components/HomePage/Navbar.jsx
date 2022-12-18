@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {
   Box,
   Button,
@@ -13,15 +13,31 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import Link from 'next/link';
 import ColorLogo from "./Images/ColorLogo.png";
 import {CloseIcon, HamburgerIcon, SearchIcon} from "@chakra-ui/icons";
-import {Brands} from "./NavbarDropDowns";
 import {RxPerson} from "react-icons/rx";
 import {CgShoppingCart} from "react-icons/cg";
 
+const getdata = async () => {
+  return await axios.get(process.env.Cart_Route);
+};
+
 export default function Navbar2() {
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const [cartLength, setCartLength] = useState(0);
+  const [cartdata, setCartData] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  const updateData = () => {
+    setRefresh(!refresh);
+  };
+
+
+  useEffect(() => {
+    getdata()
+      .then((res) => setCartData(res.data))
+      .catch((err) => console.log(err));
+  }, [refresh]);
 
   return (
     <Box
@@ -63,38 +79,28 @@ export default function Navbar2() {
               <Icon as={RxPerson} mr={2} />
               Account
             </Button>
-            <Button colorScheme={"white"} variant="ghost">
-              <Icon as={CgShoppingCart} mr={2} />
-              <Box p={1} fontSize='10px' borderRadius='full' bg='black' color={'white'} pos='relative' top='-10px' left='-15px' w='20px'>{cartLength}</Box>
-              Cart
-            </Button>
+            <Link href="/cart">
+              <Button colorScheme={"white"} variant="ghost">
+                <Icon as={CgShoppingCart} mr={2} />
+                <Box p={1} fontSize='10px' borderRadius='full' bg='black' color={'white'} pos='relative' top='-10px' left='-15px' w='20px'>{cartdata.length}</Box>
+                Cart
+              </Button>
+            </Link>
           </Flex>
         </Flex>
         <Flex
           justifyContent={"space-around"}
           alignItems="center"
           px={20}
-          mt={2}
+          my={2}
           fontWeight={"semibold"}
           fontSize={"md"}
           // gap={8}
         >
-          {/* <Brands /> */}
-          <Text
-            // border={"1px solid white"}
-            p={4}
-            borderWidth={3}
-            borderRadius={"1.5rem"}
-          >
-            Holiday Shop
-          </Text>
-
-          <Text>Bestsellers</Text>
-          <Text>Skin Care</Text>
-          <Text>Makeup</Text>
-          <Text>Hair Care</Text>
-          <Text>Bath & Body</Text>
-          <Text>Fragrance Shop</Text>
+          <Link href="/skin-care">Skin Care</Link>
+          <Link href='/makeup'>Makeup</Link>
+          <Link href='/hair-care'>Hair Care</Link>
+          <Link href='/bath-body'>Bath & Body</Link>
         </Flex>
       </Box>
       <Box w="100vw" display={{lg: "none"}}>
@@ -125,11 +131,13 @@ export default function Navbar2() {
               <Icon as={RxPerson} mr={2} />
               Account
             </Button>
-            <Button size="xs" variant="ghost">
-              <Icon as={CgShoppingCart} mr={2} />
-              <Box p={1} fontSize='10px' borderRadius='full' bg='black' color={'white'} pos='relative' top='-10px' left='-15px' w='20px'>{cartLength}</Box>
-              Cart
-            </Button>
+            <Link href="/cart">
+              <Button colorScheme={"white"} variant="ghost">
+                <Icon as={CgShoppingCart} mr={2} />
+                <Box p={1} fontSize='10px' borderRadius='full' bg='black' color={'white'} pos='relative' top='-10px' left='-15px' w='20px'>{cartdata.length}</Box>
+                Cart
+              </Button>
+            </Link>
           </Flex>
         </Flex>
       </Box>
@@ -141,21 +149,10 @@ export default function Navbar2() {
             mx={10}
             wrap="wrap"
           >
-            <Brands />
-            <Text>Holiday Shop</Text>
-            <Text>Browse By</Text>
-            <Text>Bestsellers</Text>
-            <Text>Skin Care</Text>
-            <Text>Makeup</Text>
-            <Text>Hair Care</Text>
-            <Text>Bath & Body</Text>
-            <Text>Fragrance Shop</Text>
-            <Text>Tools & Devices</Text>
-            <Text>Gift & Sets</Text>
-            <Text>BeautyFIX</Text>
-            <Text>Offers</Text>
-            <Text>New</Text>
-            <Text>Skin 101</Text>
+            <Link href="/skin-care">Skin Care</Link>
+            <Link href='/makeup'>Makeup</Link>
+            <Link href='/hair-care'>Hair Care</Link>
+            <Link href='/bath-body'>Bath & Body</Link>
           </VStack>
         </Box>
       ) : null}
