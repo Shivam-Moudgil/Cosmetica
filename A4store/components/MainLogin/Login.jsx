@@ -13,11 +13,11 @@ import {
 import { AiFillFacebook } from "react-icons/Ai";
 import { FcGoogle } from "react-icons/Fc";
 import axios from "axios";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({});
-  const router = useRouter()
+  const router = useRouter();
   let handleChange = (e) => {
     let { name, value } = e.target;
 
@@ -30,11 +30,13 @@ function Login() {
       email: data.email,
       password: data.password,
     };
-    const postdata = await axios.post(
-      "http://localhost:3000/api/auth/login",
-      body
-    ).then((res)=>console.log(res));
-
+    const postdata = await axios
+      .post("http://localhost:3000/api/auth/login", body)
+      .then((res) => {
+        if (res.status === 200) {
+          window.location.href = "/";
+        }
+      });
   };
   return (
     <>
