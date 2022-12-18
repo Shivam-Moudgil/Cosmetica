@@ -1,6 +1,7 @@
-import { Center, Text } from "@chakra-ui/react";
+import {Center, Text} from "@chakra-ui/react";
 import Head from "next/head";
 import Image from "next/image";
+import HomePage from "../../components/HomePage/HomePage";
 
 export default function Home() {
   return (
@@ -10,14 +11,7 @@ export default function Home() {
         <meta name="description" content="It's an e-commerce store" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Center flexDir={"column"}>
-        <Text fontSize={"2xl"} fontWeight={"extrabold"}>
-          Welcome !
-        </Text>
-        <Text fontSize={"lg"} fontWeight={"extrabold"}>
-          Folders are ready........
-        </Text>
-      </Center>
+      <HomePage />
     </div>
   );
 }
