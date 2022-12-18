@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
 
+const todate = new Date();
+let newdate = todate.setDate(todate.getDate() + 3);
+
 const OrderSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
-      required:true
+      required: true,
     },
     product: {
       type: mongoose.Schema.Types.ObjectId,
@@ -33,7 +36,15 @@ const OrderSchema = new mongoose.Schema(
     method: {
       type: String,
       enum: ["cash", "card"],
-      default:"card"
+      default: "card",
+    },
+    quantity: {
+      type: Number,
+      required:true
+      },
+    deliveryDate: {
+      type: Date,
+      default: new Date(newdate),
     },
   },
   {timestamps: true}

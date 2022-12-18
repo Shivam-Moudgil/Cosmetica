@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   if (method === "GET") {
     try {
       const products = await Product.find(category || {});
-      console.log(products);
+      // console.log(products);
       res.status(200).json(products);
     } catch (err) {
       res.status(500).json(err);

@@ -22,7 +22,7 @@ const OrderSummaryItem = (props) => {
   );
 };
 
-export const CartOrderSummary = ({cartdata}) => {
+export const CartOrderSummary = ({cartdata, updateData}) => {
   const [total, setTotal] = React.useState(0);
   React.useEffect(() => {
     let s = 0;
@@ -31,8 +31,8 @@ export const CartOrderSummary = ({cartdata}) => {
       // return setTotal((s));
     });
     setTotal(s);
-    localStorage.setItem("total",JSON.stringify(s))
-  }, []);
+    localStorage.setItem("total", JSON.stringify(s));
+  }, [cartdata]);
 
   // console.log("summ", total);
   return (

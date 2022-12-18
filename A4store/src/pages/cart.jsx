@@ -1,11 +1,11 @@
+import axios from "axios";
 import React, {useEffect, useState} from "react";
 import CartEmpty from "../../components/Cart/CartEmpty";
 import CartFill from "../../components/Cart/CartFill";
-import axios from "axios";
-import {useRouter} from "next/router";
+// console.log("pop",process.env.BASE_URL)
 
 const getdata = async () => {
-  return await axios.get("http://localhost:3000/api/cart");
+  return await axios.get(process.env.Cart_Route);
 };
 
 const cart = () => {
@@ -13,27 +13,33 @@ const cart = () => {
   const [refresh, setRefresh] = useState(false);
 
   const updateData = () => {
-    setRefresh(!refresh)
-  }
+    setRefresh(!refresh);
+  };
 
-  console.log(cartdata)
+  // console.log(cartdata)
   useEffect(() => {
-    getdata().then((res) => setCartData(res.data));
+    getdata()
+      .then((res) => setCartData(res.data))
+      .catch((err) => console.log(err));
   }, [refresh]);
   return (
     <>
-      {cartdata.length != 0 ? <CartFill cartdata={cartdata} updateData={updateData} /> : <CartEmpty />}
+      {cartdata.length != 0 ? (
+        <CartFill cartdata={cartdata} updateData={updateData} />
+      ) : (
+        <CartEmpty />
+      )}
     </>
   );
 };
 
 export default cart;
 
-export const getServerSideProps = async () => {
-  const res = await axios.get("http://localhost:3000/api/cart");
-  return {
-    props: {
-      cartdata: res.data,
-    },
-  };
-};
+// export const getServerSideProps = async () => {
+//   const res = await axios.get("http://localhost:3000/api/cart");
+//   return {
+//     props: {
+//       cartdata: res.data,
+//     },
+//   };
+// };
