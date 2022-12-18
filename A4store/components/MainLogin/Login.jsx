@@ -33,6 +33,9 @@ function Login() {
     const postdata = await axios
       .post("http://localhost:3000/api/auth/login", body)
       .then((res) => {
+
+
+        
         if (res.status === 200) {
           window.location.href = "/";
         }
