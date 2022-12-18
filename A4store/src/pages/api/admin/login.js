@@ -39,6 +39,8 @@ const handler = async (req, res) => {
                     message: 'not authorized!'
                 })
             }
+
+           
         }
     } catch (error) {
         res.json(error.message)

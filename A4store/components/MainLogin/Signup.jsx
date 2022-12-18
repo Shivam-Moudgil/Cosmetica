@@ -29,7 +29,7 @@ function Signup() {
       email:data.email,
       password:data.password
      }
-     
+
     const postdata=  await axios.post("http://localhost:3000/api/auth/register",body)
   };
   return (
@@ -207,8 +207,9 @@ function Signup() {
         borderRadius="none"
         mt="1rem"
         onClick={handleClick}
+     
       >
-        CONTINUE
+       <a    href="/login">CONTINUE</a> 
       </Button>
       <Text>
         By proceeding, you are confirming that you agree to our{" "}
