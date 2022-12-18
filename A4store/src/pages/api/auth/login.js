@@ -1,4 +1,4 @@
-/* eslint-disable import/no-anonymous-default-export */
+
 import {sign} from "jsonwebtoken";
 import {serialize} from "cookie";
 import dbConnect from "../../../../utils/mongo";
@@ -50,3 +50,4 @@ const handler = async (req, res) => {
 };
 
 export default handler;
+

@@ -9,22 +9,15 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { adminLogin } from '../../../redux/admin_auth/admin.actions'
 
-const AdminLoginForm = () => {
-  const [formInput, setFormInput] = useState({
-    email: 'admin@gmail.com',
-    password: '123456',
-    isRemembered: false,
-  })
-  const dispatch = useDispatch()
+const AdminLoginForm = ({ formInput, updateFormInuput }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (formInput.email === '' || formInput.password === '') {
       return alert('Please enter all details')
     }
-    dispatch(adminLogin(formInput))
+    updateFormInuput(formInput)
   }
 
   return (
@@ -49,7 +42,7 @@ const AdminLoginForm = () => {
           <Input
             value={formInput.email}
             onChange={({ target: { value } }) =>
-              setFormInput({ ...formInput, email: value })
+              updateFormInuput({ ...formInput, email: value })
             }
             border="1px solid gray"
             p="10px"
@@ -70,14 +63,14 @@ const AdminLoginForm = () => {
             placeholder="Your password"
             value={formInput.password}
             onChange={({ target: { value } }) =>
-              setFormInput({ ...formInput, password: value })
+              updateFormInuput({ ...formInput, password: value })
             }
           />
         </FormControl>
         <FormControl gap="8px" display="flex" alignItems="center">
           <Switch
             onChange={({ target: { checked } }) =>
-              setFormInput({ ...formInput, isRemembered: checked })
+              updateFormInuput({ ...formInput, isRemembered: checked })
             }
           />
           <FormLabel htmlFor="Remember me" mb="0">

@@ -3,11 +3,13 @@ import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk';
 import { adminAuthReducer } from './admin_auth/admin.reducer';
+import { admin_productsReducer } from './admin_products/admin_products.reducer';
 
 
 const rootReducer = combineReducers({
     // can add your reducers here
-    admin_auth: adminAuthReducer
+    admin_auth: adminAuthReducer,
+    admin_products: admin_productsReducer
 })
 
 // If you dispatch any action using getStaticProps or getServerSideProps you need to update states in master reducer as well

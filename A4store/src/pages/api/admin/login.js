@@ -1,5 +1,6 @@
 import argon from 'argon2'
 import jwt from 'jsonwebtoken'
+import cookie from 'cookie'
 import dbConnect from './../../../../utils/mongo';
 import Admins from './../../../../models/admin_auth';
 
@@ -20,9 +21,17 @@ const handler = async (req, res) => {
                     userName: user.userName, email: user.email, isRemembered
                 }, process.env.JWT_SECRET, { expiresIn: isRemembered ? '30 days' : '1 day' })
 
-                return res.json({
+                res.setHeader('Set-Cookie', cookie.serialize('admin_auth', authToken, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV !== 'development',
+                    sameSite: 'strict',
+                    maxAge: isRemembered ? (60 * 60 * 24 * 30) : (60 * 60 * 24),
+                    path: '/'
+                }))
+
+                return res.status(200).json({
                     success: true,
-                    authToken
+                    message: 'You are authenticated'
                 })
             } else {
                 return res.send(401).json({
@@ -32,6 +41,7 @@ const handler = async (req, res) => {
             }
         }
     } catch (error) {
+        res.json(error.message)
         console.log(error);
     }
 }

@@ -1,13 +1,8 @@
 import mongoose from "mongoose";
 
-//do not use these docs these are just dummy I will discard them in the end
-import {PurchasedItems} from "../models/purchasedItems.model";
-import {Users} from "../models/users.model";
-import {Products} from "../models/shopProduct.model";
 
 const MONGO_URL = process.env.MONGO_URL;
-// const MONGO_URL = process.env.DB_Port2;
-console.log(typeof process.env.Cart_Route);
+
 if (!MONGO_URL) {
   throw new Error(
     "Please define the MONGO_URL environment variable inside .env.local"
@@ -22,6 +17,7 @@ if (!cached) {
 
 async function dbConnect() {
   if (cached.conn) {
+    console.log('db connected')
     return cached.conn;
   }
 
