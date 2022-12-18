@@ -3,6 +3,7 @@ import { GET_ONE_PRODUCT } from "./admin_products.types";
 
 const initialState = {
     singleProduct: {},
+    singlePurchasedItem: {}
 }
 
 export const admin_productsReducer = (state = initialState, { type, payload }) => {
