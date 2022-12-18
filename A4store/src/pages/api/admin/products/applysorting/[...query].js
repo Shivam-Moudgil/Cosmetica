@@ -1,7 +1,8 @@
 import dbConnect from "../../../../../../utils/mongo";
 import Product from "../../../../../../models/Product";
+import verifyAdmin from '../../../../../../middlewares/verifyAdmin'
 
-export default async function handler(req, res) {
+const handler = async (req, res) => {
     const { method } = req;
     const query = req.query;
     const { quantity, price, rating, page = 1, limit = 15, category, name } = query;
@@ -11,9 +12,9 @@ export default async function handler(req, res) {
             await dbConnect();
             let allProducts = await Product.find()
             products = await Product.find().sort({
-                qty: quantity === 'asc' ? 1 : -1,
-                price: price === 'asc' ? 1 : -1,
-                ratingcount: rating === 'asc' ? 1 : -1
+                qty: quantity === 'asc' ? -1 : 0,
+                price: price === 'asc' ? -1 : 0,
+                ratingcount: rating === 'asc' ? -1 : 0
             }).limit(limit).skip((page - 1) * limit);
 
             if (category && name) {
@@ -33,3 +34,5 @@ export default async function handler(req, res) {
         }
     }
 }
+
+export default verifyAdmin(handler)

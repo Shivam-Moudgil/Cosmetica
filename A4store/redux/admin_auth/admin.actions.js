@@ -10,8 +10,7 @@ export const adminLogin = (body) => async (dispatch) => {
     dispatch(adminAuthLoading())
     try {
         const { data } = await axios.post('/api/admin/login', body)
-        dispatch({ type: adminAuthTypes.ADMIN_LOGIN, payload: data.authToken })
-
+        dispatch({ type: adminAuthTypes.ADMIN_LOGIN })
         dispatch(adminAuthSuccess())
     } catch (error) {
         console.log(error);

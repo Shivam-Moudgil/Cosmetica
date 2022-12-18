@@ -1,12 +1,17 @@
+
 import * as adminAuthTypes from "./admin.types";
-import cookie from 'js-cookie'
+
+function getLSData() {
+    if (typeof localStorage !== 'undefined') {
+        return localStorage.getItem('new item')
+    }
+}
 
 
-let authToken = cookie.get('authCookie') || '';
 
 const initialState = {
-    isAdmin: authToken ? true : false,
-    authToken,
+    isAdmin: '',
+    authToken: '',
     loading: false,
     error: false,
     errorMessage: ''
@@ -32,15 +37,13 @@ export const adminAuthReducer = (state = initialState, { type, payload }) => {
                 error: true,
             }
         case adminAuthTypes.ADMIN_LOGIN: {
-            cookie.set('authCookie', payload)
             return {
                 ...state,
-                token: payload,
-                isAdmin: true
+                token: '',
+                isAdmin: false
             }
         }
         case adminAuthTypes.ADMIN_LOGOUT: {
-            cookie.remove('authCookie')
             return {
                 ...state,
                 token: '',

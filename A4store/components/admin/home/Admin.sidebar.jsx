@@ -1,9 +1,24 @@
-import { Divider, HStack, Icon, Text, VStack } from '@chakra-ui/react'
+import {
+  Button,
+  Divider,
+  HStack,
+  Icon,
+  Spacer,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import React from 'react'
 import Link from 'next/link'
 import { MdSpaceDashboard, MdProductionQuantityLimits } from 'react-icons/md'
 import { GiBuyCard } from 'react-icons/gi'
 import Image from 'next/image'
+import axios from 'axios'
+import Router from 'next/router'
+
+const logout = async () => {
+  const res = await axios.post('http://localhost:3000/api/admin/logout', {})
+  return res
+}
 
 const links = [
   {
@@ -39,6 +54,7 @@ const AdminSidebar = ({ location, bg }) => {
       left={-4}
       top={0}
       zIndex={10}
+      pb="25px"
     >
       <HStack w="full" justify="center">
         <Image
@@ -51,7 +67,11 @@ const AdminSidebar = ({ location, bg }) => {
       <Divider />
       <VStack w="full" px="0px" alignItems={'flex-start'}>
         {links.map((ele, ind) => (
-          <Link href={ele.href} style={{ width: '100%' }}>
+          <Link
+            key={`${Date.now().toString()}+${ind}`}
+            href={ele.href}
+            style={{ width: '100%' }}
+          >
             <HStack
               key={`${new Date().getMilliseconds()}_${ind}`}
               w="96%"
@@ -79,6 +99,21 @@ const AdminSidebar = ({ location, bg }) => {
             </HStack>
           </Link>
         ))}
+      </VStack>
+      <Spacer />
+      <VStack w="full">
+        <Button
+          onClick={() => {
+            logout().then((res) => {
+              if (res.status == 200) Router.replace('/admin/login')
+            })
+          }}
+          w="70%"
+          variant={'solid'}
+          colorScheme="teal"
+        >
+          SignOut
+        </Button>
       </VStack>
     </VStack>
   )

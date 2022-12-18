@@ -1,7 +1,6 @@
 import {
   Box,
   HStack,
-  Spacer,
   Table,
   TableContainer,
   Text,
@@ -29,6 +28,7 @@ import TableBody from '../../../components/admin/products/TableBody'
 import EditProductDetails from '../../../components/admin/products/EditProduct'
 import AddNewproductModel from '../../../components/admin/products/AddNewProduct'
 import DisplaySingleProductModel from '../../../components/admin/products/DisplaySingleProductModel'
+import jwt from 'jsonwebtoken'
 
 const fetchData = (url) => {
   return axios.get(url)
@@ -42,8 +42,8 @@ const RecentOrders = () => {
     false,
   )
   const [showProductVisiblity, setShowProductVisiblity] = useState(false)
-  const [newPage, setNewPage] = useState(router.query.page || 1)
-  const [newLimit, setNewLimit] = useState(router.query.limit || 15)
+  const [newPage, setNewPage] = useState(+router.query.page || 1)
+  const [newLimit, setNewLimit] = useState(+router.query.limit || 15)
   const [priceSort, setPriceSort] = useState(router.query.price || 'asc')
   const [qtySort, setQtySort] = useState(router.query.quantity || 'asc')
   const [ratingSort, setRatingSort] = useState(router.query.rating || 'asc')
@@ -248,8 +248,42 @@ const StyledTableContainer = styled(TableContainer)`
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     const { query } = context
+    const {
+      cookies: { admin_auth },
+    } = context.req
     const { page = 1, limit = 15, quantity, price, rating } = query
     try {
+      if (admin_auth) {
+        let verification = jwt.verify(admin_auth, process.env.JWT_SECRET)
+        if (verification && verification.isRemembered) {
+          let newToken = jwt.sign(
+            {
+              userName: verification.userName,
+              email: verification.email,
+              isRemembered: verification.isRemembered,
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '30 days' },
+          )
+          res.setHeader(
+            'Set-Cookie',
+            cookie.serialize('admin_auth', newToken, {
+              httpOnly: true,
+              secure: process.env.NODE_ENV !== 'development',
+              sameSite: 'strict',
+              maxAge: 60 * 60 * 24 * 30,
+              path: '/',
+            }),
+          )
+        }
+      } else {
+        return {
+          redirect: {
+            destination: '/admin/login',
+            permanent: false,
+          },
+        }
+      }
       await dbConnect()
       let products = await Products.find()
         .sort({

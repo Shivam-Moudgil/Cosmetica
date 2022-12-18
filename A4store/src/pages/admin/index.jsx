@@ -17,6 +17,7 @@ import {
   getTotalPuchasedItemsQuantity,
 } from '../../../assets/chartData'
 import { Users } from '../../../models/users.model'
+// import { redirect } from 'next/dist/server/api-utils'
 
 const AdminHome = ({
   totalSaleAndQuantity,
@@ -75,11 +76,13 @@ AdminHome.getLayout = function PageLayout(page) {
 }
 
 export const getServerSideProps = wrapper.getStaticProps(
-  (store) => async (req, res) => {
-    const cookie = req.req.cookies.authCookie
+  (store) => async (ctx) => {
+    const {
+      cookies: { admin_auth },
+    } = ctx.req
     try {
-      if (cookie) {
-        let verification = jwt.verify(cookie, process.env.JWT_SECRET)
+      if (admin_auth) {
+        let verification = jwt.verify(admin_auth, process.env.JWT_SECRET)
         if (verification && verification.isRemembered) {
           let newToken = jwt.sign(
             {
@@ -90,62 +93,80 @@ export const getServerSideProps = wrapper.getStaticProps(
             process.env.JWT_SECRET,
             { expiresIn: '30 days' },
           )
-          cookie.set('authCookie', newToken)
+          res.setHeader(
+            'Set-Cookie',
+            cookie.serialize('admin_auth', newToken, {
+              httpOnly: true,
+              secure: process.env.NODE_ENV !== 'development',
+              sameSite: 'strict',
+              maxAge: 60 * 60 * 24 * 30,
+              path: '/',
+            }),
+          )
         }
+      } else {
+        return {
+          redirect: {
+            destination: '/admin/login',
+            permanent: false,
+          },
+        }
+      }
+
+      //can dispatch reducer here as well now
+      await dbConnect()
+      let purchasedItems = await PurchasedItems.find().populate([
+        'user',
+        'product',
+      ])
+      let allUsers = await Users.find()
+      purchasedItems = JSON.parse(JSON.stringify(purchasedItems))
+      allUsers = JSON.parse(JSON.stringify(allUsers))
+
+      //total Sale data for Revenue Bar chart
+      let totalSaleAndQuantity = getDaywiseSaleData(purchasedItems)
+
+      //Revenue related Info-card data
+      let currentYearRevenue = getRevenueOfGivenYear(
+        purchasedItems,
+        getCurrentTime().currYear,
+      )
+      let lastYearRevenue = getRevenueOfGivenYear(
+        purchasedItems,
+        getCurrentTime().currYear - 1,
+      )
+
+      //Users currentYear and lastYear count and total user count
+
+      let totalUsers = allUsers.length
+      let totalActiveUsers = getActiveUsers(purchasedItems)
+
+      //total Quantity purchased
+      const todayTotalQuantity = getTotalPuchasedItemsQuantity(
+        purchasedItems,
+        getCurrentTime().currDate,
+      )
+      const lastDayTotalQuantity = getTotalPuchasedItemsQuantity(
+        purchasedItems,
+        getCurrentTime().currDate - 1,
+      )
+      return {
+        props: {
+          totalSaleAndQuantity,
+          currentYearRevenue,
+          lastYearRevenue,
+          totalUsers,
+          totalActiveUsers,
+          todayTotalQuantity,
+          lastDayTotalQuantity,
+        },
+        // revalidate: 3600,
       }
     } catch (error) {
       console.log(error)
-    }
-
-    //can dispatch reducer here as well now
-    await dbConnect()
-    let purchasedItems = await PurchasedItems.find().populate([
-      'user',
-      'product',
-    ])
-    console.log(purchasedItems)
-    let allUsers = await Users.find()
-    purchasedItems = JSON.parse(JSON.stringify(purchasedItems))
-    allUsers = JSON.parse(JSON.stringify(allUsers))
-
-    //total Sale data for Revenue Bar chart
-    let totalSaleAndQuantity = getDaywiseSaleData(purchasedItems)
-
-    //Revenue related Info-card data
-    let currentYearRevenue = getRevenueOfGivenYear(
-      purchasedItems,
-      getCurrentTime().currYear,
-    )
-    let lastYearRevenue = getRevenueOfGivenYear(
-      purchasedItems,
-      getCurrentTime().currYear - 1,
-    )
-
-    //Users currentYear and lastYear count and total user count
-
-    let totalUsers = allUsers.length
-    let totalActiveUsers = getActiveUsers(purchasedItems)
-
-    //total Quantity purchased
-    const todayTotalQuantity = getTotalPuchasedItemsQuantity(
-      purchasedItems,
-      getCurrentTime().currDate,
-    )
-    const lastDayTotalQuantity = getTotalPuchasedItemsQuantity(
-      purchasedItems,
-      getCurrentTime().currDate - 1,
-    )
-    return {
-      props: {
-        totalSaleAndQuantity,
-        currentYearRevenue,
-        lastYearRevenue,
-        totalUsers,
-        totalActiveUsers,
-        todayTotalQuantity,
-        lastDayTotalQuantity,
-      },
-      // revalidate: 3600,
+      return {
+        props: {},
+      }
     }
   },
 )
