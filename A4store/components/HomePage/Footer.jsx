@@ -99,10 +99,11 @@ export default function Footer2() {
       <Flex
         mx={10}
         justifyContent="flex-start"
-        gap="110px"
+        direction={{base:'column', md:'column', lg:'row'}}
+        gap={{base:'0px', md:'0px',lg:"110px"}}
         ml={{base: "30px", md: "65px", lg: "105px"}}
       >
-        <VStack gap="20px" py="20px" w="45vw">
+        <VStack gap="20px" py="20px" m='auto'w={{base:'100%', md:'100%', lg:"45%"}}>
           <Text fontSize={{base: "10px", md: "12px", lg: "14px"}} align="left">
             Sign up to our newsletters and receive the latest exclusive
             discounts and deals
@@ -116,9 +117,9 @@ export default function Footer2() {
             _hover={{color: "black", bgColor: "blackAlpha.500"}}
           >
             SIGN ME UP
-          </Button>
+          </Button> 
         </VStack>
-        <VStack alignItems="flex-start" gap="20px" py="20px" w="45vw">
+        <VStack alignItems="flex-start" gap="20px" py="20px" m='auto'w={{base:'100%', md:'100%', lg:"45%"}}>
           <Text>Connect with us</Text>
           <Flex gap={{base: 4, md: 6, lg: 10}}>
             <Icon
@@ -149,12 +150,13 @@ export default function Footer2() {
           </Flex>
         </VStack>
       </Flex>
-      <Flex mx={10} justifyContent="space-evenly">
+      <Flex mx={10} justifyContent="space-evenly"  direction={{base:'column', md:'column', lg:'row'}} gap={{base:4, md:4, lg:0}}>
         <VStack
           align="flex-start"
           gap={4}
           borderTop="2px solid gray"
-          w="45vw"
+          m='auto'
+          w={{base:'100%', md:'100%', lg:"45%"}}
           pt={4}
           fontSize="14px"
         >
@@ -222,7 +224,7 @@ export default function Footer2() {
             Cookie Settings
           </Box>
         </VStack>
-        <Flex justifyContent="space-evenly" gap={14} textAlign="left" w="45vw">
+        <Flex m='auto' w={{base:'100%', md:'100%', lg:"45%"}} justifyContent="space-around" gap={14} textAlign="left">
           <VStack
             align="flex-start"
             borderTop="2px solid gray"
@@ -265,12 +267,12 @@ export default function Footer2() {
           </VStack>
         </Flex>
       </Flex>
-      <Flex mx={10} justifyContent="space-evenly">
-        <VStack w="45vw">
+      <Flex m={10} justifyContent="space-evenly" display={{base:'none',md:'none', lg:'flex'}}>
+        <VStack w="45%" align='left' borderTop='2px solid gray'>
           <Heading>THG</Heading>
           <Text>2022 © The Hut.com Ltd.</Text>
         </VStack>
-        <VStack w="45vw">
+        <VStack w="45%" align='left'  borderTop='2px solid gray'>
           <Heading>Pay securely with</Heading>
           <Flex justifyContent="start" gap={1} alignItems="center">
             {payWith.map((el) => (

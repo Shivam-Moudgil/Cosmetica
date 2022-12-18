@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {
   Box,
   Button,
@@ -20,6 +21,8 @@ import {CgShoppingCart} from "react-icons/cg";
 
 export default function Navbar2() {
   const {isOpen, onOpen, onClose} = useDisclosure();
+  const [cartLength, setCartLength] = useState(0);
+
   return (
     <Box
       w="100vw"
@@ -62,6 +65,7 @@ export default function Navbar2() {
             </Button>
             <Button colorScheme={"white"} variant="ghost">
               <Icon as={CgShoppingCart} mr={2} />
+              <Box p={1} fontSize='10px' borderRadius='full' bg='black' color={'white'} pos='relative' top='-10px' left='-15px' w='20px'>{cartLength}</Box>
               Cart
             </Button>
           </Flex>
@@ -95,7 +99,7 @@ export default function Navbar2() {
       </Box>
       <Box w="100vw" display={{lg: "none"}}>
         <Flex
-          w="100%"
+          w="100vw"
           gap={10}
           alignItems="center"
           justifyContent="space-evenly"
@@ -116,13 +120,14 @@ export default function Navbar2() {
               borderRadius="full"
             />
           </Box>
-          <Flex gap={20}>
+          <Flex gap={8}>
             <Button size="xs" variant="ghost">
               <Icon as={RxPerson} mr={2} />
               Account
             </Button>
             <Button size="xs" variant="ghost">
               <Icon as={CgShoppingCart} mr={2} />
+              <Box p={1} fontSize='10px' borderRadius='full' bg='black' color={'white'} pos='relative' top='-10px' left='-15px' w='20px'>{cartLength}</Box>
               Cart
             </Button>
           </Flex>
