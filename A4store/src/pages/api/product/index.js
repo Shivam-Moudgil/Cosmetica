@@ -3,18 +3,23 @@ import Product from "../../../../models/Product";
 
 export default async function handler(req, res) {
 
-  const {method} = req;
-  const category = req.query;
+  const { method } = req;
+  const { q } = req.query;
   dbConnect();
 
   if (method === "GET") {
     try {
-      const products = await Product.find(category || {});
-      // console.log(products);
-      res.status(200).json(products);
-    } catch (err) {
-      res.status(500).json(err);
+      if(q) {
+        let temp = new RegExp(q.substr(0, 4), "i");
+        const products = await Product.find({ category: temp });
+        return res.status(200).send(products);
+      }
 
+      const products = await Product.find({});
+      return res.status(200).json(products);
+
+    } catch ({message}) {
+      return res.status(500).send(message);
     }
   }
 }
