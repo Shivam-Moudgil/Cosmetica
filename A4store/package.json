@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.13",
     "@chakra-ui/react": "^2.4.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -16,12 +17,9 @@
     "axios": "^1.2.1",
 
     "bcrypt": "^5.1.0",
-    "cookie": "^0.5.0",
     "cookie-parser": "^1.4.6",
     "cookies": "^0.8.0",
     "dotenv": "^16.0.3",
-
-    "cookie": "^0.5.0",
 
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
@@ -34,10 +32,12 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
+    "react-slick": "^0.29.0",
     "recharts": "^2.2.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6"
   },
   "resolutions": {

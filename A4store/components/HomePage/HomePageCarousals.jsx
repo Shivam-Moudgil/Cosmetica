@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import {MdLocalShipping} from 'react-icons/md';
 import Slider from "react-slick";
-import {bestSellerCarousel, exclusiveCarousel, giftSetCarousel, newArrivalsCarousel, offerCarousel} from '../carouselData'
+import {bestSellerCarousel, exclusiveCarousel, giftSetCarousel, newArrivalsCarousel, offerCarousel} from './carouselData'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
