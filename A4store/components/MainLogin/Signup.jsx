@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { AiFillFacebook } from "react-icons/Ai";
 import { FcGoogle } from "react-icons/Fc";
+import axios from "axios"
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({});
@@ -20,8 +21,16 @@ function Signup() {
 
     setData({ ...data, [name]: value });
   };
-  let handleClick = () => {
+  let handleClick = async () => {
     console.log(data);
+
+     const body ={
+      name:data.name,
+      email:data.email,
+      password:data.password
+     }
+     
+    const postdata=  await axios.post("http://localhost:3000/api/auth/register",body)
   };
   return (
     <Box
