@@ -43,6 +43,7 @@ const handler = async (req, res) => {
       res
         .status(200)
         .json("Logged in");
+        
     } catch (err) {
       res.status(500).json(err.message);
     }

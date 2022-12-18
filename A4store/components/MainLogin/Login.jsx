@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { AiFillFacebook } from "react-icons/Ai";
 import { FcGoogle } from "react-icons/Fc";
+import axios from "axios";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({});
@@ -21,8 +22,17 @@ function Login() {
 
     setData({ ...data, [name]: value });
   };
-  let handleClick = () => {
-    console.log(data);
+  let handleClick = async () => {
+    // console.log(data);
+
+    const body = {
+      email: data.email,
+      password: data.password,
+    };
+    const postdata = await axios.post(
+      "http://localhost:3000/api/auth/login",
+      body
+    ).then((res)=>console.log(res));
   };
   return (
     <>
