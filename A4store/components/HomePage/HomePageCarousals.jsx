@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 export function HomeNav() {
   return (
-    <Box w="100%" m="auto">
+    <Box w="100vw" m="auto" display={{base:'none', md:'none', lg:'block'}}>
       <Box>
         <Box maxW="full" textAlign="center" bg={"blackAlpha.300"}>
           <Flex

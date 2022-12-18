@@ -9,7 +9,7 @@ const Scarousel2 = ({items}) => {
       className="Carousel"
       style={{
         width: "97%",
-        border: "1px solid",
+        // border: "1px solid",
         margin: "auto",
       }}
     >

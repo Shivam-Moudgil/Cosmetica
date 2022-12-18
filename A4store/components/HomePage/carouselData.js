@@ -1,170 +1,205 @@
+export const mainCarousel = [
+  {
+    "id":1,
+    "imageUrl":"https://static.thcdn.com/images/xlarge/webp/widgets/208-us/01/original-1007-STDCRE-42245-DS-AH-October-Batching-shot-26-HomePage_1920x700-051001.jpg",
+    "offerHeading":"Up to 50% Off + Extra 10%",
+    "offerPitch":"Save even MORE when you scoop up what's on sale-but hurry before they are gone for good",
+    "offerCode":"EXTRA10",
+    "offerEndsOn":"*Ends 1/31. Participating Products only",
+    "button1":"SHOP NOW",
+  },
+  {
+    "id":2,
+    "imageUrl":"https://static.thcdn.com/images/xlarge/webp/widgets/208-us/32/original-1116-STDCRE-43990-CM-DS-Q4-Batching-1920x700-074832.jpeg",
+    "offerHeading":"Forget Someone?",
+    "offerPitch":"Rewards Members, order by December 21st for free two-day shipping & get everything under the tree on time when you spen $150 or more",
+    "offerCode":"EXPRESS",
+    "offerEndsOn":"*Ends 12/21. Rewards members only",
+    "button1":"SHOP NOW",
+    "button2":"SIGN UP",
+  },
+  {
+    "id":3,
+    "imageUrl":"https://static.thcdn.com/images/xlarge/webp/widgets/208-us/44/original-1116-STDCRE-43990-CM-DS-Q4-Batching-1920x700-061844.jpeg",
+    "imageHead":"Now at Cosmetica",
+    "offerHeading":"Introducing: ISDIN ",
+    "offerPitch":"Discover Barcelona-born, advanced skin care formulas with innovative textures for a Practical & Sensory experience",
+    "button1":"SHOP NOW",
+  },
+  {
+    "id":4,
+    "imageUrl":"https://static.thcdn.com/images/xlarge/webp/widgets/208-us/51/original-1117-STDCRE-43638-DS-AH-Klarna-Assets-HomePage_1920x700_copy_3-074351.jpg",
+  },
+  
+]
+
 export const offerCarousel=[
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-tns-advanced-serum-1oz/12596429.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12596429-3594871019700125.jpg",
-          "productBlock_productName": "SkinMedica TNS Advanced+ Serum (1 oz.)",
-          "visually-hidden": "4.58 Stars 301 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.58,
-          "productBlock_reviewCount": 301,
-          "productBlock_rrpValue": "$295.00",
-          "productBlock_priceValue": "$236.00"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-tns-eye-repair/11289683.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11289683-2074871019620370.jpg",
-          "productBlock_productName": "SkinMedica TNS Eye Repair (0.5 oz.)",
-          "visually-hidden": "4.54 Stars 403 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.54,
-          "productBlock_reviewCount": 403,
-          "productBlock_rrpValue": "$106.00",
-          "productBlock_priceValue": "$84.80"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-firm-and-tone-lotion-6-oz/13180872.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/13180872-1214888074076647.jpg",
-          "productBlock_productName": "SkinMedica Firm and Tone Lotion 6 oz",
-          "visually-hidden": "",
-          "productBlock_ratingStars href": "",
-          "productBlock_ratingValue": null,
-          "productBlock_reviewCount": null,
-          "productBlock_rrpValue": "$165.00",
-          "productBlock_priceValue": "$132.00"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-ha5-rejuvenating-hydrator/11290631.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11290631-5864870995720591.jpg",
-          "productBlock_productName": "SkinMedica HA5 Rejuvenating Hydrator (2 oz.)",
-          "visually-hidden": "4.71 Stars 556 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.71,
-          "productBlock_reviewCount": 556,
-          "productBlock_rrpValue": "$184.00",
-          "productBlock_priceValue": "$147.20"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-retinol-complex-1.0/11289678.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11289678-1494870995623922.jpg",
-          "productBlock_productName": "SkinMedica Age Defense Retinol Complex 1.0 (1 fl. oz.)",
-          "visually-hidden": "4.85 Stars 301 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.85,
-          "productBlock_reviewCount": 301,
-          "productBlock_rrpValue": "$96.00",
-          "productBlock_priceValue": "$76.80"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-lytera-2.0-pigment-correcting-serum/11396212.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11396212-1194870995675144.jpg",
-          "productBlock_productName": "SkinMedica Lytera 2.0 Pigment Correcting Serum (2 oz.)",
-          "visually-hidden": "4.41 Stars 307 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.41,
-          "productBlock_reviewCount": 307,
-          "productBlock_rrpValue": "$160.00",
-          "productBlock_priceValue": "$128.00"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-retinol-complex-0.5/11289677.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11289677-3634870995577404.jpg",
-          "productBlock_productName": "SkinMedica Age Defense Retinol Complex 0.5 (1 fl. oz.)",
-          "visually-hidden": "4.78 Stars 285 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.78,
-          "productBlock_reviewCount": 285,
-          "productBlock_rrpValue": "$80.00",
-          "productBlock_priceValue": "$64.00"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-rejuvenative-moisturizer/11289673.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11289673-4514872069791922.jpg",
-          "productBlock_productName": "SkinMedica Rejuvenative Moisturizer (2 oz.)",
-          "visually-hidden": "4.68 Stars 230 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.68,
-          "productBlock_reviewCount": 230,
-          "productBlock_rrpValue": "$60.00",
-          "productBlock_priceValue": "$48.00"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-retinol-complex-0.25/11289676.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11289676-6714870996215309.jpg",
-          "productBlock_productName": "SkinMedica Age Defense Retinol Complex .25 (1 fl. oz.)",
-          "visually-hidden": "4.81 Stars 234 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.81,
-          "productBlock_reviewCount": 234,
-          "productBlock_rrpValue": "$64.00",
-          "productBlock_priceValue": "$51.20"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-facial-cleanser/11289661.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp/productimg/1600/1600/11289661-1794453993724103.jpg",
-          "productBlock_productName": "SkinMedica Facial Cleanser",
-          "visually-hidden": "4.67 Stars 12 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.67,
-          "productBlock_reviewCount": 12,
-          "productBlock_rrpValue": "$40.00",
-          "productBlock_priceValue": "$32.00"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-instant-bright-eye-cream-5-oz/12378444.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12378444-2084870995827076.jpg",
-          "productBlock_productName": "SkinMedica Instant Bright Eye Cream (0.5 oz.)",
-          "visually-hidden": "4.57 Stars 114 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.57,
-          "productBlock_reviewCount": 114,
-          "productBlock_rrpValue": "$92.00",
-          "productBlock_priceValue": "$73.60"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-dermal-repair-cream/11289659.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11289659-3844870996065429.jpg",
-          "productBlock_productName": "SkinMedica Dermal Repair Cream (1.7 oz.)",
-          "visually-hidden": "4.74 Stars 225 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.74,
-          "productBlock_reviewCount": 225,
-          "productBlock_rrpValue": "$134.00",
-          "productBlock_priceValue": "$107.20"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-tns-ceramide-treatment-cream/11289681.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11289681-1484871019698619.jpg",
-          "productBlock_productName": "SkinMedica TNS Ceramide Treatment Cream (2 oz.)",
-          "visually-hidden": "4.73 Stars 200 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.73,
-          "productBlock_reviewCount": 200,
-          "productBlock_rrpValue": "$72.00",
-          "productBlock_priceValue": "$57.60"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-ultra-sheer-moisturizer/11289690.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/11289690-1794871029936020.jpg",
-          "productBlock_productName": "SkinMedica Ultra Sheer Moisturizer (2 fl. oz.)",
-          "visually-hidden": "4.81 Stars 157 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.81,
-          "productBlock_reviewCount": 157,
-          "productBlock_rrpValue": "$60.00",
-          "productBlock_priceValue": "$48.00"
-        },
-        {
-          "productBlock_link href": "https://www.dermstore.com/skinmedica-instant-bright-eye-mask-6-pack/12455153.html",
-          "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12455153-5734870995929202.jpg",
-          "productBlock_productName": "SkinMedica Instant Bright Eye Mask (6 piece)",
-          "visually-hidden": "4.22 Stars 45 Reviews",
-          "productBlock_ratingStars href": "[object Object]",
-          "productBlock_ratingValue": 4.22,
-          "productBlock_reviewCount": 45,
-          "productBlock_rrpValue": "$50.00",
-          "productBlock_priceValue": "$40.00"
-        }
-       ];
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-dermal-repair-cream-1.7-fl.-oz./12902892.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902892-1754869141396300.jpg",
+    "productBlock_productName": "SENTÉ Dermal Repair Cream (1.7 fl. oz.)",
+    "visually-hidden": "4.8 Stars 30 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 4.8,
+    "productBlock_reviewCount": 30,
+    "productBlock_priceValue": "$164.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-cysteamine-hsa-50ml/13909146.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/13909146-1064974998858706.jpg",
+    "productBlock_productName": "SENTÉ Cysteamine HSA 50ml",
+    "visually-hidden": "",
+    "productBlock_ratingStars href": "",
+    "productBlock_ratingValue": "",
+    "productBlock_reviewCount": "",
+    "productBlock_priceValue": "$149.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-bio-complete-serum-1-fl.-oz./12902895.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902895-9544869141726321.jpg",
+    "productBlock_productName": "SENTÉ Bio Complete Serum (1 fl. oz.)",
+    "visually-hidden": "4.58 Stars 12 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 4.58,
+    "productBlock_reviewCount": 12,
+    "productBlock_priceValue": "$118.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-dermal-repair-ultra-nourish-50ml/13117421.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/13117421-1644964096234748.jpg",
+    "productBlock_productName": "SENTE Dermal Repair UltraNourish 1.7 fl. oz.",
+    "visually-hidden": "5.0 Stars 4 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 5,
+    "productBlock_reviewCount": 4,
+    "productBlock_priceValue": "$179.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-illumine-eye-cream-0.5-fl.-oz./12902890.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902890-9004869141908253.jpg",
+    "productBlock_productName": "SENTÉ Illumine Eye Cream (0.5 fl. oz.)",
+    "visually-hidden": "4.75 Stars 8 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 4.75,
+    "productBlock_reviewCount": 8,
+    "productBlock_priceValue": "$99.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-dermal-contour-pressed-serum-1-fl.-oz./12902893.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902893-4874869141539025.jpg",
+    "productBlock_productName": "SENTÉ Dermal Contour Pressed Serum (1 fl. oz.)",
+    "visually-hidden": "4.67 Stars 9 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 4.67,
+    "productBlock_reviewCount": 9,
+    "productBlock_priceValue": "$198.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-neck-firming-cream-1.7-fl.-oz./12902886.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902886-7214869141472029.jpg",
+    "productBlock_productName": "SENTÉ Neck Firming Cream (1.7 fl. oz.)",
+    "visually-hidden": "4.75 Stars 4 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 4.75,
+    "productBlock_reviewCount": 4,
+    "productBlock_priceValue": "$96.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-daily-soothing-cleanser-5.5-fl.-oz./12902894.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902894-4954869141613881.jpg",
+    "productBlock_productName": "SENTÉ Daily Soothing Cleanser (5.5 fl. oz.)",
+    "visually-hidden": "4.86 Stars 7 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 4.86,
+    "productBlock_reviewCount": 7,
+    "productBlock_priceValue": "$34.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-invisible-shield-full-physical-spf-52-tinted-1.8-oz./12902887.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902887-9444869141575487.jpg",
+    "productBlock_productName": "SENTÉ Invisible Shield Full Physical SPF 52 Tinted (1.8 oz.)",
+    "visually-hidden": "3.5 Stars 6 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 3.5,
+    "productBlock_reviewCount": 6,
+    "productBlock_priceValue": "$38.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-dermal-repair-body-cream-177ml/13656361.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/13656361-8144937082682854.jpg",
+    "productBlock_productName": "SENTÉ Dermal Repair Body Cream 177ml",
+    "visually-hidden": "",
+    "productBlock_ratingStars href": "",
+    "productBlock_ratingValue": "",
+    "productBlock_reviewCount": "",
+    "productBlock_priceValue": "$110.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-ultralight-defense-moisturizer-1.7-fl.-oz./12902885.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902885-3424869141360603.jpg",
+    "productBlock_productName": "SENTÉ Ultralight Defense Moisturizer (1.7 fl. oz.)",
+    "visually-hidden": "5.0 Stars 2 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 5,
+    "productBlock_reviewCount": 2,
+    "productBlock_priceValue": "$69.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-exfoliating-cleanser-5.5-fl.-oz./12902891.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902891-9444869142017624.jpg",
+    "productBlock_productName": "SENTÉ Exfoliating Cleanser (5.5 fl. oz.)",
+    "visually-hidden": "4.83 Stars 6 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 4.83,
+    "productBlock_reviewCount": 6,
+    "productBlock_priceValue": "$46.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-even-tone-mineral-spf-50ml-various-shades/13835182.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/13835182-9914964094907917.jpg",
+    "productBlock_productName": "SENTÉ Even Tone Mineral SPF 50ml (Various Shades)",
+    "visually-hidden": "5.0 Stars 1 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 5,
+    "productBlock_reviewCount": 1,
+    "productBlock_priceValue": "$75.00",
+    "productQuickbuySimple": ""
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-the-repair-duo/13656349.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/13656349-6984935261022482.jpg",
+    "productBlock_productName": "SENTÉ The Repair Duo",
+    "visually-hidden": "",
+    "productBlock_ratingStars href": "",
+    "productBlock_ratingValue": "",
+    "productBlock_reviewCount": "",
+    "productBlock_priceValue": "$282.00",
+    "productQuickbuySimple": "Quick Buy"
+  },
+  {
+    "productBlock_link href": "https://www.dermstore.com/sente-invisible-shield-full-physical-spf-49-untinted-1.8-oz./12902888.html",
+    "productBlock_image src": "https://static.thcdn.com/images/small/webp//productimg/original/12902888-3944869141692436.jpg",
+    "productBlock_productName": "SENTÉ Invisible Shield Full Physical SPF 49 Untinted (1.8 oz.)",
+    "visually-hidden": "3.33 Stars 6 Reviews",
+    "productBlock_ratingStars href": "[object Object]",
+    "productBlock_ratingValue": 3.33,
+    "productBlock_reviewCount": 6,
+    "productBlock_priceValue": "$38.00",
+    "productQuickbuySimple": "Quick Buy"
+  }
+];
 export const giftSetCarousel=[
         {
           "productBlock_link href": "https://www.dermstore.com/best-of-dermstore-problem-soultion-anti-aging-regimen/13190899.html",
