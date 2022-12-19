@@ -39,6 +39,7 @@ const links = [
   { title: "Bath & Body", slug: "bath-body", type: "bathBody" },
 ];
 
+
 export default function Categories(props) {
   const { page, products } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -60,33 +61,32 @@ export default function Categories(props) {
     if (value === "bestseller") {
       setFilterData(filterData.map((elem) => elem.category === "bestseller"));
     }
-    else if(value === "low-high") {
+    else if (value === "low-high") {
       setFilterData(
-        filterData.sort((a,b) => a.price - b.price)
+        filterData.sort((a, b) => a.price - b.price)
       )
     }
-    else if(value === "high-low") {
+    else if (value === "high-low") {
       setFilterData(
-        filterData.sort((a,b) => b.price - a.price)
+        filterData.sort((a, b) => b.price - a.price)
       )
     }
-    else if(value === "alphabetically") {
+    else if (value === "alphabetically") {
       setFilterData(
-        filterData.sort((a,b) => {
-          if(a.name > b.name) return 1;
+        filterData.sort((a, b) => {
+          if (a.name > b.name) return 1;
           else return -1;
-          return 0;
         })
       )
     }
-    else if(value === "discount") {
+    else if (value === "discount") {
       setFilterData(
-        filterData.sort((a,b) => a.ratingcount - b.ratingcount)
+        filterData.sort((a, b) => a.ratingcount - b.ratingcount)
       )
     }
-    else if(value === "rated") {
+    else if (value === "rated") {
       setFilterData(
-        filterData.sort((a,b) => b.rating - a.rating)
+        filterData.sort((a, b) => b.rating - a.rating)
       )
     }
 
@@ -104,13 +104,13 @@ export default function Categories(props) {
   return (
     <Container
       border="1px solid red"
-      maxW={{base: "full", lg: "96%"}}
+      maxW={{ base: "full", lg: "96%" }}
       mx={10}
       m="auto"
       p={0}
     >
       <Flex justifyContent="space-between" gap={5}>
-        <Container maxW="23%" display={{base: "none", md: "block"}}>
+        <Container maxW="23%" display={{ base: "none", md: "block" }}>
           <Box>
             <Text fontFamily="lato, sans-serif" fontWeight="700" py={3}>
               Refine
@@ -137,13 +137,13 @@ export default function Categories(props) {
                 <Stack spacing={1}>
                   <Checkbox
                     onChange={handleFilterPrice}
-                    value={{min: 0, max: 1000}}
+                    value={{ min: 0, max: 1000 }}
                   >
                     <Text fontSize={"15"}>Less than ₹1000</Text>
                   </Checkbox>
                   <Checkbox
                     onChange={handleFilterPrice}
-                    value={{min: 1000, max: 2000}}
+                    value={{ min: 1000, max: 2000 }}
                   >
                     <Text fontSize={"15"}>₹1000 - ₹2000</Text>
                   </Checkbox>
@@ -222,7 +222,7 @@ export default function Categories(props) {
           </Accordion>
         </Container>
 
-        <Container maxW={{base: "full", ld: "75%"}}>
+        <Container maxW={{ base: "full", ld: "75%" }}>
           <Heading fontFamily="Poly, serif" fontSize="24px" fontWeight="400">
             {page.title}
           </Heading>
@@ -287,7 +287,7 @@ export default function Categories(props) {
                 <Heading fontSize="16" fontWeight="bold" mb={5}>
                   Rewards members earn 1220 points on this order
                 </Heading>
-                <Flex gap={3} direction={{base: "column-reverse", md: "row"}}>
+                <Flex gap={3} direction={{ base: "column-reverse", md: "row" }}>
                   <Link href="/" passHref>
                     <Button
                       borderRadius="none"
@@ -320,98 +320,98 @@ export default function Categories(props) {
           </Modal>
 
           <Grid
-            templateColumns={{base: "repeat(2, 1fr)", lg: "repeat(3, 1fr)"}}
+            templateColumns={{ base: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }}
             gap={8}
             w="100%"
           >
             {loading
               ? null
               : filterData?.map((item) => (
-                  <GridItem
-                    key={item._id}
+                <GridItem
+                  key={item._id}
+                  w="100%"
+                  h={{ base: "300px", sm: "350px", lg: "400px" }}
+                  my={6}
+                >
+                  <Flex
+                    direction="column"
                     w="100%"
-                    h={{base: "300px", sm: "350px", lg: "400px"}}
-                    my={6}
+                    h="100%"
+                    justifyContent="flex-end"
+                    alignItems="center"
                   >
-                    <Flex
-                      direction="column"
-                      w="100%"
-                      h="100%"
-                      justifyContent="flex-end"
-                      alignItems="center"
+                    <Link
+                      href={`/view/${item.name?.trim().split(" ").join("-")}`}
                     >
-                      <Link
-                        href={`/view/${item.name?.trim().split(" ").join("-")}`}
-                      >
-                        <Box
-                          boxSize="80%"
-                          onClick={async () => {
-                            await axios.post(
-                              "http://localhost:3000/api/page-setter",
-                              item
-                            );
-                          }}
-                        >
-                          <Image src={item.image} objectFit="contain" />
-                        </Box>
-                      </Link>
-                      <Text pt={3} fontSize="14" textAlign="center">
-                        {item.name}
-                      </Text>
                       <Box
-                        display={"flex"}
-                        justifyContent="center"
-                        alignItems={"center"}
-                        gap={1}
-                      >
-                        <HStack spacing={0} m="auto">
-                          {new Array(item.rating).fill(0).map((elem) => (
-                            <AiFillStar />
-                          ))}
-                        </HStack>
-                        <Text>{item.ratingcount}</Text>
-                      </Box>
-                      <Text
-                        py={2}
-                        fontWeight="bold"
-                        textAlign="center"
-                        fontSize="14"
-                      >
-                        {item.price?.toLocaleString("en-IN", {
-                          maximumFractionDigits: 2,
-                          style: "currency",
-                          currency: "INR",
-                        })}
-                      </Text>
-                      <Button
-                        borderRadius="none"
-                        variant="unstyled"
-                        bg="#222"
-                        color="white"
-                        w="full"
-                        fontWeight="normal"
-                        py={{base: 1, lg: 2}}
+                        boxSize="80%"
                         onClick={async () => {
-                          onOpen();
-                          setModalData(item);
-                          try {
-                            await axios
-                              .post("http://localhost:3000/api/cart", {
-                                product: item._id,
-                                quantity: 1,
-                              })
-                              .then((res) => console.log(res))
-                              .catch((err) => console.log(err));
-                          } catch (err) {
-                            console.log(err);
-                          }
+                          await axios.post(
+                            "http://localhost:3000/api/page-setter",
+                            item
+                          );
                         }}
                       >
-                        Quick Buy
-                      </Button>
-                    </Flex>
-                  </GridItem>
-                ))}
+                        <Image src={item.image} objectFit="contain" />
+                      </Box>
+                    </Link>
+                    <Text pt={3} fontSize="14" textAlign="center">
+                      {item.name}
+                    </Text>
+                    <Box
+                      display={"flex"}
+                      justifyContent="center"
+                      alignItems={"center"}
+                      gap={1}
+                    >
+                      <HStack spacing={0} m="auto">
+                        {new Array(item.rating).fill(0).map((elem) => (
+                          <AiFillStar />
+                        ))}
+                      </HStack>
+                      <Text>{item.ratingcount}</Text>
+                    </Box>
+                    <Text
+                      py={2}
+                      fontWeight="bold"
+                      textAlign="center"
+                      fontSize="14"
+                    >
+                      {item.price?.toLocaleString("en-IN", {
+                        maximumFractionDigits: 2,
+                        style: "currency",
+                        currency: "INR",
+                      })}
+                    </Text>
+                    <Button
+                      borderRadius="none"
+                      variant="unstyled"
+                      bg="#222"
+                      color="white"
+                      w="full"
+                      fontWeight="normal"
+                      py={{ base: 1, lg: 2 }}
+                      onClick={async () => {
+                        onOpen();
+                        setModalData(item);
+                        try {
+                          await axios
+                            .post("http://localhost:3000/api/cart", {
+                              product: item._id,
+                              quantity: 1,
+                            })
+                            .then((res) => console.log(res))
+                            .catch((err) => console.log(err));
+                        } catch (err) {
+                          console.log(err);
+                        }
+                      }}
+                    >
+                      Quick Buy
+                    </Button>
+                  </Flex>
+                </GridItem>
+              ))}
           </Grid>
         </Container>
       </Flex>
@@ -430,7 +430,7 @@ export const getStaticPaths = () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
