@@ -77,20 +77,24 @@ export default function Multistep() {
 
   return (
     <>
-      <Box h={"100vh"} display="flex" flexDir={{base: "column", sm: "row"}}>
-        <Box w={{base: "100%", sm: "50%"}} h={"100vh"}>
+      <Box
+        border={"13px solid #0e1823"}
+        h={"auto"}
+        display="flex"
+        flexDir={{base: "column", sm: "row"}}
+      >
+        <Box w={{base: "100%", sm: "45%"}}>
           <Image
-            src="/admin_images/Colorlogowithbackground.svg"
+          m={"auto"}
+            src="https://media.istockphoto.com/id/1388108025/vector/contactless-customer-payment-to-grocery-shop-cashier.jpg?s=612x612&w=0&k=20&c=xm_MasxuaP4kzcyG1cj7B1zjteWdrhuda8o2Xs2Ze0g="
             fit={"cover"}
-            h={"full"}
           />
         </Box>
         <Box
           rounded="lg"
           w={{base: "100%", sm: "45%"}}
+          m="auto"
           p={6}
-          // border={"2px solid red"}
-          mt={{base: "0", sm: "60px"}}
           as="form"
         >
           <Progress

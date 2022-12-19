@@ -1,10 +1,9 @@
 import React from 'react'
-import Footer2 from '../components/HomePage/Footer'
-
+import FooterSm from "../components/HomePage/FooterSm";
 const Footer = () => {
   return (
     <>
-    <Footer2/>
+    <FooterSm/>
     </>
   )
 }

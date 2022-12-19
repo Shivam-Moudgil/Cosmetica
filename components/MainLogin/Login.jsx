@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 import {
   Box,
@@ -9,19 +9,22 @@ import {
   Icon,
   InputGroup,
   InputRightElement,
+  useToast,
+  Link,
 } from "@chakra-ui/react";
-import { AiFillFacebook } from "react-icons/Ai";
-import { FcGoogle } from "react-icons/Fc";
+import {AiFillFacebook} from "react-icons/Ai";
+import {FcGoogle} from "react-icons/Fc";
 import axios from "axios";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 function Login() {
+  const toast = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({});
   const router = useRouter();
   let handleChange = (e) => {
-    let { name, value } = e.target;
+    let {name, value} = e.target;
 
-    setData({ ...data, [name]: value });
+    setData({...data, [name]: value});
   };
   let handleClick = async () => {
     // console.log(data);
@@ -30,15 +33,29 @@ function Login() {
       email: data.email,
       password: data.password,
     };
-    const postdata = await axios
+    await axios
       .post("http://localhost:3000/api/auth/login", body)
       .then((res) => {
+        toast({
+          title: "Register Successfull",
+          position: "top",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
 
-
-        
         if (res.status === 200) {
           window.location.href = "/";
         }
+      })
+      .catch((err) => {
+        toast({
+          title: err.message,
+          position: "top",
+          status: "err",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
   return (
@@ -99,16 +116,18 @@ function Login() {
               </InputRightElement>
             </InputGroup>
           </Box>
-          <Button
-            w="100%"
-            bgColor="#222222"
-            color="white"
-            borderRadius="none"
-            mt="1rem"
-            onClick={handleClick}
-          >
-            LOGIN TO YOUR ACCOUNT
-          </Button>
+          <Link href="/">
+            <Button
+              w="100%"
+              bgColor="#222222"
+              color="white"
+              borderRadius="none"
+              mt="1rem"
+              colorScheme="black"
+            >
+              LOGIN TO YOUR ACCOUNT
+            </Button>
+          </Link>
 
           <Box mt="2rem">
             <Text fontSize="14px" fontWeight="400">
