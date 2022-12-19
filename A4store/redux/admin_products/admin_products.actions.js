@@ -15,7 +15,8 @@ export const getSingleProduct = (id) => async (dispatch) => {
 
 export const getSinglePurchasedItem = (id) => async (dispatch) => {
     try {
-        const { data } = await axios.get('')
+        const { data } = await axios.get('http://localhost:3000/api/order/' + id)
+        dispatch({ type: admin_products_Types.GET_SINGLE_PURCHASED_ITEM, payload: data })
     } catch (error) {
         console.log(error);
     }

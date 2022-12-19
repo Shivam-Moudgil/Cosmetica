@@ -2,14 +2,14 @@ import { Box, HStack, Icon, Stack, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { IoHome } from 'react-icons/io5'
-import { BsFillPersonFill } from 'react-icons/bs'
-import { VscSignIn } from 'react-icons/vsc'
+import { RxBorderSplit } from 'react-icons/rx'
+import { RiProductHuntFill } from 'react-icons/ri'
 import AdminBurgerNav from '../home/Admin.burgerNav'
 
 const links = [
   { text: 'Dashboard', icon: IoHome, link: '/admin' },
-  { text: 'Profile', icon: BsFillPersonFill, link: '/admin/profile' },
-  { text: 'SignIn', icon: VscSignIn, link: '/admin/login' },
+  { text: 'Orders', icon: RxBorderSplit, link: '/admin/orders' },
+  { text: 'Products', icon: RiProductHuntFill, link: '/admin/products' },
 ]
 
 const AdminLoginNav = () => {

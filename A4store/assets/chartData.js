@@ -3,17 +3,17 @@ export const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug
 
 export function getDaywiseSaleData(purchasedItems) {
     let totalSaleAndQuantity = []
-    for (let i = 0; i < purchasedItems.length; i++) {
+    for (let i = 0; i < 31; i++) {
         let sale = 0
         let quantity = 0
         for (let j = 0; j < purchasedItems.length; j++) {
             if (getRequiredTime(purchasedItems[j].createdAt).givenDate == i + 1 &&
                 getRequiredTime(purchasedItems[j].createdAt).givenMonth ==
                 getCurrentTime().currMonth &&
-                getRequiredTime(purchasedItems[j].createdAt).givenYear ===
+                getRequiredTime(purchasedItems[j].createdAt).givenYear ==
                 getCurrentTime().currYear) {
-                sale += Number(purchasedItems[j].product['woocommerce-Price-amount 2'])
-                quantity += Number(purchasedItems[j].quantity)
+                sale += purchasedItems[j].total
+                quantity += purchasedItems[j].quantity
             }
         }
         totalSaleAndQuantity.push({
@@ -33,7 +33,7 @@ export function getRevenueOfGivenYear(purchasedItems, year) {
     let result = purchasedItems.reduce((acc, ele) => {
         if (getRequiredTime(ele.createdAt).givenYear == year) {
             return (
-                acc + ele.quantity * Number(ele.product['woocommerce-Price-amount 2'])
+                acc + ele.quantity * Number(ele.total)
             )
         }
     }, 0)
@@ -49,9 +49,9 @@ export function getActiveUsers(purchasedItems) {
     for (let i = 0; i < purchasedItems.length; i++) {
         if (getRequiredTime(purchasedItems[i].createdAt).givenDate == getCurrentTime().currDate
             && getRequiredTime(purchasedItems[i].createdAt).givenYear == getCurrentTime().currYear) {
-            if (!map.has(purchasedItems[i].user._id)) {
+            if (!map.has(purchasedItems[i].user)) {
                 sum++;
-                map.set(purchasedItems[i].user._id, 1)
+                map.set(purchasedItems[i].user, 1)
             }
         }
     }
@@ -70,6 +70,32 @@ export const getTotalPuchasedItemsQuantity = (purchasedItems, day) => {
     }
     return sum;
 }
+
+export const getTotalQuantityOfYear = (purchasedItems, year) => {
+    if (year.length < 4) return undefined;
+    //getting data for current year and last year
+
+    let result = purchasedItems.reduce((acc, ele) => {
+        if (getRequiredTime(ele.createdAt).givenYear == year) {
+            return (
+                acc + ele.quantity
+            )
+        }
+    }, 0)
+    if (!result) result = 0;
+    return result;
+}
+
+export const getAllPendingAndDeleveredItemsOfYear = (purchasedItems) => {
+    let delevered = 0, pending = 0;
+    for (let i = 0; i < purchasedItems.length; i++) {
+        if (new Date(purchasedItems[i].deliveryDate) - new Date(Date.now()) > 0) pending++;
+        else delevered++;
+    }
+    return { pending, delevered }
+}
+
+
 
 
 export function getCurrentTime() {

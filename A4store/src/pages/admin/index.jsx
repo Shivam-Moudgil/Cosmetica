@@ -7,17 +7,25 @@ import RevenueBarChart from '../../../components/admin/home/charts/RevenueBarCha
 import UsersBarChart from '../../../components/admin/home/charts/UsersBarChart'
 import jwt from 'jsonwebtoken'
 import dbConnect from '../../../utils/mongo'
-import { PurchasedItems } from '../../../models/purchasedItems.model'
+import PurchasedItems from '../../../models/Order'
 import { wrapper } from '../../../redux/store'
+import { IoWalletSharp } from 'react-icons/io5'
+import {
+  MdOutlineProductionQuantityLimits,
+  MdOutlinePendingActions,
+} from 'react-icons/md'
+import { GrDeliver } from 'react-icons/gr'
+
 import {
   getCurrentTime,
   getRevenueOfGivenYear,
   getActiveUsers,
   getDaywiseSaleData,
   getTotalPuchasedItemsQuantity,
+  getTotalQuantityOfYear,
+  getAllPendingAndDeleveredItemsOfYear,
 } from '../../../assets/chartData'
-import { Users } from '../../../models/users.model'
-// import { redirect } from 'next/dist/server/api-utils'
+import Head from 'next/head'
 
 const AdminHome = ({
   totalSaleAndQuantity,
@@ -25,6 +33,9 @@ const AdminHome = ({
   lastYearRevenue,
   totalUsers,
   totalActiveUsers,
+  totalCurrentYearQuantity,
+  totalLastYearQuantity,
+  totalOrdersDetails,
 }) => {
   return (
     <HStack w="full" spacing={0} overflowX="hidden" pb="20px" pt="70px">
@@ -41,14 +52,36 @@ const AdminHome = ({
           w="90%"
           justifyContent={{ base: 'center', md: 'space-between' }}
         >
-          {new Array(4).fill(0).map((ele, ind) => (
-            <AdminInfoCards
-              currentYearData={currentYearRevenue}
-              lastYearData={lastYearRevenue}
-              title={`Total Year's revenue`}
-              key={new Date().getMilliseconds + ind}
-            />
-          ))}
+          <AdminInfoCards
+            quantity={false}
+            currentYearData={currentYearRevenue}
+            lastYearData={lastYearRevenue}
+            title={`Total Year's revenue`}
+            icon={IoWalletSharp}
+            checkDiff={true}
+          />
+          <AdminInfoCards
+            currentYearData={totalCurrentYearQuantity}
+            lastYearData={totalLastYearQuantity}
+            quantity={true}
+            title={`Total Quantity of Year`}
+            icon={MdOutlineProductionQuantityLimits}
+            checkDiff={true}
+          />
+          <AdminInfoCards
+            quantity={false}
+            totalPendingOrders={totalOrdersDetails.pending}
+            title={`Total Pending orders`}
+            icon={MdOutlinePendingActions}
+            checkDiff={false}
+          />
+          <AdminInfoCards
+            quantity={false}
+            totalDeleveredOrders={totalOrdersDetails.delevered}
+            title={`Total delevered orders`}
+            icon={GrDeliver}
+            checkDiff={false}
+          />
         </Grid>
         {/* Chart */}
         <VStack
@@ -72,7 +105,19 @@ const AdminHome = ({
 export default AdminHome
 
 AdminHome.getLayout = function PageLayout(page) {
-  return <>{page}</>
+  return (
+    <>
+      <Head>
+        <title>Cosmetica</title>
+        <meta
+          name="description"
+          content="Purchase beauty and cosmetic products"
+        />
+        <link rel="icon" href="/Colorlogowithbackground.svg" />
+      </Head>
+      {page}
+    </>
+  )
 }
 
 export const getServerSideProps = wrapper.getStaticProps(
@@ -115,13 +160,10 @@ export const getServerSideProps = wrapper.getStaticProps(
 
       //can dispatch reducer here as well now
       await dbConnect()
-      let purchasedItems = await PurchasedItems.find().populate([
-        'user',
-        'product',
-      ])
-      let allUsers = await Users.find()
+      let purchasedItems = await PurchasedItems.find().populate(['product'])
+      let allUsers = []
       purchasedItems = JSON.parse(JSON.stringify(purchasedItems))
-      allUsers = JSON.parse(JSON.stringify(allUsers))
+      // allUsers = JSON.parse(JSON.stringify(allUsers))
 
       //total Sale data for Revenue Bar chart
       let totalSaleAndQuantity = getDaywiseSaleData(purchasedItems)
@@ -150,6 +192,22 @@ export const getServerSideProps = wrapper.getStaticProps(
         purchasedItems,
         getCurrentTime().currDate - 1,
       )
+
+      //Yearly quantity
+      const totalCurrentYearQuantity = getTotalQuantityOfYear(
+        purchasedItems,
+        getCurrentTime().currYear,
+      )
+      const totalLastYearQuantity = getTotalQuantityOfYear(
+        purchasedItems,
+        getCurrentTime().currYear - 1,
+      )
+
+      //Details of pending and delevered orders
+      const totalOrdersDetails = getAllPendingAndDeleveredItemsOfYear(
+        purchasedItems,
+      )
+
       return {
         props: {
           totalSaleAndQuantity,
@@ -159,8 +217,10 @@ export const getServerSideProps = wrapper.getStaticProps(
           totalActiveUsers,
           todayTotalQuantity,
           lastDayTotalQuantity,
+          totalCurrentYearQuantity,
+          totalLastYearQuantity,
+          totalOrdersDetails,
         },
-        // revalidate: 3600,
       }
     } catch (error) {
       console.log(error)

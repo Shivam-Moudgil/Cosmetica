@@ -1,45 +1,28 @@
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  HStack,
-  Icon,
-  Input,
-  Select,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
+import axios from 'axios'
+import jwt from 'jsonwebtoken'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import AdminSidebar from '../../../components/admin/home/Admin.sidebar'
+import OrdersDisplaySingleProductModel from '../../../components/admin/orders/Admin.Orders.DisplayProdModel'
+import AdminOrdersFilters from '../../../components/admin/orders/Admin.Orders.Filters'
+import AdminOrdersTable from '../../../components/admin/orders/Admin.Orders.Table'
 import Pagination from '../../../components/admin/products/Pagination'
 import ShowLimit from '../../../components/admin/products/ShowLimit'
+import PurchasedItems from '../../../models/Order'
 import dbConnect from '../../../utils/mongo'
-import { PurchasedItems } from '../../../models/purchasedItems.model'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import { BiShow } from 'react-icons/bi'
-import DisplaySingleProductModel from '../../../components/admin/products/DisplaySingleProductModel'
-import { useDispatch } from 'react-redux'
 
 const fetchData = (url) => {
   return axios.get(url)
 }
 
 const Orders = ({ purchasedItems, length: len }) => {
-  const dispatch = useDispatch()
   const router = useRouter()
   const [items, setItems] = useState(purchasedItems)
   const [length, setLength] = useState(len || 0)
   const [status, setStatus] = useState(router.query.status || '')
   const [orderDate, setOrderDate] = useState(router.query.orderDate || '')
-  const [deleveryDate, setDeleveryDate] = useState(
+  const [deliveryDate, setDeliveryDate] = useState(
     router.query.deleveryDate || '',
   )
   const [qty, setQty] = useState(router.query.qty || '')
@@ -51,7 +34,7 @@ const Orders = ({ purchasedItems, length: len }) => {
     router.push(
       `/admin/orders?${status ? `status=${status}` : ''}${
         orderDate ? `&orderDate=${orderDate}` : ''
-      }${deleveryDate ? `&deleveryDate=${deleveryDate}` : ''}${
+      }${deliveryDate ? `&deliveryDate=${deliveryDate}` : ''}${
         qty ? `&qty=${qty}` : ''
       }${page ? `&page=${page}` : ''}${limit ? `&limit=${limit}` : ''}`,
       undefined,
@@ -59,7 +42,7 @@ const Orders = ({ purchasedItems, length: len }) => {
     fetchData(
       `/api/admin/orders/orders?${status ? `status=${status}` : ''}${
         orderDate ? `&orderDate=${orderDate}` : ''
-      }${deleveryDate ? `&deleveryDate=${deleveryDate}` : ''}${
+      }${deliveryDate ? `&deliveryDate=${deliveryDate}` : ''}${
         qty ? `&qty=${qty}` : ''
       }${page ? `&page=${page}` : ''}${limit ? `&limit=${limit}` : ''}`,
     )
@@ -68,8 +51,7 @@ const Orders = ({ purchasedItems, length: len }) => {
         setLength(data.length)
       })
       .catch((err) => console.error)
-  }, [status, orderDate, deleveryDate, qty, page, limit])
-
+  }, [status, orderDate, deliveryDate, qty, page, limit])
   return (
     <HStack
       w="full"
@@ -91,108 +73,19 @@ const Orders = ({ purchasedItems, length: len }) => {
         h="100vh"
         pt="50px"
       >
-        <HStack boxShadow={'md'} w="full" h="fit-content" px="10px">
-          <FormControl>
-            <FormLabel fontSize={14}>Filter Status</FormLabel>
-            <Select
-              defaultValue={router.query.status}
-              onChange={({ target: { value } }) => setStatus(value)}
-              bg="#424c4f"
-              color={'white'}
-              placeholder="select"
-            >
-              <option style={{ color: 'black' }} value="pending">
-                Pending
-              </option>
-              <option style={{ color: 'black' }} value="delevered">
-                Delevered
-              </option>
-            </Select>
-          </FormControl>
-          <FormControl>
-            <FormLabel fontSize={14}>Filter Order-Date</FormLabel>
-            <Input
-              value={orderDate || router.query.orderDate}
-              onChange={({ target: { value } }) => setOrderDate(value)}
-              bg="#424c4f"
-              color="white"
-              type={'month'}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel fontSize={14}>Filter Delevery-Date</FormLabel>
-            <Input
-              value={deleveryDate || router.query.deleveryDate}
-              onChange={({ target: { value } }) => setDeleveryDate(value)}
-              bg="#424c4f"
-              color="white"
-              type={'month'}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel fontSize={14}>Sort by Quantity</FormLabel>
-            <Select
-              defaultValue={router.query.qty}
-              onChange={({ target: { value } }) => {
-                setQty(value)
-              }}
-              bg="#424c4f"
-              color="white"
-              placeholder="select"
-            >
-              <option style={{ color: 'black' }} value="asc">
-                asc
-              </option>
-              <option style={{ color: 'black' }} value="desc">
-                desc
-              </option>
-            </Select>
-          </FormControl>
-        </HStack>
-        <StyledTableContainer
-          w="full"
-          h="490px"
-          overflowY="scroll"
-          boxShadow={'lg'}
-        >
-          <Table variant="simple">
-            <Thead bg="#2C3539">
-              <Tr>
-                <Th color="white">Order id</Th>
-                <Th color="white">status</Th>
-                <Th color="white">mode of Payment</Th>
-                <Th color="white">order-date</Th>
-                <Th color="white">delevery-date</Th>
-                <Th color="white">quanity</Th>
-                <Th color="white">Actions</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {items?.map((ele) => (
-                <Tr key={ele?._id}>
-                  <Td fontSize={14}>{ele?._id}</Td>
-                  <Td>{ele?.status}</Td>
-                  <Td>{ele?.modeOfPayment}</Td>
-                  <Td>{setTimeString(ele?.dateOfPurchase?.slice(0, 10))}</Td>
-                  <Td>{setTimeString(ele?.dateOfDelevery?.slice(0, 10))}</Td>
-                  <Td>{ele?.quantity}</Td>
-                  <Td>
-                    <Icon
-                      fontSize={18}
-                      color="red"
-                      cursor={'pointer'}
-                      onClick={() => {
-                        setVisible(!isVisible)
-                        dispatch(getPurchasedItem(ele._id))
-                      }}
-                      as={BiShow}
-                    />
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </StyledTableContainer>
+        //Filters Components
+        <AdminOrdersFilters
+          router={router}
+          deliveryDate={deliveryDate}
+          setStatus={(value) => setStatus(value)}
+          setOrderDate={(value) => setOrderDate(value)}
+          setDeliveryDate={(value) => setDeliveryDate(value)}
+          setQty={(value) => setQty(value)}
+        />
+        <AdminOrdersTable
+          items={items}
+          setVisible={() => setVisible(!isVisible)}
+        />
         <HStack
           justify={'flex-end'}
           w="full"
@@ -218,7 +111,7 @@ const Orders = ({ purchasedItems, length: len }) => {
           }
         </HStack>
       </VStack>
-      <DisplaySingleProductModel
+      <OrdersDisplaySingleProductModel
         isVisible={isVisible}
         toggleVisibility={() => setVisible(!isVisible)}
       />
@@ -227,36 +120,6 @@ const Orders = ({ purchasedItems, length: len }) => {
 }
 
 export default Orders
-
-const StyledTableContainer = styled(TableContainer)`
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: grey;
-  }
-`
-
-function setTimeString(YMD) {
-  let months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
-  let month = months[new Date(YMD).getMonth()]
-  let date = new Date(YMD).getDate()
-  let year = new Date(YMD).getFullYear()
-  return `${date}-${month}-${year}`
-}
 
 export const getServerSideProps = async (cxt) => {
   const {
@@ -310,6 +173,7 @@ export const getServerSideProps = async (cxt) => {
       },
     }
   } catch (error) {
+    console.log(error)
     return {
       props: {},
     }
