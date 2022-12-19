@@ -1,4 +1,3 @@
-import verifyUser from "../../../../middlewares/verifyUser";
 import Admins from "../../../../models/admin_auth";
 import argon from 'argon2'
 

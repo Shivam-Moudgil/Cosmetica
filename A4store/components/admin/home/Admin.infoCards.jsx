@@ -5,14 +5,23 @@ import {
   Center,
   Flex,
   GridItem,
+  Icon,
   Stat,
   StatHelpText,
   StatLabel,
   StatNumber,
 } from '@chakra-ui/react'
-import { IoWalletSharp } from 'react-icons/io5'
 
-const AdminInfoCards = ({ currentYearData, lastYearData, title }) => {
+const AdminInfoCards = ({
+  currentYearData,
+  lastYearData,
+  quantity,
+  title,
+  icon,
+  totalPendingOrders,
+  totalDeleveredOrders,
+  checkDiff,
+}) => {
   let difference = currentYearData - lastYearData
   let percentage = (difference / currentYearData) * 100
   return (
@@ -31,7 +40,12 @@ const AdminInfoCards = ({ currentYearData, lastYearData, title }) => {
               </StatLabel>
               <Flex>
                 <StatNumber fontSize="lg" color="#fff">
-                  ${currentYearData}
+                  {whatToPut(
+                    quantity,
+                    currentYearData,
+                    totalPendingOrders,
+                    totalDeleveredOrders,
+                  )}
                 </StatNumber>
                 <StatHelpText
                   alignSelf="flex-end"
@@ -43,12 +57,16 @@ const AdminInfoCards = ({ currentYearData, lastYearData, title }) => {
                   color={'yellow'}
                 >
                   {' '}
-                  {difference < 0 ? `-${percentage}` : `+${percentage}`}%
+                  {checkDiff
+                    ? difference < 0
+                      ? `-${percentage}%`
+                      : `+${percentage}%`
+                    : ''}
                 </StatHelpText>
               </Flex>
             </Stat>
             <Center h={'45px'} w={'45px'} bg="gray.200">
-              <IoWalletSharp fontSize={25} />
+              <Icon as={icon} fontSize={25} />
             </Center>
           </Flex>
         </CardBody>
@@ -58,3 +76,17 @@ const AdminInfoCards = ({ currentYearData, lastYearData, title }) => {
 }
 
 export default AdminInfoCards
+
+function whatToPut(quantity, currentYearData, pending, delevered) {
+  const formatter = new Intl.NumberFormat('INR', {
+    style: 'currency',
+    currency: 'INR',
+  })
+  if (quantity) {
+    return currentYearData
+  } else if (!quantity && !pending && delevered !== 0) {
+    return formatter.format(+currentYearData)
+  } else if (pending) {
+    return pending
+  } else return delevered
+}

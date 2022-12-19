@@ -17,11 +17,9 @@ const RevenueBarChart = ({ data }) => {
     <>
       <Text fontSize={18} fontWeight={600}>
         Daily Sale Revenue{' '}
-        <Box
-          as="span"
-          color="red"
-          fontWeight={'bold'}
-        >{`(${data[0]?.monthName})`}</Box>
+        <Box as="span" color="red" fontWeight={'bold'}>{`(${
+          data && data[0]?.monthName
+        })`}</Box>
       </Text>
       <ResponsiveContainer width={'90%'} aspect={3}>
         <BarChart
@@ -34,7 +32,7 @@ const RevenueBarChart = ({ data }) => {
           <XAxis
             dataKey={'day'}
             // interval={'preserveStartEnd'}
-            tickFormatter={(v) => v + ` ${data[0]?.monthName}`}
+            tickFormatter={(v) => v + ` ${data && data[0]?.monthName}`}
             tickSize={7}
             fontSize={14}
           />

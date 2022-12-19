@@ -1,4 +1,4 @@
-import { GET_ONE_PRODUCT } from "./admin_products.types";
+import { GET_ONE_PRODUCT, GET_SINGLE_PURCHASED_ITEM } from "./admin_products.types";
 
 
 const initialState = {
@@ -13,7 +13,11 @@ export const admin_productsReducer = (state = initialState, { type, payload }) =
                 ...state,
                 singleProduct: payload
             }
-
+        case GET_SINGLE_PURCHASED_ITEM:
+            return {
+                ...state,
+                singlePurchasedItem: payload
+            }
         default:
             return state;
     }

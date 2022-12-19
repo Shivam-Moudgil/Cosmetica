@@ -12,8 +12,8 @@ import React, { useEffect } from 'react'
 import { BsStarFill } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
 
-const DisplaySingleProductModel = ({ isVisible, toggleVisibility }) => {
-  const { singleProduct } = useSelector((s) => s.admin_products)
+const OrdersDisplaySingleProductModel = ({ isVisible, toggleVisibility }) => {
+  const { singlePurchasedItem } = useSelector((s) => s.admin_products)
 
   if (isVisible)
     return (
@@ -46,7 +46,7 @@ const DisplaySingleProductModel = ({ isVisible, toggleVisibility }) => {
               w="full"
               h="full"
               objectFit={{ base: 'contain', md: 'cover' }}
-              src={singleProduct?.image}
+              src={singlePurchasedItem.product?.image}
             />
           </HStack>
           <VStack
@@ -58,28 +58,30 @@ const DisplaySingleProductModel = ({ isVisible, toggleVisibility }) => {
             h="80%"
           >
             <Text fontSize={19} fontWeight={600}>
-              {singleProduct?.name}
+              {singlePurchasedItem.product?.name}
             </Text>
             <Center>
               <Text>Quantity:</Text>
-              <Text fontWeight={'500'}>{singleProduct?.qty}</Text>
+              <Text fontWeight={'500'}>{singlePurchasedItem.product?.qty}</Text>
             </Center>
             <HStack>
               <Text>Category:</Text>
               <Text color="teal" textTransform={'uppercase'}>
-                {singleProduct?.category}
+                {singlePurchasedItem.product?.category}
               </Text>
             </HStack>
             <HStack>
               <HStack spacing={0}>
-                {new Array(singleProduct?.rating || 0).fill(0).map((_, i) => (
-                  <Icon key={i} color="teal" as={BsStarFill} />
-                ))}
+                {new Array(singlePurchasedItem.product?.rating || 0)
+                  .fill(0)
+                  .map((_, i) => (
+                    <Icon key={i} color="teal" as={BsStarFill} />
+                  ))}
               </HStack>
-              <Text>{`(${singleProduct?.ratingcount})`}</Text>
+              <Text>{`(${singlePurchasedItem.product?.ratingcount})`}</Text>
             </HStack>
             <Text color="red" fontSize={26} fontWeight={600}>
-              ${singleProduct?.price}
+              ${singlePurchasedItem.product?.price}
             </Text>
           </VStack>
         </Stack>
@@ -87,4 +89,4 @@ const DisplaySingleProductModel = ({ isVisible, toggleVisibility }) => {
     )
 }
 
-export default DisplaySingleProductModel
+export default OrdersDisplaySingleProductModel
