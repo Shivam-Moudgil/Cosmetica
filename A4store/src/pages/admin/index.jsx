@@ -70,14 +70,14 @@ const AdminHome = ({
           />
           <AdminInfoCards
             quantity={false}
-            totalPendingOrders={totalOrdersDetails.pending}
+            totalPendingOrders={totalOrdersDetails?.pending}
             title={`Total Pending orders`}
             icon={MdOutlinePendingActions}
             checkDiff={false}
           />
           <AdminInfoCards
             quantity={false}
-            totalDeleveredOrders={totalOrdersDetails.delevered}
+            totalDeleveredOrders={totalOrdersDetails?.delevered}
             title={`Total delevered orders`}
             icon={GrDeliver}
             checkDiff={false}
@@ -207,6 +207,7 @@ export const getServerSideProps = wrapper.getStaticProps(
       const totalOrdersDetails = getAllPendingAndDeleveredItemsOfYear(
         purchasedItems,
       )
+      console.log(totalOrdersDetails)
 
       return {
         props: {
