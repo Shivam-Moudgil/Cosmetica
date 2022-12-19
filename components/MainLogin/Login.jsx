@@ -14,7 +14,7 @@ import {AiFillFacebook} from "react-icons/Ai";
 import {FcGoogle} from "react-icons/Fc";
 import axios from "axios";
 import {useRouter} from "next/router";
-import { useState } from "react";
+import {useState} from "react";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({});
@@ -36,6 +36,7 @@ function Login() {
   };
   let handleClick = async (e) => {
     e.preventDefault();
+    console.log("object");
     try {
       const body = {
         email: data.email,
@@ -62,7 +63,7 @@ function Login() {
     <>
       <Box
         as="form"
-        onSubmit={handleClick}
+        // onSubmit={handleClick}
         display={["block", "block", "block", "flex"]}
         w={["100%", "100%", "100%", "80%"]}
         m="auto"
@@ -118,18 +119,18 @@ function Login() {
               </InputRightElement>
             </InputGroup>
           </Box>
-          <Link href="/">
-            <Button
-              w="100%"
-              bgColor="#222222"
-              color="white"
-              borderRadius="none"
-              mt="1rem"
-              colorScheme="black"
-            >
-              LOGIN TO YOUR ACCOUNT
-            </Button>
-          </Link>
+
+          <Button
+            w="100%"
+            bgColor="#222222"
+            color="white"
+            borderRadius="none"
+            mt="1rem"
+            colorScheme="black"
+            onClick={handleClick}
+          >
+            LOGIN TO YOUR ACCOUNT
+          </Button>
 
           <Box mt="2rem">
             <Text fontSize="14px" fontWeight="400">

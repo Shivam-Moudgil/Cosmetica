@@ -6,14 +6,14 @@ import {
   Image,
   Progress,
   useDisclosure,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { Form1, Form2, Form3 } from "./Checkout";
+import {useRouter} from "next/router";
+import React, {useEffect, useState} from "react";
+import {Form1, Form2, Form3} from "./Checkout";
 export default function Multistep() {
-  const router  = useRouter()
+  const router = useRouter();
   let mode = 2;
   const {onOpen, onClose, isOpen} = useDisclosure();
   const toast = useToast();
@@ -46,11 +46,10 @@ export default function Multistep() {
             customer: el._id,
             total: el.quantity * el.product.price,
             address: addr,
-            quantity:el.quantity
+            quantity: el.quantity,
           };
           axios.post(process.env.Order_Route, newProduct);
           axios.delete(process.env.Cart_Route);
-          
         } catch (err) {
           console.log(err);
         }
@@ -61,7 +60,7 @@ export default function Multistep() {
   const handlePost = () => {
     PostData();
 
-    router.push("/cart")
+    router.push("/cart");
     toast({
       title:
         mode == 1
@@ -70,6 +69,7 @@ export default function Multistep() {
       description: "It will react to you in 2-3 business days",
       status: "success",
       duration: 3000,
+      position: "top-right",
       isClosable: true,
     });
     localStorage.clear();
@@ -85,7 +85,7 @@ export default function Multistep() {
       >
         <Box w={{base: "100%", sm: "45%"}}>
           <Image
-          m={"auto"}
+            m={"auto"}
             src="https://media.istockphoto.com/id/1388108025/vector/contactless-customer-payment-to-grocery-shop-cashier.jpg?s=612x612&w=0&k=20&c=xm_MasxuaP4kzcyG1cj7B1zjteWdrhuda8o2Xs2Ze0g="
             fit={"cover"}
           />
