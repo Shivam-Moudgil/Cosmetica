@@ -104,13 +104,13 @@ export default function Categories(props) {
   return (
     <Container
       border="1px solid red"
-      maxW={{ base: "full", lg: "96%" }}
+      maxW={{base: "full", lg: "96%"}}
       mx={10}
       m="auto"
       p={0}
     >
       <Flex justifyContent="space-between" gap={5}>
-        <Container maxW="23%" display={{ base: "none", md: "block" }}>
+        <Container maxW="23%" display={{base: "none", md: "block"}}>
           <Box>
             <Text fontFamily="lato, sans-serif" fontWeight="700" py={3}>
               Refine
@@ -135,11 +135,17 @@ export default function Categories(props) {
               </h2>
               <AccordionPanel h="150" className="scrollbar__hide">
                 <Stack spacing={1}>
-                  <Checkbox onChange={handleFilterPrice} value={{min: 0, max:1000}}>
-                    <Text fontSize={"15"} >Less than ₹1000</Text>
+                  <Checkbox
+                    onChange={handleFilterPrice}
+                    value={{min: 0, max: 1000}}
+                  >
+                    <Text fontSize={"15"}>Less than ₹1000</Text>
                   </Checkbox>
-                  <Checkbox onChange={handleFilterPrice} value={{min: 1000, max:2000}}>
-                    <Text fontSize={"15"} >₹1000 - ₹2000</Text>
+                  <Checkbox
+                    onChange={handleFilterPrice}
+                    value={{min: 1000, max: 2000}}
+                  >
+                    <Text fontSize={"15"}>₹1000 - ₹2000</Text>
                   </Checkbox>
                   <Checkbox onChange={handleFilterPrice}>
                     <Text fontSize={"15"}>₹2000 - ₹3000</Text>
@@ -216,7 +222,7 @@ export default function Categories(props) {
           </Accordion>
         </Container>
 
-        <Container maxW={{ base: "full", ld: "75%" }}>
+        <Container maxW={{base: "full", ld: "75%"}}>
           <Heading fontFamily="Poly, serif" fontSize="24px" fontWeight="400">
             {page.title}
           </Heading>
@@ -281,18 +287,20 @@ export default function Categories(props) {
                 <Heading fontSize="16" fontWeight="bold" mb={5}>
                   Rewards members earn 1220 points on this order
                 </Heading>
-                <Flex gap={3} direction={{ base: "column-reverse", md: "row" }}>
-                  <Button
-                    borderRadius="none"
-                    variant="unstyled"
-                    w="full"
-                    fontWeight="normal"
-                    border="2px solid black"
-                    fontSize="14"
-                    onClick={onClose}
-                  >
-                    CONTINUE SHOPPING
-                  </Button>
+                <Flex gap={3} direction={{base: "column-reverse", md: "row"}}>
+                  <Link href="/" passHref>
+                    <Button
+                      borderRadius="none"
+                      variant="unstyled"
+                      w="full"
+                      fontWeight="normal"
+                      border="2px solid black"
+                      fontSize="14"
+                      onClick={onClose}
+                    >
+                      CONTINUE SHOPPING
+                    </Button>
+                  </Link>
                   <Button
                     borderRadius="none"
                     variant="unstyled"
@@ -302,7 +310,7 @@ export default function Categories(props) {
                     fontWeight="normal"
                     fontSize="14"
                   >
-                    <Link href="/cart">VIEW CART</Link>
+                    <Link href="/cart" passHref>VIEW CART</Link>
                   </Button>
                 </Flex>
               </ModalBody>
@@ -312,7 +320,7 @@ export default function Categories(props) {
           </Modal>
 
           <Grid
-            templateColumns={{ base: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }}
+            templateColumns={{base: "repeat(2, 1fr)", lg: "repeat(3, 1fr)"}}
             gap={8}
             w="100%"
           >
@@ -322,7 +330,7 @@ export default function Categories(props) {
                   <GridItem
                     key={item._id}
                     w="100%"
-                    h={{ base: "300px", sm: "350px", lg: "400px" }}
+                    h={{base: "300px", sm: "350px", lg: "400px"}}
                     my={6}
                   >
                     <Flex
@@ -350,11 +358,19 @@ export default function Categories(props) {
                       <Text pt={3} fontSize="14" textAlign="center">
                         {item.name}
                       </Text>
-                      <HStack pt={3} spacing={0} m="auto">
-                        {new Array(item.rating).fill(0).map((elem) => (
-                          <AiFillStar />
-                        ))}
-                      </HStack>
+                      <Box
+                        display={"flex"}
+                        justifyContent="center"
+                        alignItems={"center"}
+                        gap={1}
+                      >
+                        <HStack spacing={0} m="auto">
+                          {new Array(item.rating).fill(0).map((elem) => (
+                            <AiFillStar />
+                          ))}
+                        </HStack>
+                        <Text>{item.ratingcount}</Text>
+                      </Box>
                       <Text
                         py={2}
                         fontWeight="bold"
@@ -374,12 +390,21 @@ export default function Categories(props) {
                         color="white"
                         w="full"
                         fontWeight="normal"
-                        py={{ base: 1, lg: 2 }}
+                        py={{base: 1, lg: 2}}
                         onClick={async () => {
                           onOpen();
                           setModalData(item);
-                          
-                          await axios.post("http://localhost:3000/api/cart", {product: modalData, quantity: 1, user: ""});
+                          try {
+                            await axios
+                              .post("http://localhost:3000/api/cart", {
+                                product: item._id,
+                                quantity: 1,
+                              })
+                              .then((res) => console.log(res))
+                              .catch((err) => console.log(err));
+                          } catch (err) {
+                            console.log(err);
+                          }
                         }}
                       >
                         Quick Buy

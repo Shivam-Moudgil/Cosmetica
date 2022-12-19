@@ -1,25 +1,21 @@
 import {
-  CloseButton,
-  Flex,
-  Input,
-  Link,
-  HStack,
-  Button,
-  useNumberInput,
+  Button, CloseButton,
+  Flex, HStack, Input,
+  Link, useToast
 } from "@chakra-ui/react";
-import * as React from "react";
-import {CartProductMeta} from "./CartProuctm";
-import {PriceTag} from "./Cart_Price";
 import axios from "axios";
+import * as React from "react";
+import { CartProductMeta } from "./CartProuctm";
+import { PriceTag } from "./Cart_Price";
 const QuantitySelect = (props) => {
   const [Value, SetValue] = React.useState(props.quantity);
-
+  const toast = useToast();
   const handleChange = ({target}) => {
     // Value > props.quantity ? SetValue(props.qty) : SetValue(target.value);
     // increment(props.cartid, "add", props.prdid);
   };
 
-  console.log(Value);
+  console.log(props.value);
   const increment = async (id, query, prdid) => {
     try {
       const body = {q: query, prd_id: prdid};
@@ -67,7 +63,7 @@ const QuantitySelect = (props) => {
 
 export const CartItem = (props) => {
   const [refresh, setRefresh] = React.useState(false);
-
+  const toast = useToast();
   const {
     isGiftWrapping,
     name,
@@ -87,10 +83,16 @@ export const CartItem = (props) => {
   const handleDelete = async (id) => {
     console.log(id);
     try {
-      const res = await axios.delete("process.env.Cart_Route" + id);
+      const res = await axios.delete(process.env.Cart_Route+ id);
       // console.log("res", res);
       updateData();
-      // alert("Deleted");
+     toast({
+    title: "Deleted",
+    position: "top",
+    status: "warning",
+    duration: 3000,
+    isClosable: true,
+  });
     } catch (err) {
       console.log(err);
     }

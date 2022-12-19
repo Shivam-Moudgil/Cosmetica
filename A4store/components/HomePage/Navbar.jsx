@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect} from "react";
 import {
   Box,
   Button,
@@ -13,7 +13,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import Link from 'next/link';
+import Link from "next/link";
 import ColorLogo from "./Images/ColorLogo.png";
 import {CloseIcon, HamburgerIcon, SearchIcon} from "@chakra-ui/icons";
 import {RxPerson} from "react-icons/rx";
@@ -31,7 +31,6 @@ export default function Navbar2() {
   const updateData = () => {
     setRefresh(!refresh);
   };
-
 
   useEffect(() => {
     getdata()
@@ -53,11 +52,13 @@ export default function Navbar2() {
       <Box display={{base: "none", md: "none", lg: "block"}}>
         <Flex justifyContent={"space-between"} alignItems="center" px={20}>
           <Box>
-            <Image
-              ml={"24"}
-              src="/admin_images/Colorlogowithbackground.svg"
-              w={20}
-            />
+            <Link href="/" passhref>
+              <Image
+                ml={"24"}
+                src="/admin_images/Colorlogowithbackground.svg"
+                w={20}
+              />
+            </Link>
           </Box>
           <Box>
             <InputGroup>
@@ -74,15 +75,37 @@ export default function Navbar2() {
               </InputRightElement>
             </InputGroup>
           </Box>
-          <Flex gap={20}>
-            <Button colorScheme={"white"} variant="ghost">
-              <Icon as={RxPerson} mr={2} />
-              Account
-            </Button>
+          <Flex gap={4}>
+            <Flex>
+              <Link href={"/signup"} passHref>
+                <Button colorScheme={"white"} variant="ghost">
+                  <Icon as={RxPerson} mr={2} />
+                  Signup
+                </Button>
+              </Link>
+              <Link href={"/login"} passHref>
+                <Button colorScheme={"white"} variant="ghost">
+                  <Icon as={RxPerson} mr={2} />
+                  Login
+                </Button>
+              </Link>
+            </Flex>
             <Link href="/cart">
               <Button colorScheme={"white"} variant="ghost">
-                <Icon as={CgShoppingCart} mr={2} />
-                <Box p={1} fontSize='10px' borderRadius='full' bg='black' color={'white'} pos='relative' top='-10px' left='-15px' w='20px'>{cartdata.length}</Box>
+                <Icon as={CgShoppingCart} />
+                <Box
+                  p={1}
+                  fontSize="10px"
+                  borderRadius="full"
+                  bg="black"
+                  color={"white"}
+                  pos="relative"
+                  top="-10px"
+                  left="-15px"
+                  w="20px"
+                >
+                  {cartdata.length}
+                </Box>
                 Cart
               </Button>
             </Link>
@@ -98,9 +121,9 @@ export default function Navbar2() {
           // gap={8}
         >
           <Link href="/skin-care">Skin Care</Link>
-          <Link href='/makeup'>Makeup</Link>
-          <Link href='/hair-care'>Hair Care</Link>
-          <Link href='/bath-body'>Bath & Body</Link>
+          <Link href="/makeup">Makeup</Link>
+          <Link href="/hair-care">Hair Care</Link>
+          <Link href="/bath-body">Bath & Body</Link>
         </Flex>
       </Box>
       <Box w="100vw" display={{lg: "none"}}>
@@ -118,13 +141,15 @@ export default function Navbar2() {
           />
           <SearchIcon />
           <Box>
-            <Image
-              src={ColorLogo}
-              alt="website-logo"
-              w="80px"
-              h="50px"
-              borderRadius="full"
-            />
+            <Link href="/" passHref>
+              <Image
+                src={ColorLogo}
+                alt="website-logo"
+                w="80px"
+                h="50px"
+                borderRadius="full"
+              />
+            </Link>
           </Box>
           <Flex gap={8}>
             <Button size="xs" variant="ghost">
@@ -134,7 +159,19 @@ export default function Navbar2() {
             <Link href="/cart">
               <Button colorScheme={"white"} variant="ghost">
                 <Icon as={CgShoppingCart} mr={2} />
-                <Box p={1} fontSize='10px' borderRadius='full' bg='black' color={'white'} pos='relative' top='-10px' left='-15px' w='20px'>{cartdata.length}</Box>
+                <Box
+                  p={1}
+                  fontSize="10px"
+                  borderRadius="full"
+                  bg="black"
+                  color={"white"}
+                  pos="relative"
+                  top="-10px"
+                  left="-15px"
+                  w="20px"
+                >
+                  {cartdata.length}
+                </Box>
                 Cart
               </Button>
             </Link>
@@ -150,9 +187,9 @@ export default function Navbar2() {
             wrap="wrap"
           >
             <Link href="/skin-care">Skin Care</Link>
-            <Link href='/makeup'>Makeup</Link>
-            <Link href='/hair-care'>Hair Care</Link>
-            <Link href='/bath-body'>Bath & Body</Link>
+            <Link href="/makeup">Makeup</Link>
+            <Link href="/hair-care">Hair Care</Link>
+            <Link href="/bath-body">Bath & Body</Link>
           </VStack>
         </Box>
       ) : null}

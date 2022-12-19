@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   if (method === "GET") {
     // verifyUser(req, res);{user: req.user.id}
     try {
-      const allCartItems = await CartItems.find().populate([
+      const allCartItems = await CartItems.find({}).populate([
         "product",
       ]);
       res.status(200).json(allCartItems);
