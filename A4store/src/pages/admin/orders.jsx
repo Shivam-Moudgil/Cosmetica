@@ -1,6 +1,7 @@
 import { Box, HStack, VStack } from '@chakra-ui/react'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import AdminSidebar from '../../../components/admin/home/Admin.sidebar'
@@ -120,6 +121,22 @@ const Orders = ({ purchasedItems, length: len }) => {
 }
 
 export default Orders
+
+Orders.getLayout = function PageLayout(page) {
+  return (
+    <>
+      <Head>
+        <title>Cosmetica</title>
+        <meta
+          name="description"
+          content="Purchase beauty and cosmetic products"
+        />
+        <link rel="icon" href="/Colorlogowithbackground.svg" />
+      </Head>
+      {page}
+    </>
+  )
+}
 
 export const getServerSideProps = async (cxt) => {
   const {
