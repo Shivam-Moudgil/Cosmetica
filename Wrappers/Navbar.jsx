@@ -1,6 +1,5 @@
-import axios from "axios";
-import React, {useEffect, useState} from "react";
-import {Navbarmain} from "../components/HomePage/Navbarmain";
+import React from "react";
+import { Navbarmain } from "../components/HomePage/Navbarmain";
 
 const Navbar = () => {
   // const [len, setLen] = useState([]);

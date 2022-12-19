@@ -1,5 +1,3 @@
-import React, {useState} from "react";
-
 import {
   Box,
   Input,
@@ -16,51 +14,55 @@ import {AiFillFacebook} from "react-icons/Ai";
 import {FcGoogle} from "react-icons/Fc";
 import axios from "axios";
 import {useRouter} from "next/router";
+import { useState } from "react";
 function Login() {
-  const toast = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({});
+  const toast = useToast();
   const router = useRouter();
+  const customToast = (title, desc, status) => {
+    return toast({
+      position: "top",
+      title: title,
+      description: desc,
+      status: status,
+      duration: 4000,
+      isClosable: true,
+    });
+  };
   let handleChange = (e) => {
     let {name, value} = e.target;
-
     setData({...data, [name]: value});
   };
-  let handleClick = async () => {
-    // console.log(data);
-
-    const body = {
-      email: data.email,
-      password: data.password,
-    };
-    await axios
-      .post("http://localhost:3000/api/auth/login", body)
-      .then((res) => {
-        toast({
-          title: "Register Successfull",
-          position: "top",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
-
-        if (res.status === 200) {
-          window.location.href = "/";
-        }
-      })
-      .catch((err) => {
-        toast({
-          title: err.message,
-          position: "top",
-          status: "err",
-          duration: 3000,
-          isClosable: true,
-        });
-      });
+  let handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      const body = {
+        email: data.email,
+        password: data.password,
+      };
+      if (data.email === "" || data.password === "") {
+        return customToast(
+          "Input details error!",
+          "Fill all required input feilds!",
+          "error"
+        );
+      }
+      const postdata = await axios.post("/api/auth/login", body);
+      if (postdata.status === 200) {
+        customToast("Login Message", "Login successful", "success");
+        router.back();
+      }
+    } catch (error) {
+      console.log(error);
+      customToast("Login error!", "Login failed!", "error");
+    }
   };
   return (
     <>
       <Box
+        as="form"
+        onSubmit={handleClick}
         display={["block", "block", "block", "flex"]}
         w={["100%", "100%", "100%", "80%"]}
         m="auto"
@@ -179,8 +181,9 @@ function Login() {
             color="white"
             borderRadius="none"
             mt="1rem"
+            type="submit"
           >
-            <a href="/signup"> CONTINUE</a>
+            CONTINUE
           </Button>
         </Box>
       </Box>

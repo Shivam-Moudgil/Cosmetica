@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import Cart from '../models/Cart'
+import Auth from '../models/auth'
+import Orders from '../models/Order'
+import Products from '../models/Product'
 
 
 const MONGO_URL = process.env.MONGO_URL;
@@ -12,7 +16,7 @@ if (!MONGO_URL) {
 let cached = global.mongoose;
 
 if (!cached) {
-  cached = global.mongoose = {conn: null, promise: null};
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
 async function dbConnect() {

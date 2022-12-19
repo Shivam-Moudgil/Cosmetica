@@ -131,7 +131,6 @@ Orders.getLayout = function PageLayout(page) {
           name="description"
           content="Purchase beauty and cosmetic products"
         />
-        <link rel="icon" href="/Colorlogowithbackground.svg" />
       </Head>
       {page}
     </>
