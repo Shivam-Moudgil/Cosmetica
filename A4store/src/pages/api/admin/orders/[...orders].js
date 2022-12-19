@@ -1,5 +1,5 @@
 import dbConnect from "../../../../../utils/mongo";
-import { PurchasedItems } from "../../../../../models/purchasedItems.model";
+import PurchasedItems from "../../../../../models/Order";
 import verifyAdmin from './../../../../../middlewares/verifyAdmin'
 
 const handler = async (req, res) => {
@@ -9,7 +9,7 @@ const handler = async (req, res) => {
         limit = 15,
         page = 1,
         orderDate,
-        deleveryDate,
+        deliveryDate,
     } = req.query
     try {
         await dbConnect()
@@ -27,8 +27,9 @@ const handler = async (req, res) => {
                             user: 1,
                             product: 1,
                             quantity: 1,
-                            dateOfPurchase: 1,
-                            dateOfDelevery: 1,
+                            createdAt: 1,
+                            method: 1,
+                            deliveryDate: 1,
                             month: { $month: '$createdAt' },
                             year: { $year: '$createdAt' },
                         },
@@ -38,16 +39,18 @@ const handler = async (req, res) => {
                     { $skip: ((+page) - 1) * Number(limit) },
                     { $limit: +limit }
                 ])
-            } else if (qty && deleveryDate) {
-                let [year, month] = deleveryDate.split('-')
+            } else if (qty && deliveryDate) {
+                let [year, month] = deliveryDate.split('-')
                 purchasedItems = await PurchasedItems.aggregate([
                     {
                         $project: {
                             user: 1,
                             product: 1,
                             quantity: 1,
-                            dateOfPurchase: 1,
-                            dateOfDelevery: 1,
+                            createdAt: 1,
+                            deliveryDate: 1,
+                            method: 1,
+                            total: 1,
                             month: { $month: '$createdAt' },
                             year: { $year: '$createdAt' },
                         },
@@ -80,8 +83,10 @@ const handler = async (req, res) => {
                             user: 1,
                             product: 1,
                             quantity: 1,
-                            dateOfPurchase: 1,
-                            dateOfDelevery: 1,
+                            createdAt: 1,
+                            total: 1,
+                            method: 1,
+                            deliveryDate: 1,
                             month: { $month: '$createdAt' },
                             year: { $year: '$createdAt' },
                         },
@@ -90,16 +95,18 @@ const handler = async (req, res) => {
                     { $skip: ((+page) - 1) * Number(limit) },
                     { $limit: +limit }
                 ])
-            } else if (deleveryDate) {
-                let [year, month] = deleveryDate.split('-')
+            } else if (deliveryDate) {
+                let [year, month] = deliveryDate.split('-')
                 purchasedItems = await PurchasedItems.aggregate([
                     {
                         $project: {
                             user: 1,
                             product: 1,
                             quantity: 1,
-                            dateOfPurchase: 1,
-                            dateOfDelevery: 1,
+                            createdAt: 1,
+                            total: 1,
+                            method: 1,
+                            deliveryDate: 1,
                             month: { $month: '$createdAt' },
                             year: { $year: '$createdAt' },
                         },
@@ -109,7 +116,18 @@ const handler = async (req, res) => {
                     { $limit: +limit }
                 ])
             } else if (status) {
-                // add in data base 
+                purchasedItems = await PurchasedItems.find({});
+                let newItemsList;
+                if (status === 'pending') {
+                    newItemsList = purchasedItems.filter(item => {
+                        return (new Date(item.deliveryDate) - new Date(Date.now()) > 0)
+                    })
+                } else if (status === 'delevered') {
+                    newItemsList = purchasedItems.filter(item => {
+                        return (new Date(Date.now()) - new Date(item.deliveryDate) > 0)
+                    })
+                }
+                purchasedItems = newItemsList;
             }
             return res.json({ purchasedItems, length })
         }

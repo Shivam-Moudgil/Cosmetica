@@ -19,7 +19,7 @@ const TableBody = ({
   return (
     <Tbody>
       {products?.map((ele) => (
-        <Tr bg="#dbd7d2" key={ele?._id} style={{ height: '60px' }}>
+        <Tr bg="#f3f3f3" key={ele?._id} style={{ height: '60px' }}>
           <Td fontSize={11} color="black">
             {ele?._id}
           </Td>
