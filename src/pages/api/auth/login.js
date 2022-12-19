@@ -1,13 +1,13 @@
 
-import {sign} from "jsonwebtoken";
-import {serialize} from "cookie";
+import { sign } from "jsonwebtoken";
+import { serialize } from "cookie";
 import dbConnect from "../../../../utils/mongo";
 import bcrypt from "bcrypt";
 import auth from "../../../../models/auth";
 const secret = process.env.Secret_key;
 
 const handler = async (req, res) => {
-  const {method} = req;
+  const { method } = req;
   dbConnect();
 
   if (method === "POST") {
@@ -40,14 +40,16 @@ const handler = async (req, res) => {
 
       res.setHeader("Set-Cookie", serialised);
 
-      res
+      return res
         .status(200)
         .json("Logged in");
-       
-        
+
+
     } catch (err) {
       res.status(500).json(err.message);
     }
+  } else {
+    return res.status(404).json('wrong method!');
   }
 };
 

@@ -13,12 +13,12 @@ export default async function handler(req, res) {
   //  }
 
   if (method === "GET") {
-    // verifyUser(req, res);{user: req.user.id}
+    verifyUser(req, res)
     try {
-      const allCartItems = await CartItems.find({}).populate([
+      const allCartItems = await CartItems.find({ user: req.user.id }).populate([
         "product",
       ]);
-      res.status(200).json(allCartItems);
+      return res.status(200).json(allCartItems);
     } catch (error) {
       return res.status(500).json(error);
     }

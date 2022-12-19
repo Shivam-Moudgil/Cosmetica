@@ -1,6 +1,7 @@
 import connect from "../../../../middlewares/connect";
 import Signup from "../../../../models/Signup";
 
+
 const handlers = async (req, res) => {
   const { method } = req;
   if (method == "GET") {
