@@ -12,24 +12,54 @@ import {CartProductMeta} from "./CartProuctm";
 import {PriceTag} from "./Cart_Price";
 import axios from "axios";
 const QuantitySelect = (props) => {
-  const {getInputProps, getIncrementButtonProps, getDecrementButtonProps} =
-    useNumberInput({
-      step: 1,
-      defaultValue: props.quantity,
-      min: 1,
-      max: props.value,
-    });
+  const [Value, SetValue] = React.useState(props.quantity);
 
-  const inc = getIncrementButtonProps();
-  const dec = getDecrementButtonProps();
-  const input = getInputProps();
+  const handleChange = ({target}) => {
+    // Value > props.quantity ? SetValue(props.qty) : SetValue(target.value);
+    // increment(props.cartid, "add", props.prdid);
+  };
+
+  console.log(Value);
+  const increment = async (id, query, prdid) => {
+    try {
+      const body = {q: query, prd_id: prdid};
+      if (body.q == "add") {
+        SetValue(props.quantity + 1);
+      } else {
+        SetValue(props.quantity - 1);
+      }
+
+      await axios
+        .put(process.env.Cart_Route + id, body)
+        .then((res) => console.log(res));
+      props.updateData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       {" "}
       <HStack maxW="150px">
-        <Button {...inc}>+</Button>
-        <Input {...input} />
-        <Button {...dec}>-</Button>
+        <Button
+          onClick={() => increment(props.cartid, "add", props.prdid)}
+          // {...inc}
+        >
+          +
+        </Button>
+        <Input
+          value={Value}
+          onChange={handleChange}
+          // {...input}
+        />
+        <Button
+          isDisabled={Value == 1}
+          onClick={() => increment(props.cartid, "remove", props.prdid)}
+          // {...dec}
+        >
+          -
+        </Button>
       </HStack>
     </>
   );
@@ -48,6 +78,7 @@ export const CartItem = (props) => {
     price,
     quantity,
     id,
+    _id,
     updateData,
   } = props;
   React.useEffect(() => {
@@ -56,8 +87,8 @@ export const CartItem = (props) => {
   const handleDelete = async (id) => {
     console.log(id);
     try {
-      const res = await axios.delete("http://localhost:3000/api/cart/" + id);
-      console.log("res", res);
+      const res = await axios.delete("process.env.Cart_Route" + id);
+      // console.log("res", res);
       updateData();
       // alert("Deleted");
     } catch (err) {
@@ -94,6 +125,9 @@ export const CartItem = (props) => {
         <QuantitySelect
           value={qty}
           quantity={quantity}
+          cartid={id}
+          prdid={_id}
+          updateData={updateData}
           onChange={(e) => {
             onChangeQuantity?.(+e.currentTarget.value);
           }}
@@ -126,6 +160,9 @@ export const CartItem = (props) => {
         <QuantitySelect
           value={qty}
           quantity={quantity}
+          cartid={id}
+          prdid={_id}
+          updateData={updateData}
           onChange={(e) => {
             onChangeQuantity?.(+e.currentTarget.value);
           }}

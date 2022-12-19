@@ -1,15 +1,14 @@
-import {Box, Button, Image, Text} from "@chakra-ui/react";
-
+import {Box, Button, Image, Link, Text} from "@chakra-ui/react";
+import NextLink from "next/link";
 import React from "react";
 import Bottomimg from "./Bottomimg";
 import CustomerCare from "./CustomerCare";
-
 
 const CartEmpty = () => {
   //   console.log(data);
   return (
     <>
-          <Box p={21} m={"auto"} w={{ base:"100vw", md:"90vw"}}>
+      <Box p={21} m={"auto"} w={{base: "100vw", md: "90vw"}}>
         <Box>
           {" "}
           <Text borderBottom={"2px solid"} mb={1} fontSize={20}>
@@ -33,14 +32,18 @@ const CartEmpty = () => {
           >
             There are currently no items in your cart.
           </Text>
-          <Button bgColor={"black"} colorScheme="teal" color="white" p={5}>
-            Continue Shopping
-          </Button>
+          <Link as={NextLink} href="/" color={"white"}>
+            <Button bgColor={"black"} colorScheme="teal" color="white" p={5}>
+              Continue Shopping
+            </Button>
+          </Link>
         </Box>
-              <Box>
-                  <CustomerCare/>
-</Box>
-       <Box><Bottomimg/></Box>
+        <Box>
+          <CustomerCare />
+        </Box>
+        <Box>
+          <Bottomimg />
+        </Box>
       </Box>
     </>
   );
