@@ -9,27 +9,26 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import AdminSidebar from '../../../components/admin/home/Admin.sidebar'
-import AdminNavbar from '../../../components/admin/home/Admin.navbar'
-import { BsArrowUpShort } from 'react-icons/bs'
-import { BiDownArrowAlt } from 'react-icons/bi'
-import { RiFilterLine } from 'react-icons/ri'
-import TableHeadRow from '../../../components/admin/products/TableHeadRow'
-import { wrapper } from '../../../redux/store'
-import dbConnect from '../../../utils/mongo'
-import Products from '../../../models/Product'
-import { useRouter } from 'next/router'
 import axios from 'axios'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import { BiDownArrowAlt } from 'react-icons/bi'
+import { BsArrowUpShort } from 'react-icons/bs'
+import { RiFilterLine } from 'react-icons/ri'
+import styled from 'styled-components'
+import AdminNavbar from '../../../components/admin/home/Admin.navbar'
+import AdminSidebar from '../../../components/admin/home/Admin.sidebar'
+import AddNewproductModel from '../../../components/admin/products/AddNewProduct'
+import DisplaySingleProductModel from '../../../components/admin/products/DisplaySingleProductModel'
+import EditProductDetails from '../../../components/admin/products/EditProduct'
 import Pagination from '../../../components/admin/products/Pagination'
 import ShowLimit from '../../../components/admin/products/ShowLimit'
 import TableBody from '../../../components/admin/products/TableBody'
-import EditProductDetails from '../../../components/admin/products/EditProduct'
-import AddNewproductModel from '../../../components/admin/products/AddNewProduct'
-import DisplaySingleProductModel from '../../../components/admin/products/DisplaySingleProductModel'
-import jwt from 'jsonwebtoken'
-import Head from 'next/head'
+import TableHeadRow from '../../../components/admin/products/TableHeadRow'
+import { refreshCookie } from '../../../middlewares/checkCookie'
+import Products from '../../../models/Product'
+import { wrapper } from '../../../redux/store'
+import dbConnect from '../../../utils/mongo'
 
 const fetchData = (url) => {
   return axios.get(url)
@@ -238,18 +237,7 @@ const RecentOrders = () => {
 export default RecentOrders
 
 RecentOrders.getLayout = function PageLayout(page) {
-  return (
-    <>
-      <Head>
-        <title>Cosmetica</title>
-        <meta
-          name="description"
-          content="Purchase beauty and cosmetic products"
-        />
-      </Head>
-      {page}
-    </>
-  )
+  return <>{page}</>
 }
 
 const StyledTableContainer = styled(TableContainer)`
@@ -262,37 +250,13 @@ const StyledTableContainer = styled(TableContainer)`
 `
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
-    const { query } = context
-    const {
-      cookies: { admin_auth },
-    } = context.req
+  (store) => async (ctx) => {
+    const { query } = ctx
+
     const { page = 1, limit = 15, quantity, price, rating } = query
     try {
-      if (admin_auth) {
-        let verification = jwt.verify(admin_auth, process.env.JWT_SECRET)
-        if (verification && verification.isRemembered) {
-          let newToken = jwt.sign(
-            {
-              userName: verification.userName,
-              email: verification.email,
-              isRemembered: verification.isRemembered,
-            },
-            process.env.JWT_SECRET,
-            { expiresIn: '30 days' },
-          )
-          res.setHeader(
-            'Set-Cookie',
-            cookie.serialize('admin_auth', newToken, {
-              httpOnly: true,
-              secure: process.env.NODE_ENV !== 'development',
-              sameSite: 'strict',
-              maxAge: 60 * 60 * 24 * 30,
-              path: '/',
-            }),
-          )
-        }
-      } else {
+      const response = refreshCookie(ctx.req, ctx.res)
+      if (response === 'redirect') {
         return {
           redirect: {
             destination: '/admin/login',

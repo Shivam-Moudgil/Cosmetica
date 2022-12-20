@@ -1,31 +1,30 @@
-import React from 'react'
 import { Box, Grid, HStack, VStack } from '@chakra-ui/react'
-import AdminSidebar from '../../../components/admin/home/Admin.sidebar'
-import AdminNavbar from '../../../components/admin/home/Admin.navbar'
-import AdminInfoCards from '../../../components/admin/home/Admin.infoCards'
-import RevenueBarChart from '../../../components/admin/home/charts/RevenueBarChart'
-import UsersBarChart from '../../../components/admin/home/charts/UsersBarChart'
-import jwt from 'jsonwebtoken'
-import dbConnect from '../../../utils/mongo'
-import PurchasedItems from '../../../models/Order'
-import { wrapper } from '../../../redux/store'
+import React from 'react'
+import { GrDeliver } from 'react-icons/gr'
 import { IoWalletSharp } from 'react-icons/io5'
 import {
-  MdOutlineProductionQuantityLimits,
   MdOutlinePendingActions,
+  MdOutlineProductionQuantityLimits,
 } from 'react-icons/md'
-import { GrDeliver } from 'react-icons/gr'
+import AdminInfoCards from '../../../components/admin/home/Admin.infoCards'
+import AdminNavbar from '../../../components/admin/home/Admin.navbar'
+import AdminSidebar from '../../../components/admin/home/Admin.sidebar'
+import RevenueBarChart from '../../../components/admin/home/charts/RevenueBarChart'
+import UsersBarChart from '../../../components/admin/home/charts/UsersBarChart'
+import PurchasedItems from '../../../models/Order'
+import { wrapper } from '../../../redux/store'
+import dbConnect from '../../../utils/mongo'
 
 import {
-  getCurrentTime,
-  getRevenueOfGivenYear,
   getActiveUsers,
+  getAllPendingAndDeleveredItemsOfYear,
+  getCurrentTime,
   getDaywiseSaleData,
+  getRevenueOfGivenYear,
   getTotalPuchasedItemsQuantity,
   getTotalQuantityOfYear,
-  getAllPendingAndDeleveredItemsOfYear,
 } from '../../../assets/chartData'
-import Head from 'next/head'
+import { refreshCookie } from '../../../middlewares/checkCookie'
 
 const AdminHome = ({
   totalSaleAndQuantity,
@@ -105,50 +104,14 @@ const AdminHome = ({
 export default AdminHome
 
 AdminHome.getLayout = function PageLayout(page) {
-  return (
-    <>
-      <Head>
-        <title>Cosmetica</title>
-        <meta
-          name="description"
-          content="Purchase beauty and cosmetic products"
-        />
-      </Head>
-      {page}
-    </>
-  )
+  return <>{page}</>
 }
 
 export const getServerSideProps = wrapper.getStaticProps(
   (store) => async (ctx) => {
-    const {
-      cookies: { admin_auth },
-    } = ctx.req
     try {
-      if (admin_auth) {
-        let verification = jwt.verify(admin_auth, process.env.JWT_SECRET)
-        if (verification && verification.isRemembered) {
-          let newToken = jwt.sign(
-            {
-              userName: verification.userName,
-              email: verification.email,
-              isRemembered: verification.isRemembered,
-            },
-            process.env.JWT_SECRET,
-            { expiresIn: '30 days' },
-          )
-          res.setHeader(
-            'Set-Cookie',
-            cookie.serialize('admin_auth', newToken, {
-              httpOnly: true,
-              secure: process.env.NODE_ENV !== 'development',
-              sameSite: 'strict',
-              maxAge: 60 * 60 * 24 * 30,
-              path: '/',
-            }),
-          )
-        }
-      } else {
+      const response = refreshCookie(ctx.req, ctx.res)
+      if (response === 'redirect') {
         return {
           redirect: {
             destination: '/admin/login',
@@ -162,7 +125,6 @@ export const getServerSideProps = wrapper.getStaticProps(
       let purchasedItems = await PurchasedItems.find().populate(['product'])
       let allUsers = []
       purchasedItems = JSON.parse(JSON.stringify(purchasedItems))
-      // allUsers = JSON.parse(JSON.stringify(allUsers))
 
       //total Sale data for Revenue Bar chart
       let totalSaleAndQuantity = getDaywiseSaleData(purchasedItems)
@@ -206,7 +168,6 @@ export const getServerSideProps = wrapper.getStaticProps(
       const totalOrdersDetails = getAllPendingAndDeleveredItemsOfYear(
         purchasedItems,
       )
-      console.log(totalOrdersDetails)
 
       return {
         props: {

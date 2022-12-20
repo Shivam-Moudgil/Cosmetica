@@ -100,7 +100,7 @@ export default function LargeWithNewsletter() {
           </Stack>
           <Stack>
             <ListHeader>Company</ListHeader>
-            <Link href={"#"}>About us</Link>
+            <Link href={"/contact"}>About us</Link>
             <Link href={"#"}>Blog</Link>
             <Link href={"mailto:shivammoudgil358@gmail.com"}>Contact us</Link>
             <Link href={"#"}>Pricing</Link>

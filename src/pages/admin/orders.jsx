@@ -1,6 +1,5 @@
 import { Box, HStack, VStack } from '@chakra-ui/react'
 import axios from 'axios'
-import jwt from 'jsonwebtoken'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -10,6 +9,7 @@ import AdminOrdersFilters from '../../../components/admin/orders/Admin.Orders.Fi
 import AdminOrdersTable from '../../../components/admin/orders/Admin.Orders.Table'
 import Pagination from '../../../components/admin/products/Pagination'
 import ShowLimit from '../../../components/admin/products/ShowLimit'
+import { refreshCookie } from '../../../middlewares/checkCookie'
 import PurchasedItems from '../../../models/Order'
 import dbConnect from '../../../utils/mongo'
 
@@ -137,43 +137,18 @@ Orders.getLayout = function PageLayout(page) {
   )
 }
 
-export const getServerSideProps = async (cxt) => {
-  const {
-    cookies: { admin_auth },
-  } = cxt.req
-  const { limit = 15, page = 1 } = cxt.query
-  try {
-    if (admin_auth) {
-      let verification = jwt.verify(admin_auth, process.env.JWT_SECRET)
-      if (verification && verification.isRemembered) {
-        let newToken = jwt.sign(
-          {
-            userName: verification.userName,
-            email: verification.email,
-            isRemembered: verification.isRemembered,
-          },
-          process.env.JWT_SECRET,
-          { expiresIn: '30 days' },
-        )
-        res.setHeader(
-          'Set-Cookie',
-          cookie.serialize('admin_auth', newToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV !== 'development',
-            sameSite: 'strict',
-            maxAge: 60 * 60 * 24 * 30,
-            path: '/',
-          }),
-        )
-      }
-    } else {
-      return {
-        redirect: {
-          destination: '/admin/login',
-          permanent: false,
-        },
-      }
+export const getServerSideProps = async (ctx) => {
+  const { limit = 15, page = 1 } = ctx.query
+  const response = refreshCookie(ctx.req, ctx.res)
+  if (response === 'redirect') {
+    return {
+      redirect: {
+        destination: '/admin/login',
+        permanent: false,
+      },
     }
+  }
+  try {
     await dbConnect()
     let items = await PurchasedItems.find()
     let length = items.length

@@ -23,7 +23,7 @@ export default function HomePage() {
       <HomeNav />
       <Box m='auto' display={{base:'block', lg:'none'}}><ImageCarouselBase items={mainCarousel} /></Box>
       <Box m='auto' display={{base:'none', lg:'block'}}><ImageCarousel items={mainCarousel} /></Box>
-      <Box align='center' my={6}>
+      <Box align='center' my={6} fontFamily="monospace">
         <Text fontSize={{base:'16px', md:'20px',lg:'24px'}}>Earn 3x Points on SENTÉ</Text>
         <Text fontSize={{base:'10px', md:'12px', lg:'14px'}}>For a limited-time, Rewards members get TRIPLE points on clinical-strength, dermatologist recommended, anti-aging formulas for sensitive skin.</Text>
       </Box>

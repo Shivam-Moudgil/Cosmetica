@@ -1,21 +1,18 @@
-import React from "react";
+import {EditIcon, HamburgerIcon, UnlockIcon} from "@chakra-ui/icons";
 import {
-  IconButton,
-  useDisclosure,
+  Box,
+  Button,
   Drawer,
   DrawerBody,
+  DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  DrawerContent,
-  Button,
-  Box,
   Heading,
-  Link,
+  IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
-import {EditIcon, HamburgerIcon, UnlockIcon} from "@chakra-ui/icons";
-import {IoIosBed} from "react-icons/io";
-import {MdFlightTakeoff} from "react-icons/md";
-import {FaPlaceOfWorship, FaTaxi} from "react-icons/fa";
+import Link from "next/link";
+import React from "react";
 // import {useDispatch, useSelector} from "react-redux";
 // import {isNotAuth} from "../../redux/auth/auth.actions";
 
@@ -61,15 +58,17 @@ const MenuBar = () => {
             borderBottomWidth="3px"
             mb={1}
           >
-            <Box>
-              <Heading fontFamily={"cursive"} fontSize={22}>
-                Cosmetica
-              </Heading>
-            </Box>
+            <Link href="/">
+              <Box>
+                <Heading fontFamily={"cursive"} fontSize={22}>
+                  Cosmetica
+                </Heading>
+              </Box>
+            </Link>
             <Box
               fontSize={14}
               display={"flex"}
-              gap={2}
+              gap={4}
               justifyContent="space-between"
             >
               <Link href="/login">
@@ -108,40 +107,35 @@ const MenuBar = () => {
             scrollBehavior={"smooth"}
             p={3}
             display={"flex"}
+            fontFamily="fantasy"
           >
-            <Link to="/">
+            <Link href="/category/bestseller">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
-                <IoIosBed />
-                Home
+                BestSeller
               </Box>
             </Link>
-            <Link to="/flights">
+            <Link href="/category/skincare">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
-                <MdFlightTakeoff />
                 SkinCare
               </Box>
             </Link>
-            <Link to="/attractions">
+            <Link href="/category/makeup">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
-                <FaPlaceOfWorship />
                 Makeup
               </Box>
             </Link>
-            <Link to="/attractions">
+            <Link href="/category/haircare">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
-                <FaPlaceOfWorship />
                 HairCare
               </Box>
             </Link>
-            <Link to="/attractions">
+            <Link href="/category/bathbody">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
-                <FaPlaceOfWorship />
                 Bath&Body
               </Box>
             </Link>
-            <Link to="/taxis">
+            <Link href="/category/perfume">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
-                <FaTaxi />
                 Fragrance
               </Box>
             </Link>
