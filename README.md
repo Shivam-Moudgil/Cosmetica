@@ -7,7 +7,7 @@ Team Manager - Shrikant  Chirmana
 <br/>
 Team Lead - Shivam Moudgil
 <br/>
-Shrikant Jaiswal
+Shrikant Jawla
 <br/>
 Tarun Rao
 <br/>
