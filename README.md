@@ -1,7 +1,7 @@
 # Project Code:  full-volleyball-922
-#Project Name : Cosmetica
+# Project Name : Cosmetica
 <br/>
-#Collaborators:-
+# Collaborators:-
 Team Manager - Shrikant  Chirmana
 Team Lead - Shivam Moudgil
 Shrikant Jaiswal
