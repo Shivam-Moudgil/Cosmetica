@@ -103,7 +103,6 @@ export default function Categories(props) {
 
   return (
     <Container
-      border="1px solid red"
       maxW={{ base: "full", lg: "96%" }}
       mx={10}
       m="auto"
