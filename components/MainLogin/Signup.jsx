@@ -58,7 +58,7 @@ function Signup() {
         router.replace('/login')
       }
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
       return customToast('Sign up error!', 'Signup failed!', 'error')
     }
   }
