@@ -6,6 +6,8 @@ import {
   HStack,
   Image,
   Text,
+  Toast,
+  useToast,
 } from '@chakra-ui/react'
 import axios from 'axios'
 import Link from 'next/link'
@@ -13,6 +15,7 @@ import React from 'react'
 import { AiFillStar } from 'react-icons/ai'
 
 const CategoriesMainItemsGrid = ({ item }) => {
+  const toast = useToast()
   return (
     <GridItem
       key={item._id}
@@ -69,16 +72,28 @@ const CategoriesMainItemsGrid = ({ item }) => {
           fontWeight="normal"
           py={{ base: 1, lg: 2 }}
           onClick={async () => {
-            onOpen()
-            setModalData(item)
             try {
               await axios
                 .post('/api/cart', {
                   product: item._id,
                   quantity: 1,
                 })
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err))
+                .then((res) => {
+                  toast({
+                    title: 'Added to cart',
+                    position: 'top-right',
+                    duration: 2000,
+                    status: 'success',
+                  })
+                })
+                .catch((err) =>
+                  toast({
+                    title: err,
+                    position: 'top-right',
+                    duration: 2000,
+                    status: 'error',
+                  }),
+                )
             } catch (err) {
               console.log(err)
             }

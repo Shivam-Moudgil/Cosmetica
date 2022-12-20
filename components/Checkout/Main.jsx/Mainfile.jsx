@@ -6,14 +6,14 @@ import {
   Image,
   Progress,
   useDisclosure,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { Form1, Form2, Form3 } from "./Checkout";
+import {useRouter} from "next/router";
+import React, {useEffect, useState} from "react";
+import {Form1, Form2, Form3} from "./Checkout";
 export default function Multistep() {
-  const router  = useRouter()
+  const router = useRouter();
   let mode = 2;
   const {onOpen, onClose, isOpen} = useDisclosure();
   const toast = useToast();
@@ -46,11 +46,10 @@ export default function Multistep() {
             customer: el._id,
             total: el.quantity * el.product.price,
             address: addr,
-            quantity:el.quantity
+            quantity: el.quantity,
           };
           axios.post(process.env.Order_Route, newProduct);
           axios.delete(process.env.Cart_Route);
-          
         } catch (err) {
           console.log(err);
         }
@@ -61,15 +60,16 @@ export default function Multistep() {
   const handlePost = () => {
     PostData();
 
-    router.push("/cart")
+    router.push("/cart");
     toast({
       title:
         mode == 1
           ? "Payment will be done via Online method"
           : "Payment will be done via COD",
-      description: "It will react to you in 2-3 business days",
+      description: "It will reach to you in 2-3 business days",
       status: "success",
       duration: 3000,
+      position: "top-right",
       isClosable: true,
     });
     localStorage.clear();
@@ -81,20 +81,21 @@ export default function Multistep() {
         border={"13px solid #0e1823"}
         h={"auto"}
         display="flex"
-        flexDir={{base: "column", sm: "row"}}
+        flexDir={{base: "column", lg: "row"}}
       >
-        <Box w={{base: "100%", sm: "45%"}}>
+        <Box w={{base: "100%", lg: "45%"}}>
           <Image
-          m={"auto"}
+            // border={"1px solid"}
+            m={"auto"}
             src="https://media.istockphoto.com/id/1388108025/vector/contactless-customer-payment-to-grocery-shop-cashier.jpg?s=612x612&w=0&k=20&c=xm_MasxuaP4kzcyG1cj7B1zjteWdrhuda8o2Xs2Ze0g="
             fit={"cover"}
           />
         </Box>
         <Box
           rounded="lg"
-          w={{base: "100%", sm: "45%"}}
+          w={{base: "100%", lg: "45%"}}
           m="auto"
-          p={6}
+          p={8}
           as="form"
         >
           <Progress
@@ -122,8 +123,8 @@ export default function Multistep() {
                   Back
                 </Button>
                 <Button
-                  w={{base: "0", sm: "7rem"}}
-                  display={{base: "none", sm: "block"}}
+                  w={{ sm: "7rem"}}
+                  display={{sm: "block"}}
                   isDisabled={step === 3}
                   onClick={() => {
                     setStep(step + 1);

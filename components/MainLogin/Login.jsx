@@ -9,11 +9,11 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
+import { AiFillFacebook } from 'react-icons/ai'
+import { FcGoogle } from 'react-icons/fc'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { AiFillFacebook } from 'react-icons/ai'
-import { FcGoogle } from 'react-icons/fc'
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [data, setData] = useState({})

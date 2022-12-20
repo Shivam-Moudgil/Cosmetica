@@ -19,6 +19,7 @@ export function Brands() {
         px={4}
         h="50px"
         borderRadius={1}
+       
         _hover={{bg: useColorModeValue("gray.100", "gray.900")}}
         onMouseEnter={onOpen}
         onMouseLeave={onClose}

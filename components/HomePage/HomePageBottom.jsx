@@ -160,7 +160,14 @@ export function StaticBlog() {
         columns={{base: 1, md: 2, lg: 3}}
       >
         {blogData.map((el) => (
-          <Box key={el.id} alignSelf="center" align={"center"}>
+          <Box
+            key={el.id}
+            alignSelf="center"
+            align={"center"}
+            fontFamily="sans-serif"
+            fontWeight={400}
+            fontStyle="revert-layer"
+          >
             <Image
               src={el.imageUrl}
               alt={el.title}

@@ -1,12 +1,16 @@
 import {
-  Button, CloseButton,
-  Flex, HStack, Input,
-  Link, useToast
+  Button,
+  CloseButton,
+  Flex,
+  HStack,
+  Input,
+  Link,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import * as React from "react";
-import { CartProductMeta } from "./CartProuctm";
-import { PriceTag } from "./Cart_Price";
+import {CartProductMeta} from "./CartProuctm";
+import {PriceTag} from "./Cart_Price";
 const QuantitySelect = (props) => {
   const [Value, SetValue] = React.useState(props.quantity);
   const toast = useToast();
@@ -15,7 +19,7 @@ const QuantitySelect = (props) => {
     // increment(props.cartid, "add", props.prdid);
   };
 
-  console.log(props.value);
+  // console.log(props.value);
   const increment = async (id, query, prdid) => {
     try {
       const body = {q: query, prd_id: prdid};
@@ -29,8 +33,21 @@ const QuantitySelect = (props) => {
         .put(process.env.Cart_Route + id, body)
         .then((res) => console.log(res));
       props.updateData();
+      toast({
+        title: `Only ${props.value} item quantity left`,
+            position: "top",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+      });
     } catch (err) {
-      console.log(err);
+      toast({
+        title: err.message,
+        position: "top",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -39,6 +56,7 @@ const QuantitySelect = (props) => {
       {" "}
       <HStack maxW="150px">
         <Button
+          isDisabled={Value > props.value}
           onClick={() => increment(props.cartid, "add", props.prdid)}
           // {...inc}
         >
@@ -83,16 +101,16 @@ export const CartItem = (props) => {
   const handleDelete = async (id) => {
     console.log(id);
     try {
-      const res = await axios.delete(process.env.Cart_Route+ id);
+      const res = await axios.delete(process.env.Cart_Route + id);
       // console.log("res", res);
       updateData();
-     toast({
-    title: "Deleted",
-    position: "top",
-    status: "warning",
-    duration: 3000,
-    isClosable: true,
-  });
+      toast({
+        title: "Deleted",
+        position: "top",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (err) {
       console.log(err);
     }
