@@ -11,40 +11,51 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Select,
+  Skeleton,
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import React from 'react'
 import Link from 'next/link'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import CategoriesMainItemsGrid from './CategoriesMainItemsGrid'
 
-const CategoriesMainItemsSection = ({ products }) => {
+const CategoriesMainItemsSection = ({
+  products,
+  updateFilters,
+  filters,
+  length,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { loading } = useSelector((s) => s.categoryFilter)
   return (
     <Container maxW={{ base: 'full', ld: '75%' }}>
       <Heading fontFamily="Poly, serif" fontSize="24px" fontWeight="400">
         {/* {page.title} */}
       </Heading>
       <Text fontSize={'14px'} py={1}>
-        4624 results
+        {length} results
       </Text>
       <Text fontSize={'14px'} lineHeight={'5'} py={4}>
         {/* {page.summary} */}
       </Text>
 
       <HStack justifyContent={'flex-end'} w="280px" my={10}>
-        <Select fontSize={'14'}>
-          <option>Default</option>
-          <option value="bestseller">Bestseller</option>
-          <option value="low-high">Price: Low to high</option>
-          <option value="high-low">Price: High to low</option>
-          <option value="alphabetically">A - Z</option>
-          <option value="discount">Percentage Discount</option>
-          <option value="rated">High Rated</option>
+        <Select
+          value={filters.typeOfSort}
+          onChange={({ target: { value } }) => {
+            updateFilters('typeOfSort', value)
+          }}
+          fontSize={'14'}
+        >
+          <option value="">Default</option>
+          <option value="asc">Price: Low to high</option>
+          <option value="desc">Price: High to low</option>
+          <option value="alpSort">A - Z</option>
+          <option value="rating">High Rated</option>
         </Select>
       </HStack>
 
@@ -71,6 +82,7 @@ const CategoriesMainItemsSection = ({ products }) => {
                     style: 'currency',
                     currency: 'INR',
                   })} */}
+                  akljdfkj
                 </Text>
               </Box>
             </HStack>
@@ -119,7 +131,6 @@ const CategoriesMainItemsSection = ({ products }) => {
               </Button>
             </Flex>
           </ModalBody>
-
         </ModalContent>
       </Modal>
 
@@ -129,7 +140,9 @@ const CategoriesMainItemsSection = ({ products }) => {
         w="100%"
       >
         {products?.map((ele) => (
-          <CategoriesMainItemsGrid key={ele._id} item={ele} />
+          <Skeleton isLoaded={!loading}>
+            <CategoriesMainItemsGrid key={ele._id} item={ele} />
+          </Skeleton>
         ))}
       </Grid>
     </Container>

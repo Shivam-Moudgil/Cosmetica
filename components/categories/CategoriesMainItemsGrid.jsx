@@ -50,8 +50,8 @@ const CategoriesMainItemsGrid = ({ item }) => {
           gap={1}
         >
           <HStack spacing={0} m="auto">
-            {new Array(item.rating).fill(0).map((elem) => (
-              <AiFillStar />
+            {new Array(item.rating).fill(0).map((elem, ind) => (
+              <AiFillStar key={ind} />
             ))}
           </HStack>
           <Text>{item.ratingcount}</Text>
