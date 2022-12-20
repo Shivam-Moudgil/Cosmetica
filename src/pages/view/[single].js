@@ -56,7 +56,6 @@ export default function SingleProduct() {
   }, [quantity]);
 
   const handleAddToCart = async () => {
-    // await axios.post("http://localhost:3000/api/cart", {product: data, quantity})
     try {
       await axios
         .post("http://localhost:3000/api/cart", { product: data, quantity })

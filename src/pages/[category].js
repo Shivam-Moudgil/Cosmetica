@@ -425,7 +425,7 @@ export default function Categories(props) {
 
 export const getStaticPaths = () => {
   const paths = links.map((link) => ({
-    params: { category: link.slug, type: link.type },
+    params: { category: link.slug},
   }));
 
   return {

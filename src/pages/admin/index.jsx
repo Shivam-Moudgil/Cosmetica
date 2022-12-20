@@ -25,7 +25,6 @@ import {
   getTotalQuantityOfYear,
   getAllPendingAndDeleveredItemsOfYear,
 } from '../../../assets/chartData'
-import Head from 'next/head'
 
 const AdminHome = ({
   totalSaleAndQuantity,
@@ -105,18 +104,7 @@ const AdminHome = ({
 export default AdminHome
 
 AdminHome.getLayout = function PageLayout(page) {
-  return (
-    <>
-      <Head>
-        <title>Cosmetica</title>
-        <meta
-          name="description"
-          content="Purchase beauty and cosmetic products"
-        />
-      </Head>
-      {page}
-    </>
-  )
+  return <>{page}</>
 }
 
 export const getServerSideProps = wrapper.getStaticProps(
@@ -206,7 +194,6 @@ export const getServerSideProps = wrapper.getStaticProps(
       const totalOrdersDetails = getAllPendingAndDeleveredItemsOfYear(
         purchasedItems,
       )
-      console.log(totalOrdersDetails)
 
       return {
         props: {

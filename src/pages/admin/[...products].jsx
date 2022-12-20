@@ -29,7 +29,6 @@ import EditProductDetails from '../../../components/admin/products/EditProduct'
 import AddNewproductModel from '../../../components/admin/products/AddNewProduct'
 import DisplaySingleProductModel from '../../../components/admin/products/DisplaySingleProductModel'
 import jwt from 'jsonwebtoken'
-import Head from 'next/head'
 
 const fetchData = (url) => {
   return axios.get(url)
@@ -238,18 +237,7 @@ const RecentOrders = () => {
 export default RecentOrders
 
 RecentOrders.getLayout = function PageLayout(page) {
-  return (
-    <>
-      <Head>
-        <title>Cosmetica</title>
-        <meta
-          name="description"
-          content="Purchase beauty and cosmetic products"
-        />
-      </Head>
-      {page}
-    </>
-  )
+  return <>{page}</>
 }
 
 const StyledTableContainer = styled(TableContainer)`
