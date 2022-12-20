@@ -24,6 +24,7 @@ export function HomeNav() {
             gap={4}
             px={4}
             m="auto"
+            fontFamily={"cursive"}
           >
             <Box
               fontSize={{base: "10px", md: "12px", lg: "14px"}}
@@ -58,7 +59,7 @@ export function HomeNav() {
           h={{base: 6, md: 8, lg: 10}}
           py={2}
         >
-          <Text fontSize={{base: "10px", md: "12px", lg: "14px"}}>
+          <Text fontFamily={"fantasy"} letterSpacing={1} fontSize={{base: "10px", md: "12px", lg: "14px"}}>
             Rewards Members: User code AVATAR to avail an Offer of 20% off on
             your final Purchase Bill. Happy Shopping
           </Text>

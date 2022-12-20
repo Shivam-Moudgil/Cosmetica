@@ -10,8 +10,8 @@ import {
   InputRightElement,
   useToast,
 } from '@chakra-ui/react'
-import { AiFillFacebook } from 'react-icons/Ai'
-import { FcGoogle } from 'react-icons/Fc'
+import { AiFillFacebook } from 'react-icons/ai'
+import { FcGoogle } from 'react-icons/fc'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 function Signup() {

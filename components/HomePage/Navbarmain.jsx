@@ -56,24 +56,24 @@ export const Navbarmain = () => {
                 listStyleType={"none"}
                 fontWeight="semibold"
               >
-                <Link href="/bestseller">
+                <Link href="/category/bestseller">
                   {" "}
                   <ListItem>BestSeller</ListItem>
                 </Link>
-                <Link href="/skin-care">
+                <Link href="/category/skincare">
                   {" "}
                   <ListItem>SkinCare</ListItem>
                 </Link>
-                <Link href="/makeup">
+                <Link href="/category/makeup">
                   <ListItem>Makeup</ListItem>
                 </Link>
-                <Link href="/hair-care">
+                <Link href="/category/haircare">
                   <ListItem>HairCare</ListItem>
                 </Link>
-                <Link href="/bath-body">
+                <Link href="/category/bathbody">
                   <ListItem>Bath&Body</ListItem>
                 </Link>
-                <Link href="/fragrance">
+                <Link href="/category/perfume">
                   <ListItem>Fragrance</ListItem>
                 </Link>
               </UnorderedList>
@@ -114,7 +114,7 @@ export const Navbarmain = () => {
             </Hide>
           </Box>
           <Hide breakpoint="(max-width: 980px)">
-            <Link href="/cart" _hover={{border:"none"}}>
+            <Link href="/cart" _hover={{border: "none"}}>
               <Box
                 fontSize={20}
                 display="flex"
@@ -130,16 +130,17 @@ export const Navbarmain = () => {
           </Hide>
           <Show breakpoint="(max-width: 980px)">
             <Box display="flex" alignItems="center" gap={10}>
-              <Box
-                fontSize={24}
-                display="flex"
-                color={"white"}
-                outlineColor={"white"}
-                alignItems="center"
-                gap={2}
-              >
-                <HiShoppingCart color={"white"} mr={2} />
-                {/* <span
+              <Link href="/cart">
+                <Box
+                  fontSize={24}
+                  display="flex"
+                  color={"white"}
+                  outlineColor={"white"}
+                  alignItems="center"
+                  gap={2}
+                >
+                  <HiShoppingCart color={"white"} mr={2} />
+                  {/* <span
                   style={{
                     position: "relative",
                     top: "-10px",
@@ -148,7 +149,8 @@ export const Navbarmain = () => {
                 >
                   {props.len.length}
                 </span> */}
-              </Box>
+                </Box>
+              </Link>
               <MenuBar />
             </Box>
           </Show>
