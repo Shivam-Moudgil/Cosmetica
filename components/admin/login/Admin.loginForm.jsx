@@ -9,9 +9,13 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { adminLogin } from '../../../redux/admin_auth/admin.actions'
 
-const AdminLoginForm = ({ formInput, updateFormInuput }) => {
+const AdminLoginForm = ({ updateFormInuput, loading }) => {
+  const [formInput, setFormInput] = useState({
+    email: 'admin@gmail.com',
+    password: '123456',
+    isRemembered: false,
+  })
   const handleSubmit = (e) => {
     e.preventDefault()
     if (formInput.email === '' || formInput.password === '') {
@@ -42,7 +46,7 @@ const AdminLoginForm = ({ formInput, updateFormInuput }) => {
           <Input
             value={formInput.email}
             onChange={({ target: { value } }) =>
-              updateFormInuput({ ...formInput, email: value })
+              setFormInput({ ...formInput, email: value })
             }
             border="1px solid gray"
             p="10px"
@@ -63,21 +67,27 @@ const AdminLoginForm = ({ formInput, updateFormInuput }) => {
             placeholder="Your password"
             value={formInput.password}
             onChange={({ target: { value } }) =>
-              updateFormInuput({ ...formInput, password: value })
+              setFormInput({ ...formInput, password: value })
             }
           />
         </FormControl>
         <FormControl gap="8px" display="flex" alignItems="center">
           <Switch
             onChange={({ target: { checked } }) =>
-              updateFormInuput({ ...formInput, isRemembered: checked })
+              setFormInput({ ...formInput, isRemembered: checked })
             }
           />
           <FormLabel htmlFor="Remember me" mb="0">
             Remember me
           </FormLabel>
         </FormControl>
-        <Button type="submit" w="full" variant={'solid'} colorScheme="teal">
+        <Button
+          isLoading={loading}
+          type="submit"
+          w="full"
+          variant={'solid'}
+          colorScheme="teal"
+        >
           SIGN IN
         </Button>
       </VStack>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { Image, HStack, VStack, Box } from '@chakra-ui/react'
 import AdminLoginForm from '../../../components/admin/login/Admin.loginForm'
 import AdminLoginNav from '../../../components/admin/login/Admin.loginNav'
@@ -11,21 +11,21 @@ const userLogin = async (url, data) => {
 
 const AdminLogin = () => {
   const router = useRouter()
-  const [formInput, setFormInput] = useState({
-    email: 'admin@gmail.com',
-    password: '123456',
-    isRemembered: false,
-  })
+  const [loading, setLoading] = useState(false)
 
   const updateFormInuput = (newData) => {
-    setFormInput(newData)
-    userLogin('http://localhost:3000/api/admin/login', formInput).then(
-      (res) => {
+    setLoading(true)
+    userLogin('/api/admin/login', newData)
+      .then((res) => {
         if (res.status == 200) {
           router.push('/admin')
+          setLoading(false)
         }
-      },
-    )
+      })
+      .catch((err) => {
+        setLoading(false)
+        console.log(err)
+      })
   }
 
   return (
@@ -51,10 +51,7 @@ const AdminLogin = () => {
         />
       </HStack>
       <VStack w={{ base: 'full', lg: '50%' }}>
-        <AdminLoginForm
-          formInput={formInput}
-          updateFormInuput={updateFormInuput}
-        />
+        <AdminLoginForm loading={loading} updateFormInuput={updateFormInuput} />
       </VStack>
     </HStack>
   )

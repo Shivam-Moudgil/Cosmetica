@@ -74,26 +74,26 @@ const CategoriesMainItemsGrid = ({ item }) => {
           onClick={async () => {
             try {
               await axios
-                .post("/api/cart", {
+                .post('/api/cart', {
                   product: item._id,
                   quantity: 1,
                 })
                 .then((res) => {
                   toast({
-                    title: "Added to cart",
-                    position: "top-right",
+                    title: 'Added to cart',
+                    position: 'top-right',
                     duration: 2000,
-                    status: "success",
-                  });
+                    status: 'success',
+                  })
                 })
                 .catch((err) =>
                   toast({
                     title: err,
-                    position: "top-right",
+                    position: 'top-right',
                     duration: 2000,
-                    status: "error",
-                  })
-                );
+                    status: 'error',
+                  }),
+                )
             } catch (err) {
               console.log(err)
             }
