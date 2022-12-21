@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   await dbConnect();
 
   if (method == "GET") {
-    try {
+        try {
       const getData = await CartItems.findById(id);
       res.status(200).json(getData);
     } catch (err) {

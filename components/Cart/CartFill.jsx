@@ -5,16 +5,16 @@ import {
   HStack,
   Link,
   Stack,
-  useColorModeValue as mode
+  useColorModeValue as mode,
 } from "@chakra-ui/react";
 import * as React from "react";
 import Bottomimg from "./Bottomimg";
-import { CartItem } from "./Cart Specs/Cart_Item";
-import { CartOrderSummary } from "./Cart Specs/Cart_Summary";
+import {CartItem} from "./Cart Specs/Cart_Item";
+import {CartOrderSummary} from "./Cart Specs/Cart_Summary";
 import CustomerCare from "./CustomerCare";
 // import { cartData } from "./Cart Specs/_data";
-export default function CartFill({cartdata,updateData}) {
-console.log("inner",cartdata)
+export default function CartFill({cartdata, updateData}) {
+  console.log("inner", cartdata);
   return (
     <>
       <Box
@@ -60,17 +60,18 @@ console.log("inner",cartdata)
 
             <Stack spacing="6">
               {/* {console.log(cart)} */}
-              {cartdata.map((item) => {
-                return (
-                  <CartItem
-                    key={item._id}
-                    updateData={updateData}
-                    {...item.product}
-                    quantity={item.quantity}
-                    id={item._id}
-                  />
-                );
-              })}
+              {cartdata.length !== 0 &&
+                cartdata.map((item) => {
+                  return (
+                    <CartItem
+                      key={item._id}
+                      updateData={updateData}
+                      {...item.product}
+                      quantity={item.quantity}
+                      id={item._id}
+                    />
+                  );
+                })}
             </Stack>
           </Stack>
 

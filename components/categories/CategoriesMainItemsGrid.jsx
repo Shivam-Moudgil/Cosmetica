@@ -8,19 +8,20 @@ import {
   Text,
   Toast,
   useToast,
-} from '@chakra-ui/react'
-import axios from 'axios'
-import Link from 'next/link'
-import React from 'react'
-import { AiFillStar } from 'react-icons/ai'
+} from "@chakra-ui/react";
+import axios from "axios";
+import Link from "next/link";
+import React from "react";
+import {AiFillStar} from "react-icons/ai";
 
-const CategoriesMainItemsGrid = ({ item }) => {
-  const toast = useToast()
+const CategoriesMainItemsGrid = ({item}) => {
+  const toast = useToast();
+
   return (
     <GridItem
       key={item._id}
       w="100%"
-      h={{ base: '300px', sm: '350px', lg: '400px' }}
+      h={{base: "300px", sm: "350px", lg: "400px"}}
       my={6}
     >
       <Flex
@@ -44,9 +45,9 @@ const CategoriesMainItemsGrid = ({ item }) => {
           {item.name}
         </Text>
         <Box
-          display={'flex'}
+          display={"flex"}
           justifyContent="center"
-          alignItems={'center'}
+          alignItems={"center"}
           gap={1}
         >
           <HStack spacing={0} m="auto">
@@ -57,10 +58,10 @@ const CategoriesMainItemsGrid = ({ item }) => {
           <Text>{item.ratingcount}</Text>
         </Box>
         <Text py={2} fontWeight="bold" textAlign="center" fontSize="14">
-          {item.price?.toLocaleString('en-IN', {
+          {item.price?.toLocaleString("en-IN", {
             maximumFractionDigits: 2,
-            style: 'currency',
-            currency: 'INR',
+            style: "currency",
+            currency: "INR",
           })}
         </Text>
         <Button
@@ -70,32 +71,26 @@ const CategoriesMainItemsGrid = ({ item }) => {
           color="white"
           w="full"
           fontWeight="normal"
-          py={{ base: 1, lg: 2 }}
+          py={{base: 1, lg: 2}}
           onClick={async () => {
             try {
               await axios
-                .post("/api/cart", {
-                  product: item._id,
-                  quantity: 1,
-                })
-                .then((res) => {
+                .post("/api/cart", {product: item._id, quantity: 1})
+                .then((res) =>
                   toast({
-                    title: "Added to cart",
-                    position: "top-right",
-                    duration: 2000,
+                    title: "Item added to cart",
                     status: "success",
-                  });
-                })
-                .catch((err) =>
-                  toast({
-                    title: err,
                     position: "top-right",
                     duration: 2000,
-                    status: "error",
                   })
                 );
             } catch (err) {
-              console.log(err)
+              toast({
+                title: err,
+                position: "top-right",
+                duration: 2000,
+                status: "error",
+              });
             }
           }}
         >
@@ -103,7 +98,7 @@ const CategoriesMainItemsGrid = ({ item }) => {
         </Button>
       </Flex>
     </GridItem>
-  )
-}
+  );
+};
 
-export default CategoriesMainItemsGrid
+export default CategoriesMainItemsGrid;
