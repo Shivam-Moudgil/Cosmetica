@@ -40,7 +40,7 @@ const router =useRouter()
   const handleSubmit = async() => {
     if (email !== "" && password !== "") {
       setLoad(true);
-    await axios.post("/api/auth/login",{email,password,status})
+    await axios.post("/api/auth/login",{email:email,password:password,status:status})
         .then((res) => {
           setLoad(false);
           toast({

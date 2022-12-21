@@ -1,17 +1,19 @@
 import {
-    Button, Flex,
-    FormControl,
-    FormLabel,
-    Heading,
-    Image,
-    Input,
-    Spinner,
-    Stack,
-    useToast
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Image,
+  Input,
+  Spinner,
+  Stack,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 const obj = {
   email: "",
@@ -20,6 +22,7 @@ const obj = {
 };
 const Registering = () => {
   const toast = useToast();
+  const router = useRouter()
   const [load, setLoad] = useState(false);
   const [text, setText] = useState(obj);
 
@@ -35,7 +38,11 @@ const Registering = () => {
     if (email !== "" && password !== "" && name !== "") {
       setLoad(true);
       await axios
-        .post("/api/auth/register", {email, password, name})
+        .post("/api/auth/register", {
+          email: email,
+          password: password,
+          name: name,
+        })
         .then((res) => {
           setLoad(false);
           toast({
@@ -45,6 +52,7 @@ const Registering = () => {
             duration: 2000,
             isClosable: true,
           });
+router.push("/login")
         })
         .catch((err) => {
           setLoad(false);
@@ -115,7 +123,6 @@ const Registering = () => {
           objectFit={"cover"}
           borderRadius={"2rem"}
           w={"90%"}
-
           src={
             "https://img.freepik.com/premium-vector/secure-login-sign-up-concept-illustration-user-use-secure-login-password-protection-website-social-media-account-vector-flat-style_7737-2270.jpg?w=900"
           }
