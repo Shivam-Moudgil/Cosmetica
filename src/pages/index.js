@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>AVATAR</title>
+        <title>Cosmetica</title>
         <meta name="description" content="It's an e-commerce store" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
