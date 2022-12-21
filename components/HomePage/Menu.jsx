@@ -15,26 +15,32 @@ import Link from "next/link";
 import React from "react";
 // import {useDispatch, useSelector} from "react-redux";
 // import {isNotAuth} from "../../redux/auth/auth.actions";
-
+import {useToast} from "@chakra-ui/react";
+import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {isNotAuth} from "../../redux/AuthUser/actions";
 const MenuBar = () => {
   const {isOpen, onOpen, onClose} = useDisclosure();
-  //   const {login} = useSelector((store) => store.Authentication);
-  //   let changingBtn;
 
-  //   if (login) {
-  //     changingBtn = "Logout";
-  //   } else {
-  //     changingBtn = "Login";
-  //   }
-
-  //   const handleClick = () => {
-  //     if (changingBtn === "Logout") {
-  //       dispatch(isNotAuth());
-  //     } else {
-  //       navigate("/login");
-  //     }
-  //   };
-
+  const {login} = useSelector((store) => store.Authentication);
+  let changingBtn;
+  login ? (changingBtn = "Logout") : (changingBtn = "Login");
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const handleClick = async () => {
+    if (changingBtn === "Logout") {
+      await axios.post("/api/auth/logout").then((res) => {
+        dispatch(isNotAuth());
+        toast({
+          title: "logged out",
+          position: "top-right",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      });
+    }
+  };
   return (
     <>
       <Button
@@ -79,14 +85,14 @@ const MenuBar = () => {
                   p={2}
                   color={"white"}
                   outlineColor={"white"}
-                  _hover={{border: "none"}}
+                  _hover={{ border: "none" }}
+                  onClick={handleClick}
                 >
                   <UnlockIcon color={"white"} mr={2} />
-                  {/* {changingBtn} */}
-                  Login
+                  {changingBtn}
                 </Button>
               </Link>
-              <Link href="/signup">
+              <Link href="/register">
                 <Button
                   w="fit-content"
                   p={2}
@@ -106,6 +112,7 @@ const MenuBar = () => {
             gap={10}
             scrollBehavior={"smooth"}
             p={3}
+            justifyContent={{base: "none", md: "space-around"}}
             display={"flex"}
             fontFamily="fantasy"
           >

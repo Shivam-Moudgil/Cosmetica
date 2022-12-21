@@ -1,21 +1,14 @@
 import dbConnect from "../../../../utils/mongo";
 import CartItems from "../../../../models/Cart";
 import Products from "../../../../models/Product";
-import { verifyUser } from "../../../../middlewares/authMiddleware";
-export default async function handler(req, res) {
-  const { method, cookies } = req;
+import {verifyUser} from "../../../../middlewares/authMiddleware";
+const handler = async (req, res) => {
+  const {method, cookies} = req;
   dbConnect();
 
-  // const token = cookies.OursiteJWT;
-
-  //  if (!token) {
-  //    return res.status(401).json("You are not Authenticated/ Please login first");
-  //  }
-
   if (method === "GET") {
-    verifyUser(req, res)
     try {
-      const allCartItems = await CartItems.find({ user: req.user.id }).populate([
+      const allCartItems = await CartItems.find({user: req.user.id}).populate([
         "product",
       ]);
       return res.status(200).json(allCartItems);
@@ -25,9 +18,8 @@ export default async function handler(req, res) {
   }
 
   if (method === "POST") {
-    verifyUser(req, res);
-    const { product, quantity } = req.body;
     try {
+      const {product, quantity} = req.body;
       //checking existing quantity
       let productInWarehouse = await Products.findById(product);
       if (productInWarehouse.Quantity < quantity) {
@@ -36,20 +28,20 @@ export default async function handler(req, res) {
         );
       }
 
-      let existing = await CartItems.findOne({ product, user: req.user.id });
+      let existing = await CartItems.findOne({product, user: req.user.id});
       if (existing) {
         await CartItems.updateOne(
-          { product, user: req.user.id },
-          { $set: { quantity: existing.quantity + quantity } },
-          { new: true }
+          {product, user: req.user.id},
+          {$set: {quantity: existing.quantity + quantity}},
+          {new: true}
         );
       } else {
-        await CartItems.create({ user: req.user.id, product, quantity });
+        await CartItems.create({user: req.user.id, product, quantity});
       }
       // console.log(product);
-      res.status(201).send("item has been updated in cart.");
+      res.status(201).json("item has been updated in cart.");
     } catch (error) {
-      res.send(error.message);
+      res.status(500).json(error.message);
     }
   }
 
@@ -61,4 +53,5 @@ export default async function handler(req, res) {
       res.status(500).json(err);
     }
   }
-}
+};
+export default verifyUser(handler);

@@ -1,27 +1,23 @@
-import {EditIcon, UnlockIcon} from "@chakra-ui/icons";
 import {
   Box,
-  Button,
-  Heading,
   Hide,
   Image,
-  Link,
   ListItem,
   Show,
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
-import {HiShoppingCart} from "react-icons/hi";
-import React, {useEffect, useState} from "react";
-import MenuBar from "./Menu";
-import axios from "axios";
+import Link from "next/link";
 
+import {HiShoppingCart} from "react-icons/hi";
+
+import MenuBar from "./Menu";
+import ServerSecondaryOptions from "./SideDots";
 export const Navbarmain = () => {
   return (
     <>
-      <Box bg="#0e1823">
+      <Box position={"sticky"} top={0} zIndex={6} bg="#0e1823">
         <Box
-          // border={"1px solid"}
           display="flex"
           w={{base: "100%", sm: "95%"}}
           m="auto"
@@ -35,7 +31,7 @@ export const Navbarmain = () => {
             justifyContent="center"
             // border={"1px solid"}
             alignItems={"center"}
-            w={"10%"}
+            w={{base: "14%", sm: "10%"}}
           >
             <Link href="/">
               {" "}
@@ -79,40 +75,9 @@ export const Navbarmain = () => {
               </UnorderedList>
             </Box>
           </Hide>
-
-          <Box
-            alignItems={"center"}
-            display="flex"
-            justifyContent={"space-between"}
-            gap={5}
-          >
-            {/* //   <Show breakpoint="(max-width: 980px)">
-          //     <Heading>Welcome</Heading>
-          //   </Show> */}
-            <Hide breakpoint="(max-width: 980px)">
-              <Link href="/signup">
-                <Button
-                  color={"white"}
-                  colorScheme="transparent"
-                  outlineColor={"white"}
-                  _hover={{border: "none"}}
-                >
-                  <EditIcon color={"white"} mr={2} />
-                  Register
-                </Button>
-              </Link>
-              <Link href="/login" _hover={{border: "none"}}>
-                <Button
-                  colorScheme="transparent"
-                  color={"white"}
-                  outlineColor={"white"}
-                >
-                  <UnlockIcon color={"white"} mr={2} />
-                  Login
-                </Button>
-              </Link>
-            </Hide>
-          </Box>
+          <Hide breakpoint="(max-width: 980px)">
+            <ServerSecondaryOptions />
+          </Hide>
           <Hide breakpoint="(max-width: 980px)">
             <Link href="/cart" _hover={{border: "none"}}>
               <Box
@@ -128,6 +93,7 @@ export const Navbarmain = () => {
               </Box>
             </Link>
           </Hide>
+
           <Show breakpoint="(max-width: 980px)">
             <Box display="flex" alignItems="center" gap={10}>
               <Link href="/cart">
@@ -140,15 +106,6 @@ export const Navbarmain = () => {
                   gap={2}
                 >
                   <HiShoppingCart color={"white"} mr={2} />
-                  {/* <span
-                  style={{
-                    position: "relative",
-                    top: "-10px",
-                    right: "15px",
-                  }}
-                >
-                  {props.len.length}
-                </span> */}
                 </Box>
               </Link>
               <MenuBar />

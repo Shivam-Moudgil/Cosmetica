@@ -1,9 +1,10 @@
+
 import dbConnect from "../../../../utils/mongo";
 import Product from "../../../../models/Product";
 export default async function handler(req, res) {
   const {
     method,
-    query: {id},
+    query: { id },
   } = req;
 
   await dbConnect();
@@ -17,3 +18,4 @@ export default async function handler(req, res) {
     }
   }
 }
+

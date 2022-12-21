@@ -1,6 +1,7 @@
 import dbConnect from "../../../../utils/mongo";
 import Product from "../../../../models/Product";
-const Redis = require("ioredis");
+// const Redis = require("ioredis");
+import Redis from "ioredis";
 
 const redis = new Redis({
   port: 11286, // Redis port
@@ -13,25 +14,25 @@ const redis = new Redis({
 export default async function handler(req, res) {
   dbConnect();
 
-  if(req.method === "GET") {
-    try{
+  if (req.method === "GET") {
+    try {
       redis.get("pageID", async (err, pageID) => {
         const product = await Product.findOne({ _id: pageID });
         return res.status(200).send(product);
       })
     }
-    catch({message}) {
+    catch ({ message }) {
       return res.status(500).send(message);
     }
   }
 
-  else if(req.method === "POST") {
-    try{
+  else if (req.method === "POST") {
+    try {
       redis.set("pageID", req.body._id);
 
       return res.status(200).send("Page set!!!")
     }
-    catch({message}) {
+    catch ({ message }) {
       return res.status(500).send(message);
     }
   }
