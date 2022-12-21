@@ -178,18 +178,7 @@ const DetailProduct = ({product}) => {
             Add to Cart
           </Button>
         </Box>
-        {/* <Text w="60%" fontSize="14" mt={6}>
-          Give skin a boost of hydration with the SkinCeuticals Phyto Essence
-          Mist. Formulated to strengthen the skin’s barrier, the lightweight
-          facial mist offers an instant soothing effect. The essence features a
-          phyto botanical blend, including boldus leaf, cucumber, thyme and
-          rosemary extracts, which helps to minimise the look of redness.
-          Hyaluronic acid and glycerin work to enhance skin’s moisture. Suitable
-          for all skin types, including sensitive, the hygienic mist can be
-          applied before and after makeup to maintain a refreshed and hydrated
-          complexion throughout the day. Free from parabens, alcohol, gluten,
-          and silicone.
-        </Text> */}
+       
       </Container>
     </>
   );
@@ -197,7 +186,7 @@ const DetailProduct = ({product}) => {
 
 export const getServerSideProps = async ({params}) => {
   const res = await axios.get(
-    `${process.env.Base_URL}/api/product/${params.id}`
+    `/api/product/${params.id}`
   );
   return {
     props: {
