@@ -55,7 +55,7 @@ export default function SocialProfileWithImage() {
               </Text>
             </Stack>
           </Stack>
-          <Link href="">
+          <Link href="https://www.linkedin.com/in/shivam-moudgil/">
             <Button
               w={"full"}
               mt={8}
