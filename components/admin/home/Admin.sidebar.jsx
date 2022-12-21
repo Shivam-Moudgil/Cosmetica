@@ -16,7 +16,7 @@ import axios from 'axios'
 import Router from 'next/router'
 
 const logout = async () => {
-  const res = await axios.post('http://localhost:3000/api/admin/logout', {})
+  const res = await axios.post('/api/admin/logout', {})
   return res
 }
 
