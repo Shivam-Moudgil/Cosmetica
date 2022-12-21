@@ -1,24 +1,26 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import {ChevronDownIcon} from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Menu,
   MenuButton,
-  MenuItem, MenuList, useToast
+  MenuItem,
+  MenuList,
+  useToast,
 } from "@chakra-ui/react";
-import {FaUserAlt} from "react-icons/fa"
+import {FaUserAlt} from "react-icons/fa";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { isNotAuth } from "../../redux/AuthUser/actions";
+import {useRouter} from "next/router";
+import {useDispatch, useSelector} from "react-redux";
+import {isNotAuth} from "../../redux/AuthUser/actions";
 export default function ServerSecondaryOptions() {
   const {login} = useSelector((store) => store.Authentication);
   let changingBtn;
   login ? (changingBtn = "Logout") : (changingBtn = "Login");
   const dispatch = useDispatch();
   const toast = useToast();
-   const router = useRouter();
+  const router = useRouter();
   const handleClick = async () => {
     if (changingBtn === "Logout") {
       await axios.post("/api/auth/logout").then((res) => {
@@ -32,16 +34,18 @@ export default function ServerSecondaryOptions() {
         });
       });
     } else {
-      router.push("/login")
+      router.push("/login");
     }
   };
   return (
     <>
       <Menu>
         <MenuButton
-          colorScheme={"transparent"}
+          bg={"transparent"}
+          _hover={{bg: "transparent"}}
+          _active={{bg: "transparent"}}
           as={Button}
-          rightIcon={<ChevronDownIcon colorScheme={"transparent"} />}
+          rightIcon={<ChevronDownIcon bg={"transparent"} />}
         >
           <Box gap={1.5} display="flex">
             <FaUserAlt /> Account

@@ -7,6 +7,7 @@ import {
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 import {HiShoppingCart} from "react-icons/hi";
 
