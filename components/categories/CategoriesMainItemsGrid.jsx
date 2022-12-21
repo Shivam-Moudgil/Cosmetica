@@ -86,7 +86,7 @@ const CategoriesMainItemsGrid = ({item}) => {
                 );
             } catch (err) {
               toast({
-                title: err,
+                title:"Login first",
                 position: "top-right",
                 duration: 2000,
                 status: "error",
