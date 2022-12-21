@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    Base_URL: "http://localhost:3000",
+    Base_URL: process.env.Base_URL,
     Cart_Route: process.env.Cart_Route,
     Order_Route: process.env.Order_Route,
   },
