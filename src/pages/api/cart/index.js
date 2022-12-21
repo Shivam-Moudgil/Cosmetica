@@ -7,6 +7,8 @@ const handler = async (req, res) => {
   dbConnect();
 
   if (method === "GET") {
+    verifyUser(req, res)
+     if(!req.user) return res.status(401).send("Not Authorized");
     try {
       const allCartItems = await CartItems.find({user: req.user.id}).populate([
         "product",
@@ -18,6 +20,9 @@ const handler = async (req, res) => {
   }
 
   if (method === "POST") {
+    verifyUser(req, res)
+    if(!req.user) return res.status(401).send("Not Authorized");
+
     try {
       const {product, quantity} = req.body;
       //checking existing quantity
@@ -54,4 +59,4 @@ const handler = async (req, res) => {
     }
   }
 };
-export default verifyUser(handler);
+export default handler;
