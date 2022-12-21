@@ -13,7 +13,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
-import {MdStar} from "react-icons/md";
 import Rating from "../../../components/Product/Rating";
 
 const DetailProduct = ({product}) => {
@@ -31,7 +30,6 @@ const DetailProduct = ({product}) => {
   }, [quantity]);
 
   const handleAddToCart = async () => {
-    // await axios.post("http://localhost:3000/api/cart", {product: data, quantity})
     try {
       await axios
         .post("/api/cart", {product: product._id, quantity})
@@ -47,7 +45,7 @@ const DetailProduct = ({product}) => {
         })
         .catch((err) =>
           toast({
-            title: err,
+            title: "Login first",
             status: "error",
             duration: 2000,
             position: "top-right",
@@ -178,7 +176,6 @@ const DetailProduct = ({product}) => {
             Add to Cart
           </Button>
         </Box>
-       
       </Container>
     </>
   );
