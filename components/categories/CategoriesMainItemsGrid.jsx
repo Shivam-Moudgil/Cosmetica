@@ -34,11 +34,8 @@ const CategoriesMainItemsGrid = ({item}) => {
         <Link href={`/product/${item._id}`}>
           <Box
             boxSize="80%"
-            // onClick={async () => {
-            //   await axios.post('/api/product/', item)
-            // }}
           >
-            <Image src={item.image} objectFit="contain" />
+            <Image m="auto" src={item.image} objectFit="contain" />
           </Box>
         </Link>
         <Text pt={3} fontSize="14" textAlign="center">
