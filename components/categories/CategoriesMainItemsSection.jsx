@@ -36,7 +36,17 @@ const CategoriesMainItemsSection = ({
       <Heading fontFamily="Poly, serif" fontSize="24px" fontWeight="400">
         {/* {page.title} */}
       </Heading>
-      <Text fontSize={'14px'} py={1}>
+           <Text
+        w={"32"}
+        fontWeight={"extrabold"}
+        bg={"bisque"}
+        // color="white"
+        fontFamily={"cursive"}
+        textAlign="center"
+        p={1}
+        border={"2px solid grey"}
+        fontSize={"17"}
+      >
         {length} results
       </Text>
       <Text fontSize={'14px'} lineHeight={'5'} py={4}>
