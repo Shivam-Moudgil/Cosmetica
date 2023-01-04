@@ -35,7 +35,7 @@ const handler = async (req, res) => {
                 const { name, category, totalPrice, rating = 0, image, quantity } = req.body;
                 let existingProduct = await Product.findOne({ name });
                 if (!existingProduct) {
-                    await Product.create({ name, category, image, price: totalPrice, qty: quantity, rating });
+                    await Product.create({ name, category, image, price: Number(price), totalPrice: Number(totalPrice), qty: +quantity, rating });
                     return res.status(201).json({ success: true, message: 'product has been added' });
                 } else {
                     return res.status(401).json('product already exists!')

@@ -121,7 +121,7 @@ export const getServerSideProps = wrapper.getStaticProps(
       }
 
       //can dispatch reducer here as well now
-      await dbConnect()
+      dbConnect()
       let purchasedItems = await PurchasedItems.find().populate(['product'])
       let allUsers = []
       purchasedItems = JSON.parse(JSON.stringify(purchasedItems))

@@ -23,7 +23,7 @@ const AdminInfoCards = ({
   checkDiff,
 }) => {
   let difference = currentYearData - lastYearData
-  let percentage = (difference / currentYearData) * 100
+  let percentage = ((difference / currentYearData) * 100).toFixed(2)
   return (
     <GridItem w={{ md: '380px', lg: '450px' }}>
       <Card bg={'linear-gradient(to right top, #cc2b5e, #753a88);'}>
@@ -59,7 +59,7 @@ const AdminInfoCards = ({
                   {' '}
                   {checkDiff
                     ? difference < 0
-                      ? `-${percentage}%`
+                      ? `${percentage}%`
                       : `+${percentage}%`
                     : ''}
                 </StatHelpText>
@@ -84,7 +84,7 @@ function whatToPut(quantity, currentYearData, pending, delevered) {
   })
   if (quantity) {
     return currentYearData
-  } else if (!quantity && !pending && delevered !== 0) {
+  } else if (!quantity && !pending && !delevered) {
     return formatter.format(+currentYearData)
   } else if (pending) {
     return pending

@@ -33,7 +33,7 @@ const TableBody = ({
             {ele?.category}
           </Td>
           <Td fontSize={14} color="black">
-            ${ele?.price}
+            ₹{ele?.price}
           </Td>
           <Td fontSize={14} color="black">
             {ele?.qty}
