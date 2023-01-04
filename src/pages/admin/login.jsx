@@ -69,13 +69,13 @@ AdminLogin.getInitialProps = async (ctx) => {
     // Router.replace('/admin')
     return {}
   }
-  if (cookie && ctx.req) {
-    ctx.res?.writeHead(302, {
-      Location: '/admin',
-    })
-    ctx.res?.end()
-    return {}
-  }
+  // if (cookie && ctx.req) {
+  //   ctx.res?.writeHead(302, {
+  //     Location: '/admin',
+  //   })
+  //   ctx.res?.end()
+  //   return {}
+  // }
   return {
     props: {},
   }

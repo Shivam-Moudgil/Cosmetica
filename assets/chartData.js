@@ -16,6 +16,7 @@ export function getDaywiseSaleData(purchasedItems) {
                 quantity += purchasedItems[j].quantity
             }
         }
+
         totalSaleAndQuantity.push({
             day: i + 1,
             revenue: sale,
@@ -30,15 +31,14 @@ export function getRevenueOfGivenYear(purchasedItems, year) {
     if (year.length < 4) return undefined;
     //getting data for current year and last year
 
-    let result = purchasedItems.reduce((acc, ele) => {
-        if (getRequiredTime(ele.createdAt).givenYear == year) {
-            return (
-                acc + ele.quantity * Number(ele.total)
-            )
+    let sum = 0;
+    for (let i = 0; i < purchasedItems.length; i++) {
+        if (getRequiredTime(purchasedItems[i].createdAt).givenYear == year) {
+            sum += Number(purchasedItems[i].total);
         }
-    }, 0)
-    if (!result) result = 0;
-    return result;
+    }
+
+    return sum;
 }
 
 
@@ -60,12 +60,11 @@ export function getActiveUsers(purchasedItems) {
 
 
 export const getTotalPuchasedItemsQuantity = (purchasedItems, day) => {
-    if (day.length > 2) return undefined;
     let sum = 0;
     for (let i = 0; i < purchasedItems.length; i++) {
         if (getRequiredTime(purchasedItems[i].createdAt).givenDate == day
             && getRequiredTime(purchasedItems[i].createdAt).givenYear == getCurrentTime().currYear) {
-            sum += purchasedItems[i].quantity
+            sum += Number(purchasedItems[i].quantity)
         }
     }
     return sum;
@@ -75,15 +74,14 @@ export const getTotalQuantityOfYear = (purchasedItems, year) => {
     if (year.length < 4) return undefined;
     //getting data for current year and last year
 
-    let result = purchasedItems.reduce((acc, ele) => {
-        if (getRequiredTime(ele.createdAt).givenYear == year) {
-            return (
-                acc + ele.quantity
-            )
+    let sum = 0;
+    for (let i = 0; i < purchasedItems.length; i++) {
+        if (getRequiredTime(purchasedItems[i].createdAt).givenYear == year) {
+            sum += Number(purchasedItems[i].quantity);
         }
-    }, 0)
-    if (!result) result = 0;
-    return result;
+    }
+
+    return sum;
 }
 
 export const getAllPendingAndDeleveredItemsOfYear = (purchasedItems) => {

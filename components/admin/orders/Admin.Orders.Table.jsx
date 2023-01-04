@@ -60,7 +60,7 @@ const AdminOrdersTable = ({ items, setVisible }) => {
               <Td>{setTimeString(ele?.createdAt?.slice(0, 10))}</Td>
               <Td>{setTimeString(ele?.deliveryDate?.slice(0, 10))}</Td>
               <Td>{ele?.quantity}</Td>
-              <Td>${ele?.total}</Td>
+              <Td>₹{ele?.total}</Td>
               <Td>
                 <Icon
                   fontSize={18}
