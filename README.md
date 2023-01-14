@@ -25,15 +25,10 @@ https://cosmetica.vercel.app/
 
 - HomePage
 ![App Screenshot](https://github.com/Shivam-Moudgil/Cosmetica/blob/main/screenShots/home1.png?raw=true)
-
 ![App Screenshot](https://github.com/Shivam-Moudgil/Cosmetica/blob/main/screenShots/home2.png?raw=true)
-
 ![App Screenshot](https://github.com/Shivam-Moudgil/Cosmetica/blob/main/screenShots/home3.png?raw=true)
-
 ![App Screenshot](https://github.com/Shivam-Moudgil/Cosmetica/blob/main/screenShots/home4.png?raw=true)
-
 ![App Screenshot](https://github.com/Shivam-Moudgil/Cosmetica/blob/main/screenShots/home5.png?raw=true)
-
 ![App Screenshot](https://github.com/Shivam-Moudgil/Cosmetica/blob/main/screenShots/home6.png?raw=true)
 
 - ### You can login or Register via clicking on register:
