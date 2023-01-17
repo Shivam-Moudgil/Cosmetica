@@ -21,6 +21,7 @@ const AdminInfoCards = ({
   totalPendingOrders,
   totalDeleveredOrders,
   checkDiff,
+  pendingStatus,
 }) => {
   let difference = currentYearData - lastYearData
   let percentage = ((difference / currentYearData) * 100).toFixed(2)
@@ -44,6 +45,7 @@ const AdminInfoCards = ({
                     quantity,
                     currentYearData,
                     totalPendingOrders,
+                    pendingStatus,
                     totalDeleveredOrders,
                   )}
                 </StatNumber>
@@ -77,16 +79,22 @@ const AdminInfoCards = ({
 
 export default AdminInfoCards
 
-function whatToPut(quantity, currentYearData, pending, delevered) {
+function whatToPut(
+  quantity,
+  currentYearData,
+  pending,
+  pendingStatus,
+  delevered,
+) {
   const formatter = new Intl.NumberFormat('INR', {
     style: 'currency',
     currency: 'INR',
   })
   if (quantity) {
     return currentYearData
-  } else if (!quantity && !pending && !delevered) {
+  } else if (!quantity && !pendingStatus && !delevered) {
     return formatter.format(+currentYearData)
-  } else if (pending) {
+  } else if (pendingStatus) {
     return pending
   } else return delevered
 }

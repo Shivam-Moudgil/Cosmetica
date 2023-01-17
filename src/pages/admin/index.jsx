@@ -69,6 +69,7 @@ const AdminHome = ({
           />
           <AdminInfoCards
             quantity={false}
+            pendingStatus={true}
             totalPendingOrders={totalOrdersDetails?.pending}
             title={`Total Pending orders`}
             icon={MdOutlinePendingActions}
