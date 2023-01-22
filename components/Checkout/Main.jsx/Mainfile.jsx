@@ -154,6 +154,7 @@ export default function Multistep() {
                         isClosable: true,
                         duration: 4000,
                         position: 'top',
+                        status: 'warning',
                       })
                     }
                   }}
