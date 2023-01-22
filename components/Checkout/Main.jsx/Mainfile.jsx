@@ -7,36 +7,42 @@ import {
   Progress,
   useDisclosure,
   useToast,
-} from "@chakra-ui/react";
-import axios from "axios";
-import {useRouter} from "next/router";
-import React, {useEffect, useState} from "react";
-import {Form1, Form2, Form3} from "./Checkout";
+} from '@chakra-ui/react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import { Form1, Form2, Form3 } from './Checkout'
 export default function Multistep() {
-  const router = useRouter();
-  let mode = 2;
-  const {onOpen, onClose, isOpen} = useDisclosure();
-  const toast = useToast();
-  const [step, setStep] = useState(1);
-  const [progress, setProgress] = useState(33.33);
-  const [cartData, setCartdata] = useState([]);
-  const [all, setAll] = useState([]);
-  let arr = [];
+  const router = useRouter()
+  let mode = 2
+  const { onOpen, onClose, isOpen } = useDisclosure()
+  const toast = useToast()
+  const [step, setStep] = useState(1)
+  const [progress, setProgress] = useState(33.33)
+  const [cartData, setCartdata] = useState([])
+  const [all, setAll] = useState([])
+  const [form1Validation, setForm1ValidationState] = useState(false)
+  const [form2Validation, setForm2ValidationState] = useState(false)
+  const [form3Validation, setForm3ValidationState] = useState(false)
+  const updateform1Validation = (v) => setForm1ValidationState(v)
+  const updateform2Validation = (v) => setForm2ValidationState(v)
+  const updateform3Validation = (v) => setForm3ValidationState(v)
+  let arr = []
   const getData = async () => {
     try {
-      return await axios.get(process.env.Cart_Route);
+      return await axios.get(process.env.Cart_Route)
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   useEffect(() => {
-    getData().then((res) => setCartdata(res.data));
-  }, []);
+    getData().then((res) => setCartdata(res.data))
+  }, [])
 
   // console.log(cartData);
   const PostData = async () => {
-    let addr = JSON.parse(localStorage.getItem("address"));
+    let addr = JSON.parse(localStorage.getItem('address'))
     {
       cartData.map((el, i) => {
         try {
@@ -47,53 +53,53 @@ export default function Multistep() {
             total: el.quantity * el.product.price,
             address: addr,
             quantity: el.quantity,
-          };
-          axios.post(process.env.Order_Route, newProduct);
-          axios.delete(process.env.Cart_Route);
+          }
+          axios.post(process.env.Order_Route, newProduct)
+          axios.delete(process.env.Cart_Route)
         } catch (err) {
-          console.log(err);
+          console.log(err)
         }
-      });
+      })
     }
-  };
+  }
 
   const handlePost = () => {
-    PostData();
+    PostData()
 
-    router.push("/cart");
+    router.push('/cart')
     toast({
       title:
         mode == 1
-          ? "Payment will be done via Online method"
-          : "Payment will be done via COD",
-      description: "It will reach to you in 2-3 business days",
-      status: "success",
+          ? 'Payment will be done via Online method'
+          : 'Payment will be done via COD',
+      description: 'It will reach to you in 2-3 business days',
+      status: 'success',
       duration: 3000,
-      position: "top-right",
+      position: 'top-right',
       isClosable: true,
-    });
-    localStorage.clear();
-  };
+    })
+    localStorage.clear()
+  }
 
   return (
     <>
       <Box
-        border={"13px solid #0e1823"}
-        h={"auto"}
+        border={'13px solid #0e1823'}
+        h={'auto'}
         display="flex"
-        flexDir={{base: "column", lg: "row"}}
+        flexDir={{ base: 'column', lg: 'row' }}
       >
-        <Box w={{base: "100%", lg: "45%"}}>
+        <Box w={{ base: '100%', lg: '45%' }}>
           <Image
             // border={"1px solid"}
-            m={"auto"}
+            m={'auto'}
             src="https://media.istockphoto.com/id/1388108025/vector/contactless-customer-payment-to-grocery-shop-cashier.jpg?s=612x612&w=0&k=20&c=xm_MasxuaP4kzcyG1cj7B1zjteWdrhuda8o2Xs2Ze0g="
-            fit={"cover"}
+            fit={'cover'}
           />
         </Box>
         <Box
           rounded="lg"
-          w={{base: "100%", lg: "45%"}}
+          w={{ base: '100%', lg: '45%' }}
           m="auto"
           p={8}
           as="form"
@@ -105,14 +111,20 @@ export default function Multistep() {
             mx="5%"
             isAnimated
           ></Progress>
-          {step === 1 ? <Form1 /> : step === 2 ? <Form2 /> : <Form3 />}
+          {step === 1 ? (
+            <Form1 setFormValidation={updateform1Validation} />
+          ) : step === 2 ? (
+            <Form2 setFormValidation={updateform2Validation} />
+          ) : (
+            <Form3 setFormValidation={updateform3Validation} />
+          )}
           <ButtonGroup mt="5%" w="100%">
             <Flex w="100%" justifyContent="space-between">
               <Flex>
                 <Button
                   onClick={() => {
-                    setStep(step - 1);
-                    setProgress(progress - 33.33);
+                    setStep(step - 1)
+                    setProgress(progress - 33.33)
                   }}
                   isDisabled={step === 1}
                   colorScheme="teal"
@@ -123,15 +135,26 @@ export default function Multistep() {
                   Back
                 </Button>
                 <Button
-                  w={{ sm: "7rem"}}
-                  display={{sm: "block"}}
+                  w={{ sm: '7rem' }}
+                  display={{ sm: 'block' }}
                   isDisabled={step === 3}
                   onClick={() => {
-                    setStep(step + 1);
-                    if (step === 3) {
-                      setProgress(100);
+                    if (form1Validation && step === 1) {
+                      setStep(2)
+                      setProgress(progress + 33.33)
+                    } else if (form2Validation && step === 2) {
+                      setStep(3)
+                      setProgress(progress + 33.33)
+                    } else if (step === 3 && form3Validation) {
+                      setProgress(100)
                     } else {
-                      setProgress(progress + 33.33);
+                      return toast({
+                        title: 'Input Error',
+                        description: 'Please fill all inputs',
+                        isClosable: true,
+                        duration: 4000,
+                        position: 'top',
+                      })
                     }
                   }}
                   colorScheme="teal"
@@ -149,11 +172,11 @@ export default function Multistep() {
                 >
                   Submit
                 </Button>
-              ) : null}{" "}
+              ) : null}{' '}
             </Flex>
           </ButtonGroup>
         </Box>
       </Box>
     </>
-  );
+  )
 }
