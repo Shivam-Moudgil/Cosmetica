@@ -25,7 +25,7 @@ const Form1 = ({ setFormValidation }) => {
   useEffect(() => {
     const { fname, lname, phone } = formData
     if (!fname || !lname || !phone) {
-      setFormValidation()
+      setFormValidation(false)
     }
   }, [])
 
